@@ -1,14 +1,74 @@
 ﻿.courses-grid {
 
-
     .container {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-areas:
+            "header header2" "dropdown searchbox" "grid grid";
+        row-gap: 1rem;
 
+        @include lg {
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas:
+                "header dropdown searchbox" "grid grid grid";
+        }
+
+        h1 {
+            grid-area: header;
+
+            @include md {
+                grid-area: header / dropdown;
+            }
+
+            @include lg {
+                grid-area: header;
+            }
+        }
+
+        .view-filter {
+            grid-area: dropdown;
+
+            @include md {
+                grid-area: header2;
+            }
+
+            @include lg {
+                grid-area: dropdown;
+            }
+        }
+
+        .search-box {
+            grid-area: searchbox;
+            display: flex;
+            align-items: center;
+            border: 1px solid black;
+
+            input {
+                border: none;
+                width: 100%;
+
+                &:focus {
+                }
+            }
+
+            button {
+                border: none;
+                background-color: transparent;
+                margin: 0;
+                padding: 0 0.5rem;                
+            }
+
+            @include lg {
+                grid-area: searchbox;
+            }
+        }
 
         .grid {
+            grid-area: grid;
             display: flex;
             flex-wrap: wrap;
             align-items: center;
-            justify-content:center;
+            justify-content: center;
             gap: 1rem;
         }
     }

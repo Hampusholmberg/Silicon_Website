@@ -3,7 +3,7 @@
     background-color: #0e0626;
     position: relative;
     height: 670px;
-    z-index: -2;
+    z-index: 0;
 
 
     .background-image {
@@ -13,22 +13,27 @@
         width: 100%;
         position: absolute;
         z-index: -1;
+        -webkit-filter: blur(3px);
     }
 
     .container {
-        z-index: 0;
+        min-height: 677px;
+        z-index: 1;
         color: white;
+        display: flex; 
+        flex-direction: column;
+        justify-content: center;
 
         .breadcrumbs {
         }
 
         .details {
+
             h1 {
                 color: white;
             }
 
             p {
-
             }
 
             .reviews {

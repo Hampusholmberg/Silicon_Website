@@ -1,14 +1,17 @@
 ﻿<header>
-    <div class="container">
-        <a><img src="~/images/silicone-logo-light_theme.svg" /></a>
+    <div id="header-menu" class="container">
 
-        <div id="menu">
+        <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img src="~/images/silicone-logo-light_theme.svg" /></a>
+
+        @* HIDDEN *@
+        <div id="navigation" class="navigation hidden">
             <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>
             <a class="menu-link" href="#features">Features</a>
             <a class="menu-link">Contact</a>
         </div>
 
-        <div class="btn-switch">
+        @* HIDDEN *@
+        <div id="btn-switch" class="btn-switch hidden">
             <label>Light</label>
             <label class="switch" for="switch-mode">
                 <input type="checkbox" id="switch-mode" />
@@ -17,10 +20,14 @@
             <label>Dark</label>
         </div>
 
-        <div class="account-buttons">
+        @* HIDDEN *@
+        <div id="account-buttons" class="account-buttons hidden">
             <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><i class="fa-solid fa-arrow-right-to-bracket"></i><span>Sign In</span></a>
             <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><i class="fa-regular fa-user"></i><span>Sign Up</span></a>
         </div>
 
+        
+        <button class="btn-mobile" onclick="toggleMenu()"><i id="btn-mobile-icon" class="fa-solid fa-bars"></i></button>
     </div>
+
 </header>

@@ -420,66 +420,75 @@ a:hover {
 .course-box .content-box .bottom i {
   margin-right: 0.25rem;
 }
-header {
-  padding: 15px 0;
+.hidden {
+  display: none !important;
 }
+
 header .container {
+  padding: 3rem 3rem;
   display: grid;
-  align-items: center;
-  grid-template-columns: 1fr auto;
-  grid-template-areas: "logo mobile";
-  gap: 40px;
+  grid-template-columns: auto auto;
 }
 @media (min-width: 992px) {
   header .container {
-    grid-template-columns: auto 1fr auto auto;
-    grid-template-areas: "logo menu switch buttons";
+    grid-template-columns: auto 1fr 1fr auto;
+    align-items: center;
+    column-gap: 1rem;
+    padding: 2rem 2rem;
   }
 }
-header .container #logo {
-  grid-area: logo;
-}
-header .container #menu {
-  grid-area: menu;
-  display: none;
-}
 @media (min-width: 992px) {
-  header .container #menu {
-    display: flex;
-    gap: 25px;
-  }
-}
-header .container #menu nav {
-  display: flex;
-  gap: 5px;
-}
-header .container .btn-switch {
-  grid-area: switch;
-  display: none;
-}
-@media (min-width: 992px) {
-  header .container .btn-switch {
-    display: block;
-  }
-}
-header .container .account-buttons {
-  grid-area: buttons;
-  display: none;
-  gap: 15px;
-}
-@media (min-width: 992px) {
-  header .container .account-buttons {
-    display: flex;
+  header .container .navigation {
+    display: block !important;
   }
 }
 header .container .btn-mobile {
-  grid-area: mobile;
-  display: block;
+  border: none;
+  background-color: transparent;
 }
 @media (min-width: 992px) {
   header .container .btn-mobile {
-    display: none;
+    display: none !important;
   }
+}
+@media (min-width: 992px) {
+  header .container .btn-switch {
+    display: block !important;
+    justify-self: end;
+  }
+}
+@media (min-width: 992px) {
+  header .container .account-buttons {
+    display: flex !important;
+    gap: 1rem;
+  }
+}
+.mobile-toggled {
+  grid-template-columns: auto auto;
+  grid-template-areas: "menu-btn1 menu-btn" "nav nav" "acc acc" "switch-btn switch-btn";
+  row-gap: 2rem;
+}
+.mobile-toggled .navigation {
+  grid-area: nav;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+  align-items: center;
+  gap: 1rem;
+}
+.mobile-toggled .btn-mobile {
+  grid-area: menu-btn;
+}
+.mobile-toggled .btn-switch {
+  grid-area: switch-btn;
+  justify-self: center;
+}
+.mobile-toggled .account-buttons {
+  grid-area: acc;
+}
+.mobile-toggled .account-buttons .btn-gray {
+  margin-bottom: 1rem;
 }
 
 footer {
@@ -797,7 +806,67 @@ footer .container .social-media {
   height: 52px;
 }
 
+.courses-grid .container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "header header2" "dropdown searchbox" "grid grid";
+  row-gap: 1rem;
+}
+@media (min-width: 992px) {
+  .courses-grid .container {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "header dropdown searchbox" "grid grid grid";
+  }
+}
+.courses-grid .container h1 {
+  grid-area: header;
+}
+@media (min-width: 768px) {
+  .courses-grid .container h1 {
+    grid-area: header/dropdown;
+  }
+}
+@media (min-width: 992px) {
+  .courses-grid .container h1 {
+    grid-area: header;
+  }
+}
+.courses-grid .container .view-filter {
+  grid-area: dropdown;
+}
+@media (min-width: 768px) {
+  .courses-grid .container .view-filter {
+    grid-area: header2;
+  }
+}
+@media (min-width: 992px) {
+  .courses-grid .container .view-filter {
+    grid-area: dropdown;
+  }
+}
+.courses-grid .container .search-box {
+  grid-area: searchbox;
+  display: flex;
+  align-items: center;
+  border: 1px solid black;
+}
+.courses-grid .container .search-box input {
+  border: none;
+  width: 100%;
+}
+.courses-grid .container .search-box button {
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+@media (min-width: 992px) {
+  .courses-grid .container .search-box {
+    grid-area: searchbox;
+  }
+}
 .courses-grid .container .grid {
+  grid-area: grid;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -905,7 +974,7 @@ footer .container .social-media {
   background-color: #0e0626;
   position: relative;
   height: 670px;
-  z-index: -2;
+  z-index: 0;
 }
 .course-showcase .background-image {
   height: 100%;
@@ -914,10 +983,15 @@ footer .container .social-media {
   width: 100%;
   position: absolute;
   z-index: -1;
+  -webkit-filter: blur(3px);
 }
 .course-showcase .container {
-  z-index: 0;
+  min-height: 677px;
+  z-index: 1;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .course-showcase .container .details h1 {
   color: white;

@@ -11,7 +11,7 @@ namespace WebApp.Controllers
         public IActionResult SignUp()
         {
             var viewModel = new SignUpViewModel();
-            viewModel.Form = new SignUpModel(); // Initialize the Form property
+            viewModel.Form = new SignUpModel();
             return View(viewModel);
         }
 
