@@ -5,46 +5,68 @@
         flex-direction: column;
         align-items: center;
 
-        .content-box {
+        h1 {
+        }
 
+        p {
+        }
 
-            h1 {
+        #sign-in-form, #sign-up-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            justify-content: center;
+            max-width: 530px;
+            row-gap: 1rem;
+
+            @include md {
+                width: 80%;
             }
 
-            p {
-            }
-
-            #sign-in-form, #sign-up-form {
+            .input-div {
                 display: grid;
-                grid-template-columns: 1fr;
-                justify-content: center;
-                max-width: 530px;
-                row-gap: 1rem;
+                grid-template-columns: auto auto;
+                grid-template-areas: "label span" "input input";
 
-                .input-div {
+                span {
+                    grid-area: span;
+                    color: $danger;
+                    text-align: end;
+                }
 
-                    input {
-                        width: 100%;
-                    }
+                input {
+                    width: 100%;
+                    grid-area: input;
 
-                    label {
-                        display: block;
+                    &.input-validation-error {
+                        color: $danger;
+                        border: 1px solid $danger;
                     }
                 }
+
+                label {
+                }
+            }
+        }
+
+        #sign-up-form {
+
+            .first-name-input {
+                padding-bottom: 1rem;
             }
 
-            #sign-up-form {
+            @include md {
+                .user-name {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                }
 
-                @include md {
-                    .user-name {
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: space-between;
-                    }
+                .first-name-input, .last-name-input {
+                    width: 48%;
+                }
 
-                    .first-name-input, .last-name-input {
-                        width: 48%;
-                    }
+                .first-name-input {
+                    padding-bottom: 0;
                 }
             }
         }

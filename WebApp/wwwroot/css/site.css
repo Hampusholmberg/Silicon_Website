@@ -842,27 +842,50 @@ footer .container .social-media {
   flex-direction: column;
   align-items: center;
 }
-.sign-in .container .content-box #sign-in-form, .sign-in .container .content-box #sign-up-form, .sign-up .container .content-box #sign-in-form, .sign-up .container .content-box #sign-up-form {
+.sign-in .container #sign-in-form, .sign-in .container #sign-up-form, .sign-up .container #sign-in-form, .sign-up .container #sign-up-form {
   display: grid;
   grid-template-columns: 1fr;
   justify-content: center;
   max-width: 530px;
   row-gap: 1rem;
 }
-.sign-in .container .content-box #sign-in-form .input-div input, .sign-in .container .content-box #sign-up-form .input-div input, .sign-up .container .content-box #sign-in-form .input-div input, .sign-up .container .content-box #sign-up-form .input-div input {
-  width: 100%;
+@media (min-width: 768px) {
+  .sign-in .container #sign-in-form, .sign-in .container #sign-up-form, .sign-up .container #sign-in-form, .sign-up .container #sign-up-form {
+    width: 80%;
+  }
 }
-.sign-in .container .content-box #sign-in-form .input-div label, .sign-in .container .content-box #sign-up-form .input-div label, .sign-up .container .content-box #sign-in-form .input-div label, .sign-up .container .content-box #sign-up-form .input-div label {
-  display: block;
+.sign-in .container #sign-in-form .input-div, .sign-in .container #sign-up-form .input-div, .sign-up .container #sign-in-form .input-div, .sign-up .container #sign-up-form .input-div {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: "label span" "input input";
+}
+.sign-in .container #sign-in-form .input-div span, .sign-in .container #sign-up-form .input-div span, .sign-up .container #sign-in-form .input-div span, .sign-up .container #sign-up-form .input-div span {
+  grid-area: span;
+  color: #EF4444;
+  text-align: end;
+}
+.sign-in .container #sign-in-form .input-div input, .sign-in .container #sign-up-form .input-div input, .sign-up .container #sign-in-form .input-div input, .sign-up .container #sign-up-form .input-div input {
+  width: 100%;
+  grid-area: input;
+}
+.sign-in .container #sign-in-form .input-div input.input-validation-error, .sign-in .container #sign-up-form .input-div input.input-validation-error, .sign-up .container #sign-in-form .input-div input.input-validation-error, .sign-up .container #sign-up-form .input-div input.input-validation-error {
+  color: #EF4444;
+  border: 1px solid #EF4444;
+}
+.sign-in .container #sign-up-form .first-name-input, .sign-up .container #sign-up-form .first-name-input {
+  padding-bottom: 1rem;
 }
 @media (min-width: 768px) {
-  .sign-in .container .content-box #sign-up-form .user-name, .sign-up .container .content-box #sign-up-form .user-name {
+  .sign-in .container #sign-up-form .user-name, .sign-up .container #sign-up-form .user-name {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
-  .sign-in .container .content-box #sign-up-form .first-name-input, .sign-in .container .content-box #sign-up-form .last-name-input, .sign-up .container .content-box #sign-up-form .first-name-input, .sign-up .container .content-box #sign-up-form .last-name-input {
+  .sign-in .container #sign-up-form .first-name-input, .sign-in .container #sign-up-form .last-name-input, .sign-up .container #sign-up-form .first-name-input, .sign-up .container #sign-up-form .last-name-input {
     width: 48%;
+  }
+  .sign-in .container #sign-up-form .first-name-input, .sign-up .container #sign-up-form .first-name-input {
+    padding-bottom: 0;
   }
 }
 .sign-in .container .bottom, .sign-up .container .bottom {

@@ -9,7 +9,6 @@ namespace WebApp.Controllers
     {
         public IActionResult Index()
         {
-
             var viewModel = new HomeIndexViewModel
             {
                 Title = "Home",
