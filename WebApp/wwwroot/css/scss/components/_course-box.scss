@@ -1,0 +1,50 @@
+﻿.course-box {
+    display: flex;
+    justify-content: center;
+
+    .content-box {
+        color: $gray-800;
+        max-width: 416px;
+        height: 473px;
+        border-radius: 0.5rem;
+        @include shadow-s;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+        }
+
+        .text {
+            padding: 20px 20px 0px 20px;
+            height: 170px;
+
+            h2 {
+            }
+
+            .author {
+                color: $gray-700;
+                margin-bottom: 0.5rem;
+            }
+
+            .price {
+                color: $theme;
+            }
+        }
+
+        .bottom {
+            color: $gray-600;
+            padding-top: 1rem;
+            margin: 0 1.5rem;
+            border-top: 1px solid $gray-300;
+            display: flex;
+            gap: 1rem;
+
+            i {
+                margin-right: .25rem;
+            }
+
+            p {
+            }
+        }
+    }
+}

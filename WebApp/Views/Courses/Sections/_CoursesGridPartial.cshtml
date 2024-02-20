@@ -1,0 +1,22 @@
+﻿@model List<WebApp.Models.Components.CourseViewModel>
+
+
+
+<section class="courses-grid">
+
+    <div class="container">
+
+        <h1>Courses</h1>
+
+        <div class="grid">
+            @foreach (var course in Model)
+            {
+                @await Html.PartialAsync("~/Views/Shared/Components/_CourseBoxPartial.cshtml", course )
+
+            }
+
+        </div>
+
+    </div>
+
+</section>

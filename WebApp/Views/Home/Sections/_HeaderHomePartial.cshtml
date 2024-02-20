@@ -1,0 +1,26 @@
+﻿<header>
+    <div class="container">
+        <a><img src="~/images/silicone-logo-light_theme.svg" /></a>
+
+        <div id="menu">
+            <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>
+            <a class="menu-link" href="#features">Features</a>
+            <a class="menu-link">Contact</a>
+        </div>
+
+        <div class="btn-switch">
+            <label>Light</label>
+            <label class="switch" for="switch-mode">
+                <input type="checkbox" id="switch-mode" />
+                <div class="slider round"></div>
+            </label>
+            <label>Dark</label>
+        </div>
+
+        <div class="account-buttons">
+            <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><i class="fa-solid fa-arrow-right-to-bracket"></i><span>Sign In</span></a>
+            <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><i class="fa-regular fa-user"></i><span>Sign Up</span></a>
+        </div>
+
+    </div>
+</header>

@@ -1,0 +1,54 @@
+﻿.showcase {
+    height: 1025px;
+
+
+
+    .container {
+        padding: 80px 0;
+        position: relative;
+
+
+        .background-image {
+            position: absolute;
+            right: -22%;
+            top: 0;
+
+            @include xl {
+                width: 100%;
+            }
+
+            @include lg {
+                width: 85%;
+            }
+
+            @include md {
+                width: 75%;
+            }
+
+            @include sm {
+                width: 75%;
+                top: 85%;
+            }
+        }
+
+        .content {
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            max-width: 450px;
+
+            a {
+                width: fit-content;
+            }
+
+            .brands {
+                display: flex;
+                gap: 15px;
+
+                img {
+                    width: auto;
+                }
+            }
+        }
+    }
+}

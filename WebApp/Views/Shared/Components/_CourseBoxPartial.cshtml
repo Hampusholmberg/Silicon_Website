@@ -1,0 +1,74 @@
+﻿@model CourseViewModel
+
+<div class="course-box">
+
+    <a class="content-box" asp-controller="Courses" asp-action="Details" asp-route-id="@Model.Id">
+
+        <img src="@Model.Image.ImageUrl" alt="@Model.Image.AltText" />
+
+        <div class="text">
+
+            <h2 class="title h5">@Model.CourseName</h2>
+
+            <p class="author">By @Model.CourseAuthor.Name</p>
+
+            <p class="price">$@Model.Price</p>
+
+        </div>
+
+        <div class="bottom">
+
+            <div class="item">
+                <p><i class="fa-regular fa-clock"></i>@Model.HoursToComplete hours</p>
+            </div>
+
+            <div class="item">
+                <p><i class="fa-regular fa-thumbs-up"></i>@Model.LikesPercentage % (@Model.LikesAmount K)</p>
+            </div>
+
+        </div>
+
+    </a>
+
+</div>
+
+
+
+
+@* <div class="course-box">
+
+    <a class="content-box">
+
+        <img src="~/images/courses/fullstack-course.png" />
+
+        <div class="text">
+
+            <h2 class="title h5">
+                Fullstack Web Developer Course from Scratch
+            </h2>
+
+            <p class="author">
+                By Robert Fox
+            </p>
+
+            <p class="price">
+                $12.50
+            </p>
+
+        </div>
+
+        <div class="bottom">
+
+            <div class="item">
+                <p><i class="fa-regular fa-clock"></i>220 hours</p>
+            </div>
+
+            <div class="item">
+                <p><i class="fa-regular fa-thumbs-up"></i>94% (4.2K)</p>
+            </div>
+
+        </div>
+
+    </a>
+
+</div> *@

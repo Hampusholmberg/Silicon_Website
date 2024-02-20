@@ -1,0 +1,50 @@
+﻿.download-our-app {
+    background-color: $gray-200;
+    padding: 70px 0px;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .image {
+            margin-left: 50px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+
+            h2 {
+            }
+
+            .content-box {
+                display: flex;
+                justify-content: start;
+                gap: 50px;
+
+                .text {
+                    width: 180px;
+
+                    .stars {
+
+                        i {
+                            color: $warning;
+                            font-size: 12px;
+                        }
+                    }
+                }
+
+                p {
+                    margin-bottom: 0px;
+                }
+
+                a {
+                    display: flex;
+                    align-items: end;
+                }
+            }
+        }
+    }
+}

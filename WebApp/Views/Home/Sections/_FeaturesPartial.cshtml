@@ -1,0 +1,57 @@
+﻿@model FeaturesViewModel
+
+<section class="features">
+    <div id="@Model.Id" class="container">
+
+        <h2>@Model.Title</h2> 
+        <p>@Model.Text</p>
+
+        <div class="tool-features">
+
+            @if (Model.Features != null!)
+            {
+                foreach(var feature in Model.Features)
+                {
+                    <div class="box">
+                        <img src="@feature.FeatureImage.ImageUrl" alt="@feature.FeatureImage.AltText" />
+                        <h5>@feature.FeatureTitle</h5>
+                        <p>@feature.FeatureDescription</p>
+                    </div>
+                }
+            }
+            
+
+            
+            @* <div class="box">
+                <img src="~/images/features/presentation.svg" />
+                <h5>Tasks Analytics</h5>
+                <p>Non imperdiet facilisis nulla tellus Morbi scelerisque eget adipiscing vulputate.</p>
+            </div>
+            
+            <div class="box">
+                <img src="~/images/features/add-group.svg" />
+                <h5>Multiple Assignees</h5>
+                <p>A elementum, imperdiet enim, pretium etiam facilisi in aenean quam mauris.</p>
+            </div>
+            
+            <div class="box">
+                <img src="~/images/features/bell.svg" />
+                <h5>Notifications</h5>
+                <p>Diam, suspendisse velit cras ac. Lobortis diam volutpat, eget pellentesque viverra.</p>
+            </div>
+            
+            <div class="box">
+                <img src="~/images/features/tasks.svg" />
+                <h5>Sections & Subtasks</h5>
+                <p>Mi feugiat hac id in. Sit elit placerat lacus nibh lorem ridiculus lectus.</p>
+            </div>
+            
+            <div class="box">
+                <img src="~/images/features/shield.svg" />
+                <h5>Data Security</h5>
+                <p>Aliquam malesuada neque eget elit nulla vestibulum nunc cras.</p>
+            </div> *@
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,29 @@
+﻿.manage-your-work {
+    padding: 80px 0px;
+
+    .container {
+        display: flex;
+        align-items: center;
+        gap: 80px;
+
+        img {
+
+        }
+
+        .content-box {
+            
+            h2 {
+                margin-bottom: 25px;
+            }
+
+            i {
+                color: $theme;
+                margin-right: 5px;
+            }
+
+            button {
+                margin-top: 40px;
+            }
+        }
+    }
+}

@@ -1,0 +1,45 @@
+﻿
+.course-showcase {
+    background-color: #0e0626;
+    position: relative;
+    height: 670px;
+    z-index: -2;
+
+
+    .background-image {
+        height: 100%;
+        opacity: 0.5;
+        object-fit: cover;
+        width: 100%;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .container {
+        z-index: 0;
+        color: white;
+
+        .breadcrumbs {
+        }
+
+        .details {
+            h1 {
+                color: white;
+            }
+
+            p {
+
+            }
+
+            .reviews {
+            }
+        }
+
+        .author-thumb {
+            .author-img {
+                max-width: 60px;
+                border-radius: 999px;
+            }
+        }
+    }
+}
