@@ -1,3 +1,57 @@
-﻿@{ ViewData["Title"] = "Sign in"; }
+﻿@model SignInViewModel
 
-@await Html.PartialAsync("~/Views/Auth/Sections/_SignInFormPartial.cshtml")
+@{ ViewData["Title"] = "Sign in"; }
+
+<section class="sign-in">
+
+    <div class="container">
+
+        <div class="content-box">
+
+            <h1>Welcome Back</h1>
+
+            <p>Don’t have an account yet? <a>Sign up here.</a></p>
+
+            <form novalidate method="post" asp-controller="Auth" asp-action="SignIn" id="sign-in-form">
+
+                <div id="sign-in-form-email" class="input-div email-input">
+                    <label asp-for="Form.Email"></label>
+                    <span asp-validation-for="Form.Email"></span>
+                    <input asp-for="Form.Email" type="email" />
+                </div>
+
+                <div id="sign-in-form-password" class="input-div password-input">
+                    <label asp-for="Form.Password"></label>
+                    <span asp-validation-for="Form.Password"></span>
+                    <input  asp-for="Form.Password"/>
+                </div>
+
+                <div id="sign-in-form-remember-me-checkbox" class="checkbox-div">
+                    <input type="checkbox" />
+                    <label for="sign-in-form-remember-me-checkbox">Remember me</label>
+                </div>
+
+                <button type="submit" class="btn-theme">Sign in</button>
+
+            </form>
+
+            <div class="bottom">
+
+                <a href="#">Forgot your password?</a>
+                <div class="line-top">
+                    <p>Or sign in with your social network</p>
+
+                    <div class="buttons">
+                        <button class="btn-gray"><i class="fa-brands fa-google"></i> Google</button>
+                        <button class="btn-gray"><i class="fa-brands fa-facebook-f"></i> Facebook</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

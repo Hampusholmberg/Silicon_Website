@@ -19,18 +19,24 @@ namespace WebApp.Controllers
         [HttpPost]
         public IActionResult SignUp(SignUpViewModel viewModel)
         {
-            Console.WriteLine(viewModel.Form.FirstName);
             return View(viewModel);
         }
 
 
-
-
-
         [Route("/signin")]
+        [HttpGet]
         public IActionResult SignIn()
         {
-            return View();
+            var viewModel = new SignInViewModel();
+            viewModel.Form = new SignInModel();
+            return View(viewModel);
+        }
+
+        [Route("/signin")]
+        [HttpPost]
+        public IActionResult SignIn(SignInViewModel viewModel)
+        {
+            return View(viewModel);
         }
     }
 }

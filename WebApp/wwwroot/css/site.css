@@ -1000,3 +1000,91 @@ footer .container .social-media {
   max-width: 60px;
   border-radius: 999px;
 }
+
+.contact {
+  background-color: #F3F6FF;
+}
+.contact .container .text {
+  padding: 4rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.contact .container .text .content-box {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "logo head" "logo1 text" "logo1 link";
+}
+.contact .container .text .content-box .i-div {
+  width: 3rem;
+  height: 3rem;
+  box-sizing: border-box;
+  border-radius: 999px;
+  margin: 0 1rem;
+  grid-area: logo;
+  background-color: white;
+  padding-top: 0.7rem;
+  text-align: center;
+}
+.contact .container .text .content-box .i-div i {
+  color: #6366F1;
+}
+.contact .container .text .content-box h3 {
+  grid-area: head;
+}
+.contact .container .text .content-box p {
+  grid-area: text;
+}
+.contact .container .text .content-box a {
+  grid-area: link;
+}
+.contact #contact-form {
+  background-color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  max-width: 530px;
+  row-gap: 1rem;
+}
+@media (min-width: 768px) {
+  .contact #contact-form {
+    width: 80%;
+  }
+}
+.contact #contact-form .input-div {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: "label span" "input input";
+}
+.contact #contact-form .input-div span {
+  grid-area: span;
+  color: #EF4444;
+  text-align: end;
+}
+.contact #contact-form .input-div input {
+  width: 100%;
+  grid-area: input;
+}
+.contact #contact-form .input-div input.input-validation-error {
+  color: #EF4444;
+  border: 1px solid #EF4444;
+}
+.contact #contact-form .input-div select {
+  width: 100%;
+  grid-area: input;
+}
+.contact #contact-form .input-div select.input-validation-error {
+  color: #EF4444;
+  border: 1px solid #EF4444;
+}
+.contact #contact-form .input-div textarea {
+  width: 100%;
+  grid-area: input;
+}
+.contact #contact-form .input-div textarea.input-validation-error {
+  color: #EF4444;
+  border: 1px solid #EF4444;
+}
+.contact .map iframe {
+  width: 100%;
+}

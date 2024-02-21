@@ -1,0 +1,148 @@
+﻿
+
+
+
+
+
+.contact {
+    background-color: $gray-100;
+
+    .container {
+
+        .text {
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+
+            .content-box {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                grid-template-areas: "logo head" "logo1 text" "logo1 link";
+
+                .i-div {
+                    width: 3rem;
+                    height: 3rem;
+                    box-sizing: border-box;
+                    border-radius: 999px;
+                    margin: 0 1rem;
+                    grid-area: logo;
+                    background-color: white;
+                    padding-top: 0.7rem;
+                    text-align: center;
+
+                    i {
+                        color: $theme;
+                    }
+                }
+
+                h3 {
+                    grid-area: head;
+                }
+
+                p {
+                    grid-area: text;
+                }
+
+                a {
+                    grid-area: link;
+                }
+            }
+        }
+    }
+
+
+
+
+
+    #contact-form {
+        background-color: white;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        max-width: 530px;
+        row-gap: 1rem;
+
+        @include md {
+            width: 80%;
+        }
+
+        .input-div {
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-template-areas: "label span" "input input";
+
+            span {
+                grid-area: span;
+                color: $danger;
+                text-align: end;
+            }
+
+            input {
+                width: 100%;
+                grid-area: input;
+
+                &.input-validation-error {
+                    color: $danger;
+                    border: 1px solid $danger;
+                }
+            }
+
+            select {
+                width: 100%;
+                grid-area: input;
+
+                &.input-validation-error {
+                    color: $danger;
+                    border: 1px solid $danger;
+                }
+            }
+
+            textarea {
+                width: 100%;
+                grid-area: input;
+
+                &.input-validation-error {
+                    color: $danger;
+                    border: 1px solid $danger;
+                }
+            }
+
+            label {
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .map {
+
+        iframe {
+            width: 100%;
+        }
+    }
+}
