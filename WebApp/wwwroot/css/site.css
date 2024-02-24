@@ -383,6 +383,14 @@ a:hover {
   color: #FFFFFF;
 }
 
+.btn-facebook {
+  background-color: #4C82F7;
+}
+
+.btn-youtube {
+  background-color: #EF4444;
+}
+
 .course-box {
   display: flex;
   justify-content: center;
@@ -576,6 +584,11 @@ footer .container .social-media {
 .features .container .tool-features {
   margin-top: 20px;
   display: grid;
+}
+@media (min-width: 768px) {
+  .features .container .tool-features {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 @media (min-width: 992px) {
   .features .container .tool-features {
@@ -1287,4 +1300,32 @@ footer .container .social-media {
   .contact .map iframe {
     height: 864px;
   }
+}
+
+.course-author {
+  color: white;
+}
+.course-author .container {
+  display: flex;
+}
+.course-author .container img {
+  height: auto;
+  max-width: 100%;
+}
+@media (min-width: 992px) {
+  .course-author .container img {
+    max-height: 568px;
+    max-width: 526px;
+  }
+}
+.course-author .container .content-box {
+  background-color: #0B0F19;
+  padding: 3rem 3rem;
+}
+.course-author .container .content-box h3 {
+  color: white;
+}
+.course-author .container .content-box .buttons {
+  display: flex;
+  gap: 1.5rem;
 }

@@ -1,0 +1,36 @@
+﻿
+
+
+
+.course-author {
+    color: white;
+
+    .container {
+        display: flex;
+
+
+        img {
+            height: auto;
+            max-width: 100%;
+
+            @include lg {
+                max-height: 568px;
+                max-width: 526px;
+            }
+        }
+
+        .content-box {
+            background-color: $gray-900;
+            padding: 3rem 3rem;
+
+            h3 {
+                color: white;
+            }
+
+            .buttons {
+                display: flex;
+                gap: 1.5rem;
+            }
+        }
+    }
+}

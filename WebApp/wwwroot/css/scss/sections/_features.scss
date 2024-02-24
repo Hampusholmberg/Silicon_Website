@@ -11,6 +11,10 @@
             margin-top: 20px;
             display: grid;
 
+            @include md {
+                grid-template-columns: 1fr 1fr;
+            }
+
             @include lg {
                 grid-template-columns: 1fr 1fr 1fr;
             }
