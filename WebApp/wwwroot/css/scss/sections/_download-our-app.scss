@@ -2,10 +2,22 @@
     background-color: $gray-200;
     padding: 70px 0px;
 
+    img {
+        max-width: 80%;
+    }
+
     .container {
         display: flex;
+        flex-direction: column-reverse;
         justify-content: space-between;
         align-items: center;
+        gap: 3rem;
+
+        @include lg {
+            flex-direction: row;
+            justify-content: center;
+            gap: 3rem;
+        }
 
         .image {
             margin-left: 50px;
@@ -21,8 +33,14 @@
 
             .content-box {
                 display: flex;
+                flex-direction: column;
                 justify-content: start;
-                gap: 50px;
+                gap: 10px;
+
+                @include lg {
+                    flex-direction: row;
+                    gap: 50px;
+                }
 
                 .text {
                     width: 180px;

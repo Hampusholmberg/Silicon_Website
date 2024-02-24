@@ -6,9 +6,11 @@
         align-items: center;
 
         h1 {
+            align-self: start;
         }
 
         p {
+            align-self: start;
         }
 
         #sign-in-form, #sign-up-form {
@@ -25,25 +27,24 @@
             .input-div {
                 display: grid;
                 grid-template-columns: auto auto;
-                grid-template-areas: "label span" "input input";
+                grid-template-areas: "label label" "input input" "span span";
+
+                @include md {
+                    height: 85px;
+                }
 
                 span {
                     grid-area: span;
-                    color: $danger;
-                    text-align: end;
+                    text-align: start;
                 }
 
                 input {
                     width: 100%;
                     grid-area: input;
-
-                    &.input-validation-error {
-                        color: $danger;
-                        border: 1px solid $danger;
-                    }
                 }
 
                 label {
+                    grid-area: label;
                 }
             }
         }
@@ -55,6 +56,10 @@
             }
 
             @include md {
+                div {
+                    min-width: 526px;
+                }
+
                 .user-name {
                     display: flex;
                     flex-direction: row;
@@ -62,7 +67,7 @@
                 }
 
                 .first-name-input, .last-name-input {
-                    width: 48%;
+                    min-width: 48% !important;
                 }
 
                 .first-name-input {
@@ -70,6 +75,31 @@
                 }
             }
         }
+
+        @include md {
+            .content-box {
+                min-width: 526px;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+        }
+
+        #sign-in-form {
+
+            @include md {
+                .content-box {
+                    min-width: 526px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                div {
+                    min-width: 526px;
+                }
+            }
+        }
+
 
         .bottom {
             text-align: center;

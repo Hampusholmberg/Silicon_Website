@@ -1,23 +1,25 @@
 ﻿.courses-grid {
+    margin-bottom: 3rem;
 
     .container {
         display: grid;
         grid-template-columns: 50% 50%;
         grid-template-areas:
-            "header header2" "dropdown searchbox" "grid grid";
+            "header header" "dropdown searchbox" "grid grid";
         row-gap: 1rem;
 
         @include lg {
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr auto auto;
             grid-template-areas:
                 "header dropdown searchbox" "grid grid grid";
+            align-items: center;
         }
 
         h1 {
             grid-area: header;
 
             @include md {
-                grid-area: header / dropdown;
+                grid-area: header;
             }
 
             @include lg {
@@ -27,35 +29,45 @@
 
         .view-filter {
             grid-area: dropdown;
+            margin-right: 0.5rem;
 
             @include md {
-                grid-area: header2;
+                grid-area: dropdown;
             }
 
             @include lg {
                 grid-area: dropdown;
+                width: 240px;
             }
         }
 
         .search-box {
+            position: relative;
             grid-area: searchbox;
-            display: flex;
-            align-items: center;
-            border: 1px solid black;
+            padding: 0 0;
+            margin: 0 0;
 
             input {
-                border: none;
-                width: 100%;
+                width: 98%;
+                margin-left: 0.5rem;
 
-                &:focus {
+                @include lg {
+                    width: 240px;
                 }
             }
 
             button {
+                position: absolute;
+                top: 13px;
+                right: 1.3rem;
                 border: none;
                 background-color: transparent;
                 margin: 0;
-                padding: 0 0.5rem;                
+                padding: 0 0;
+
+                i {
+                    color: $gray-800;
+                }
             }
 
             @include lg {

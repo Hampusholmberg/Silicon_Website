@@ -18,7 +18,8 @@ header {
 
         .navigation {
             @include lg {
-                display: block !important;
+                display: flex !important;
+                gap: 1.5rem;
             }
         }
 

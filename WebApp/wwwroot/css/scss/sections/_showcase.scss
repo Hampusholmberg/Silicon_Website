@@ -1,33 +1,42 @@
 ﻿.showcase {
-    height: 1025px;
 
+    @include xl {
+        margin-bottom: 120px;
+    }
 
+    @include xxl {
+        margin-bottom: 230px;
+    }
 
     .container {
-        padding: 80px 0;
-        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 80px;
 
+        @include md {
+            padding: 80px 0;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+        }
 
-        .background-image {
-            position: absolute;
-            right: -22%;
-            top: 0;
-
-            @include xl {
-                width: 100%;
-            }
-
-            @include lg {
-                width: 85%;
-            }
+        .img-div {
+            width: 100%;
 
             @include md {
-                width: 75%;
+                max-width: auto;
+                position: relative;
             }
 
-            @include sm {
-                width: 75%;
-                top: 85%;
+            .background-image {
+                z-index: -1;
+                max-width: 100%;
+                overflow: hidden;
+
+                @include lg {
+                    position: absolute;
+                    max-width: auto;
+                    top: -5rem;
+                }
             }
         }
 
@@ -42,11 +51,18 @@
             }
 
             .brands {
-                display: flex;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                justify-items: center;
                 gap: 15px;
 
+                @include md {
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                }
+
                 img {
-                    width: auto;
+                    overflow: auto;
+                    max-width: 100%;
                 }
             }
         }

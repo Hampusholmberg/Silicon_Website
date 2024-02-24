@@ -14,8 +14,8 @@
             <div class="user-name">
                 <div class="input-div first-name-input" id="sign-up-form-first-name">
                     <label asp-for=Form.FirstName></label>
-                    <span asp-validation-for="Form.FirstName"></span>
                     <input asp-for="Form.FirstName" />
+                    <span asp-validation-for="Form.FirstName"></span>
                 </div>
 
                 <div class="input-div last-name-input" id="sign-up-form-last-name">
@@ -57,4 +57,4 @@
 
 </section>
 
-
+@await Html.PartialAsync("~/Views/Shared/Scripts/_ValidationScriptPartial.cshtml")
