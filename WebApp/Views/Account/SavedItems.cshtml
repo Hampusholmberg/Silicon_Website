@@ -1,0 +1,30 @@
+﻿@model AccountViewModel
+
+<section class="account-saved-items">
+
+    <div class="container">
+
+        @await Html.PartialAsync("~/views/account/sections/_AccountMenuPartial.cshtml")
+
+        <div class="account-courses">
+            
+            <h1>Saved Items</h1>
+
+            <button class="btn-delete-all"><i class="fa-regular fa-trash-can"></i> Delete all</button>
+
+            <div class="grid">
+                @if (Model != null!)
+                {
+                    foreach (var course in Model.SavedCourses)
+                    {
+                        @await Html.PartialAsync("~/Views/Shared/Components/_CourseBoxPartial.cshtml", course)
+
+                    }
+                }
+            </div>
+           
+        </div>
+
+    </div>
+
+</section>

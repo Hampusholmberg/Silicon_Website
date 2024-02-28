@@ -1,0 +1,92 @@
+﻿@model AccountViewModel
+
+<sections class="account-details">
+
+    <div class="container">
+
+        @await Html.PartialAsync("~/views/account/sections/_AccountMenuPartial.cshtml")
+
+        <div class="account-details-forms">
+
+            <h1 class="h3">Account Details</h1>
+
+            <p>Basic Info</p>
+
+            <form id="account-details-basic-info-form">
+
+                <div class="input-div">
+                    <label asp-for="@Model.FirstName"></label>
+                    <input asp-for="@Model.FirstName" />
+                    <span asp-validation-for="@Model.FirstName"></span>
+                </div>
+
+                <div class="input-div">
+                    <label asp-for="@Model.LastName"></label>
+                    <input asp-for="@Model.LastName" />
+                    <span asp-validation-for="@Model.LastName"></span>
+                </div>
+
+                <div class="input-div">
+                    <label asp-for="@Model.Email"></label>
+                    <input asp-for="@Model.Email" />
+                    <span asp-validation-for="@Model.Email"></span>
+                </div>
+
+                <div class="input-div">
+                    <label asp-for="@Model.Phone"></label>
+                    <input asp-for="@Model.Phone" />
+                    <span asp-validation-for="@Model.Phone"></span>
+                </div>
+
+                <div class="input-div">
+                    <label asp-for="@Model.Biography"></label>
+                    <textarea asp-for="@Model.Biography"></textarea>
+                    <span asp-validation-for="@Model.Biography"></span>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-gray">Cancel</button>
+                    <button class="btn-theme">Save Changes</button>
+                </div>
+
+            </form>
+
+            <form id="account-details-address-form">
+                <div class="input-div">
+                    <label asp-for="@Model.AddressLine1"></label>
+                    <input asp-for="@Model.AddressLine1" />
+                    <span asp-validation-for="@Model.AddressLine1"></span>
+                </div>
+
+                <div class="input-div">
+                    <label asp-for="@Model.AddressLine2"></label>
+                    <input asp-for="@Model.AddressLine2" />
+                    <span asp-validation-for="@Model.AddressLine2"></span>
+                </div>
+
+                <div class="input-div">
+                    <label asp-for="@Model.PostalCode"></label>
+                    <input asp-for="@Model.PostalCode" />
+                    <span asp-validation-for="@Model.PostalCode"></span>
+                </div>
+
+                <div class="input-div bio-textarea">
+                    <label asp-for="@Model.City"></label>
+                    <input asp-for="@Model.City" />
+                    <span asp-validation-for="@Model.City"></span>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-gray">Cancel</button>
+                    <button class="btn-theme">Save Changes</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</sections>
+
+@await Html.PartialAsync("~/Views/Shared/Scripts/_ValidationScriptPartial.cshtml")

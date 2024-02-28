@@ -137,9 +137,24 @@
 }
 
 .btn-facebook {
+    @include button;
     background-color: #4C82F7;
 }
 
 .btn-youtube {
+    @include button;
     background-color: #EF4444;
+}
+
+.btn-delete-all {
+    @include button;
+    background: transparent;
+    color: $danger;
+    border: 1px solid $danger;
+
+    &:hover {
+        text-decoration: none;
+        background: $danger;
+        color: $white;
+    }
 }

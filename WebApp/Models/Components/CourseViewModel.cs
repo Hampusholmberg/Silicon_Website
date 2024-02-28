@@ -12,4 +12,5 @@ public class CourseViewModel
     public decimal? LikesAmount { get; set; }
     public AuthorViewModel CourseAuthor { get; set; } = null!;
     public ImageViewModel Image { get; set; } = new ImageViewModel();
+    public List<CourseViewModel>? Courses { get; set; }
 }

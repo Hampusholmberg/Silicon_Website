@@ -1,0 +1,58 @@
+﻿@model AccountViewModel
+
+<sections class="account-security">
+
+    <div class="container">
+
+        @await Html.PartialAsync("~/views/account/sections/_AccountMenuPartial.cshtml")
+
+        <div class="account-details-forms">
+
+            <h1 class="h3">Security</h1>
+
+            <p>Password</p>
+
+            <form id="account-security-change-password-form">
+
+                <div class="input-div">
+                    <label asp-for="@Model.Password">Current Password</label>
+                    <input type="password" asp-for="@Model.Password" />
+                    <span asp-validation-for="@Model.Password"></span>
+                </div>
+
+                <div class="input-div">
+                    <label >New password</label>
+                    <input />
+                    <span ></span>
+                </div>
+
+                <div class="input-div">
+                    <label>Confirm new password</label>
+                    <input />
+                    <span></span>
+                </div>
+
+                <div class="buttons">
+                    <button class="btn-gray">Cancel</button>
+                    <button class="btn-theme">Change password</button>
+                </div>
+
+            </form>
+
+            <div class="delete-account">
+                <p>Delete account</p>
+                <p>When you delete your account, your public profile will be deactivated immediately. If you change your mind before the 14 days are up, sign in with your email and password, and we’ll send you a link to reactivate your account.</p>
+                <form id="account-security-delete-account-form">
+                    <input type="checkbox" />
+                    <label>Yes, I want to delete my account.</label>
+                    <button class="btn-theme btn-delete">Delete</button>
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</sections>

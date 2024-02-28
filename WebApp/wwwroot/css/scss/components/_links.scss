@@ -23,32 +23,35 @@ a {
     }
 }
 
-.more-link {
+.account-nav-link {
     @include text-s;
     display: flex;
     align-items: center;
     gap: 10px;
     text-decoration: none !important;
+    transition: all 0.1s ease-in-out;
+    border-radius: 5px;
+
 
     i {
-        @include shadow-s;
-        background-color: $white;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px;
         border-radius: 50%;
-        transition: all 0.1s ease-in-out;
     }
 
     &:hover {
+        background-color: $theme;
+        color: white;
+
         span {
             text-decoration: underline;
         }
 
         i {
-            background: $gray-800;
-            color: $white;
+            /*background: $gray-800;*/
+            /*color: $white;*/
         }
     }
 }

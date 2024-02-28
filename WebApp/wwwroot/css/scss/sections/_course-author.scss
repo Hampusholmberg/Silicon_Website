@@ -1,27 +1,40 @@
 ﻿
 
-
-
 .course-author {
     color: white;
 
     .container {
         display: flex;
+        flex-direction: column;
 
+        @include lg {
+            flex-direction: row;
+        }
 
-        img {
-            height: auto;
-            max-width: 100%;
+        .img-div {
+            width: 100%;
 
-            @include lg {
-                max-height: 568px;
-                max-width: 526px;
+            img {
+                width: 100%;
+
+                @include lg {
+                    height: 568px;
+                    width: 526px;
+                }
             }
         }
 
         .content-box {
             background-color: $gray-900;
-            padding: 3rem 3rem;
+            padding: 3rem 1rem;
+
+            @include md {
+                padding: 3rem 3rem;
+            }
+
+            @include lg {
+                height: 568px;
+            }
 
             h3 {
                 color: white;
@@ -29,7 +42,12 @@
 
             .buttons {
                 display: flex;
+                flex-direction: column;
                 gap: 1.5rem;
+
+                @include md {
+                    flex-direction: row;
+                }
             }
         }
     }
