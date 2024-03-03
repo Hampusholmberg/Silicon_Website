@@ -1,33 +1,52 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Infrastructure.Entities;
+using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.Models.Components;
+using Microsoft.AspNetCore.Http;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
+        private readonly UserProfileRepository _userProfileRepository;
 
-
-        [Route("/account-details")]
-        public IActionResult AccountDetails()
+        public AccountController(UserProfileRepository UserProfileRepository)
         {
-            AccountViewModel viewModel = new AccountViewModel
-            {
-                FirstName = "Hampus",
-                LastName = "Holmberg",
-                Email = "hampus@email.se",
-                Phone = "0701 112 112",
-                Biography = "hej hej",
-                AddressLine1 = "Stora Strandgatan 39",
-                AddressLine2 = "",
-                PostalCode = "261 29",
-                City = "Landskrona",
-                ProfilePicture = new ImageViewModel { ImageUrl = "/images/people/albert-flores.png" }
-            };
-
-            return View(viewModel);
+            _userProfileRepository = UserProfileRepository;
         }
 
+        [HttpGet]
+        [Route("/account-details")]
+        public async Task<IActionResult> AccountDetails()
+        {
+            var userEmail = User.Identity!.Name;
+            var result = await _userProfileRepository.GetOneAsync(x => x.Email == userEmail);
 
+            if (result != null) 
+            {
+                var userProfile = (UserProfileEntity)result.ContentResult!;
+
+                var viewModel = new AccountViewModel
+                {
+                    FirstName = userProfile.FirstName,
+                    LastName = userProfile.LastName,
+                    Email = userProfile.Email,
+                    PhoneNumber = userProfile.PhoneNumber,
+                    Bio = userProfile.Bio,
+                    AddressLine1 = userProfile.Address?.AddressLine1,
+                    AddressLine2 = userProfile.Address?.AddressLine2,
+                    PostalCode = userProfile.Address?.PostalCode,
+                    City = userProfile.Address?.City,
+                };
+
+                return View(viewModel);
+            }
+
+            return View();
+        }
 
 
         [Route("/account-security")]
@@ -38,8 +57,8 @@ namespace WebApp.Controllers
                 FirstName = "Hampus",
                 LastName = "Holmberg",
                 Email = "hampus@email.se",
-                Phone = "0701 112 112",
-                Biography = "hej hej",
+                PhoneNumber = "0701 112 112",
+                Bio = "hej hej",
                 AddressLine1 = "Stora Strandgatan 39",
                 AddressLine2 = "",
                 PostalCode = "261 29",
@@ -54,15 +73,15 @@ namespace WebApp.Controllers
 
 
         [Route("/account-saved-items")]
-        public IActionResult SavedItems()
+        public async Task<IActionResult> SavedItems()
         {
             AccountViewModel viewModel = new AccountViewModel
             {
                 FirstName = "Hampus",
                 LastName = "Holmberg",
                 Email = "hampus@email.se",
-                Phone = "0701 112 112",
-                Biography = "hej hej",
+                PhoneNumber = "0701 112 112",
+                Bio = "hej hej",
                 AddressLine1 = "Stora Strandgatan 39",
                 AddressLine2 = "",
                 PostalCode = "261 29",
@@ -110,10 +129,17 @@ namespace WebApp.Controllers
                         CourseAuthor = new() { Id = 1, Name = "Albert Flores", Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.", YoutubeFollowersQty = 240, FacebookFollowersQty = 180, Image = new () { ImageUrl = "/images/people/albert-flores.png", AltText="" } },
                     },
                 }
-
             };
-
             return View(viewModel);
+        }
+
+
+
+        public async Task<IActionResult> SignOut()
+        {
+            HttpContext.Session.Clear();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

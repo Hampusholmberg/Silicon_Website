@@ -4,7 +4,7 @@
 
     <div class="container">
 
-        @await Html.PartialAsync("~/views/account/sections/_AccountMenuPartial.cshtml")
+        @await Html.PartialAsync("~/views/account/sections/_AccountMenuPartial.cshtml", Model)
 
         <div class="account-details-forms">
 
@@ -33,15 +33,15 @@
                 </div>
 
                 <div class="input-div">
-                    <label asp-for="@Model.Phone"></label>
-                    <input asp-for="@Model.Phone" />
-                    <span asp-validation-for="@Model.Phone"></span>
+                    <label asp-for="@Model.PhoneNumber"></label>
+                    <input asp-for="@Model.PhoneNumber" />
+                    <span asp-validation-for="@Model.PhoneNumber"></span>
                 </div>
 
                 <div class="input-div">
-                    <label asp-for="@Model.Biography"></label>
-                    <textarea asp-for="@Model.Biography"></textarea>
-                    <span asp-validation-for="@Model.Biography"></span>
+                    <label asp-for="@Model.Bio"></label>
+                    <textarea asp-for="@Model.Bio"></textarea>
+                    <span asp-validation-for="@Model.Bio"></span>
                 </div>
 
                 <div class="buttons">

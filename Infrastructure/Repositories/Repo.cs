@@ -19,12 +19,37 @@ public abstract class Repo<TEntity> where TEntity : class
     {
         try
         {
-            _context.Set<TEntity>().Add(entity);
-            await _context.SaveChangesAsync();
-            return ResponseFactory.Ok(entity);
+            var result = await _context.Set<TEntity>().AddAsync(entity);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Handle specific DbUpdateException
+                Console.WriteLine($"DbUpdateException during SaveChangesAsync: {ex}");
+                throw; // Rethrow the exception to propagate it upwards
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions
+                Console.WriteLine($"Exception during SaveChangesAsync: {ex}");
+                throw; // Rethrow the exception to propagate it upwards
+            }
+
+
+
+            return ResponseFactory.Ok(result);
         }
         catch (Exception ex) 
         {
+            if (ex.InnerException != null)
+            {
+                // Handle the inner exception
+                Console.WriteLine($"Inner exception message: {ex.InnerException.Message}");
+                Console.WriteLine($"Inner exception type: {ex.InnerException.GetType()}");
+            }
             return ResponseFactory.Error(ex.Message);
         }
     }

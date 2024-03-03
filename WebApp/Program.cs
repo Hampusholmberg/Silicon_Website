@@ -1,8 +1,9 @@
 using Infrastructure.Contexts;
+using Infrastructure.Models;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
-var connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Education\\05._ASP.NET\\Silicon_Website\\Infrastructure\\Data\\silicon_db.mdf;Integrated Security=True;Connect Timeout=30";
+var connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Education\05._ASP.NET\Silicon_Website\Infrastructure\Data\silicon_db.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +13,26 @@ builder.Services.AddRouting(x => x.LowercaseUrls = true);
 
 builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString));
 
-var app = builder.Build();
+builder.Services.AddDefaultIdentity<ApplicationUser>(x =>
+{
+    x.User.RequireUniqueEmail = true;
+    x.SignIn.RequireConfirmedEmail = false;
+    x.SignIn.RequireConfirmedAccount = false;
+    x.Password.RequiredLength = 8;
+    x.Password.RequireUppercase = true;
+}).AddEntityFrameworkStores<DataContext>();
 
+
+builder.Services.AddScoped<AddressRepository>();
+builder.Services.AddScoped<CourseAuthorRepository>();
+builder.Services.AddScoped<CourseRepository>();
+builder.Services.AddScoped<ProfilePictureRepository>();
+builder.Services.AddScoped<UserProfileRepository>();
+builder.Services.AddScoped<UserSavedItemRepository>();
+
+
+
+var app = builder.Build();
 
 app.UseHsts();
 app.UseHttpsRedirection();

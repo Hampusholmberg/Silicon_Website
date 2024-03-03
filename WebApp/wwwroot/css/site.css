@@ -1109,6 +1109,11 @@ footer .container .social-media {
   max-width: 100%;
 }
 
+.sign-in .error-flag, .sign-up .error-flag {
+  color: #EF4444;
+  justify-self: center;
+  background-color: #FDE8E8;
+}
 .sign-in .container, .sign-up .container {
   display: flex;
   flex-direction: column;

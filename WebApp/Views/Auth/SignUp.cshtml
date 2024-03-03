@@ -1,5 +1,5 @@
 ﻿@model SignUpViewModel
-@{ ViewData["Title"] = "Sign up"; }
+@{ ViewData["Title"] = Model.Title; }
 
 <section class="sign-up">
 
@@ -7,7 +7,9 @@
 
         <form novalidate method="post" asp-controller="Auth" asp-action="SignUp" id="sign-up-form">
 
+            <p class="error-flag">@Model.ErrorMessage</p>
             <h1>Create Account</h1>
+
 
             <p>Already have an account?  <a href="#">Sign in here.</a></p>
 

@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Infrastructure.Entities;
+using System.ComponentModel.DataAnnotations;
 using WebApp.Models.Dtos;
+using WebApp.Models.Forms;
 
 namespace WebApp.Models.Components;
 
@@ -24,11 +26,11 @@ public class AccountViewModel
 
 
     [Display(Name = "Phone number", Prompt = "Enter your phone number")]
-    public string? Phone { get; set; }
+    public string? PhoneNumber { get; set; }
 
 
     [Display(Name = "Bio (optional)", Prompt = "Add a short bio...")]
-    public string? Biography { get; set; }
+    public string? Bio { get; set; }
     public string Password { get; set; } = null!;
 
     public int? AddressId { get; set; }
@@ -49,7 +51,31 @@ public class AccountViewModel
     [Display(Name = "City", Prompt = "Enter your city")]
     public string? City { get; set; }
 
-
     public ImageViewModel? ProfilePicture { get; set; }
     public List<CourseViewModel>? SavedCourses { get; set; }
+
+
+    public static implicit operator AccountViewModel(UserProfileEntity userProfile)
+    {
+        return new AccountViewModel
+        {
+            FirstName = userProfile.FirstName,
+            LastName = userProfile.LastName,
+            Email = userProfile.Email,
+            PhoneNumber = userProfile.PhoneNumber,
+            Bio = userProfile.Bio,
+            AddressLine1 = userProfile.Address?.AddressLine1,
+            AddressLine2 = userProfile.Address?.AddressLine2,
+            PostalCode = userProfile.Address?.PostalCode,
+            City = userProfile.Address?.City,
+        };
+    }
+
+
+
+
+
+
+
+
 }

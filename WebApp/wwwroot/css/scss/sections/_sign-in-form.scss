@@ -1,5 +1,11 @@
 ﻿.sign-in, .sign-up {
 
+    .error-flag {
+        color: $danger;
+        justify-self: center;
+        background-color: #FDE8E8;
+    }
+
     .container {
         display: flex;
         flex-direction: column;
