@@ -13,7 +13,6 @@ namespace Infrastructure.Entities
 
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Invalid email address")]
         public string Email { get; set; } = null!;
-        public string Password { get; set; } = null!;
         public string? PhoneNumber { get; set; }
         public string? Bio { get; set; }
 

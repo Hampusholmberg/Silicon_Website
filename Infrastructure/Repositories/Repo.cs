@@ -136,7 +136,7 @@ public abstract class Repo<TEntity> where TEntity : class
                 return ResponseFactory.Exists();
             }
             return ResponseFactory.NotFound();
-        }
+        }   
         catch (Exception ex)
         {
             return ResponseFactory.Error(ex.Message);

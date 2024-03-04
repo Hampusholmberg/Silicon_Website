@@ -45,6 +45,7 @@ public class ResponseFactory
         {
             Message = message ?? "Not found",
             StatusCode = StatusCode.NOT_FOUND,
+            Exists = false
         };
     }
 
@@ -54,6 +55,8 @@ public class ResponseFactory
         {
             Message = message ?? "Already exists",
             StatusCode = StatusCode.EXISTS,
+            Exists = true
+
         };
     }
 }

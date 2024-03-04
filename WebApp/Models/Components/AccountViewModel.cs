@@ -7,7 +7,7 @@ namespace WebApp.Models.Components;
 
 public class AccountViewModel
 {
-    public string Id { get; set; } = null!;
+    //public string Id { get; set; } = null!;
 
     [Display(Name = "First name", Prompt = "Enter your first name")]
     [Required(ErrorMessage = "Invalid first name")]
@@ -31,7 +31,7 @@ public class AccountViewModel
 
     [Display(Name = "Bio (optional)", Prompt = "Add a short bio...")]
     public string? Bio { get; set; }
-    public string Password { get; set; } = null!;
+    //public string Password { get; set; } = null!;
 
     public int? AddressId { get; set; }
 

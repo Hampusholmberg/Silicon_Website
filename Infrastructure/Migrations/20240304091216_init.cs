@@ -17,10 +17,10 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AddressLine1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     AddressLine2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    PostalCode = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -238,7 +238,6 @@ namespace Infrastructure.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Bio = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AddressId = table.Column<int>(type: "int", nullable: true),
@@ -295,7 +294,8 @@ namespace Infrastructure.Migrations
                 name: "IX_Addresses_AddressLine1_PostalCode_City",
                 table: "Addresses",
                 columns: new[] { "AddressLine1", "PostalCode", "City" },
-                unique: true);
+                unique: true,
+                filter: "[AddressLine1] IS NOT NULL AND [PostalCode] IS NOT NULL AND [City] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

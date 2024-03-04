@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models.Components;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApp.Controllers
 {
@@ -12,10 +15,18 @@ namespace WebApp.Controllers
     public class AccountController : Controller
     {
         private readonly UserProfileRepository _userProfileRepository;
+        private readonly AddressRepository _addressRepository;
 
-        public AccountController(UserProfileRepository UserProfileRepository)
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+
+        public AccountController(UserProfileRepository UserProfileRepository, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, AddressRepository addressRepository)
         {
             _userProfileRepository = UserProfileRepository;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _addressRepository = addressRepository;
         }
 
         [HttpGet]
@@ -49,6 +60,86 @@ namespace WebApp.Controllers
         }
 
 
+        // NO ERROR MESSAGES IMPLEMENTED!!
+        public async Task<IActionResult> UpdateProfile(AccountViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var user = await _userManager.Users
+                    .Include(x => x.UserProfile)
+                    .SingleOrDefaultAsync(x => x.Email == User.Identity!.Name);
+
+                if (user != null)
+                {
+                    user.FirstName = viewModel.FirstName;
+                    user.LastName = viewModel.LastName;
+                    user.Email = viewModel.Email;
+
+                    user.UserProfile.FirstName = viewModel.FirstName;
+                    user.UserProfile.LastName = viewModel.LastName;
+                    user.UserProfile.Email = viewModel.Email;
+                    user.UserProfile.PhoneNumber = viewModel.PhoneNumber;
+                    user.UserProfile.Bio = viewModel.Bio;
+
+                    var result = await _userManager.UpdateAsync(user);
+                }
+            }
+
+            return RedirectToAction("AccountDetails", "Account");
+        }
+
+
+        // NO ERROR MESSAGES IMPLEMENTED!!
+        public async Task<IActionResult> UpdateAddress(AccountViewModel viewModel)
+        {
+
+            var user = await _userManager.Users
+                .Include(x => x.UserProfile)
+                .Include(x => x.UserProfile.Address)
+                .SingleOrDefaultAsync(x => x.Email == User.Identity!.Name);
+
+            if (user != null)
+            {
+                AddressEntity address = new AddressEntity
+                {
+                    AddressLine1 = viewModel.AddressLine1,
+                    AddressLine2 = viewModel.AddressLine2,
+                    PostalCode = viewModel.PostalCode,
+                    City = viewModel.City
+                };
+
+                var result = await _addressRepository.ExistsAsync(x => 
+                x.AddressLine1 == address.AddressLine1 &&
+                x.AddressLine2 == address.AddressLine2 &&
+                x.PostalCode == address.PostalCode &&
+                x.City == address.City);
+
+                switch (result.Exists!.Value)
+                {
+                    case false:
+                        user.UserProfile.Address = address;
+                        await _userManager.UpdateAsync(user);
+                        break;
+
+                    case true:
+                            var existingAddress = await _addressRepository.GetOneAsync(x =>
+                            x.AddressLine1 == address.AddressLine1 &&
+                            x.AddressLine2 == address.AddressLine2 &&
+                            x.PostalCode == address.PostalCode &&
+                            x.City == address.City);
+                        if (existingAddress != null)
+                        {
+                            user.UserProfile.Address = (AddressEntity)existingAddress.ContentResult!;
+                            await _userManager.UpdateAsync(user);
+                        }
+                        break;
+                }
+            }
+            return RedirectToAction("AccountDetails", "Account");
+        }
+
+
         [Route("/account-security")]
         public IActionResult AccountSecurity()
         {
@@ -68,8 +159,6 @@ namespace WebApp.Controllers
 
             return View(viewModel);
         }
-
-
 
 
         [Route("/account-saved-items")]
@@ -132,7 +221,6 @@ namespace WebApp.Controllers
             };
             return View(viewModel);
         }
-
 
 
         public async Task<IActionResult> SignOut()

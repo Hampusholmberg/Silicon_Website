@@ -13,4 +13,5 @@ public class ResponseResult
     public StatusCode StatusCode { get; set; }
     public object? ContentResult { get; set; }
     public string? Message { get; set; }
+    public bool? Exists { get; set; }
 }

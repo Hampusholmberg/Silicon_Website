@@ -46,7 +46,6 @@ public class SignUpModel
             FirstName = signUpModel.FirstName,
             LastName = signUpModel.LastName,
             Email = signUpModel.Email,
-            Password = signUpModel.Password,
         };
 
     }

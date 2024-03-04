@@ -49,7 +49,6 @@ public class AuthController : Controller
                     FirstName = viewModel.Form.FirstName,
                     LastName = viewModel.Form.LastName,
                     Email = viewModel.Form.Email,
-                    Password = viewModel.Form.Password,
                 }
             };
 
@@ -64,7 +63,6 @@ public class AuthController : Controller
         viewModel.ErrorMessage = "ERROR";
         return View(viewModel);
     }
-
 
     [Route("/signin")]
     [HttpGet]
@@ -88,5 +86,11 @@ public class AuthController : Controller
                 return RedirectToAction("AccountDetails", "Account");   
         }
         return View(viewModel);
+    }
+
+    public async Task<IActionResult> SignOut()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Index","Home");
     }
 }
