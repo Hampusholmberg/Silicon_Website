@@ -35,6 +35,7 @@ builder.Services.AddScoped<UserSavedItemRepository>();
 var app = builder.Build();
 
 app.UseHsts();
+//app.UseStatusCodePagesWithRedirects("/error");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

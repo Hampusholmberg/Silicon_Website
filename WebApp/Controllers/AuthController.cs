@@ -3,6 +3,7 @@ using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApp.Models.Forms;
 using WebApp.Models.Views;
 
@@ -52,12 +53,19 @@ public class AuthController : Controller
                 }
             };
 
-            var result = await _userManager.CreateAsync(newUser, viewModel.Form.Password);
+            var emailExists = await _userManager.Users.AnyAsync(x => x.Email == newUser.Email);
 
-            Console.WriteLine(result);
-
-            //return RedirectToAction("AccountDetails", "Account");
-            return View(viewModel);
+            if (emailExists)
+            {
+                viewModel.ErrorMessage = "Email already exists";
+                return View(viewModel);
+            }
+            else
+            {
+                var result = await _userManager.CreateAsync(newUser, viewModel.Form.Password);
+                await _signInManager.PasswordSignInAsync(newUser, viewModel.Form.Password, false, false);
+                return RedirectToAction("AccountDetails", "Account");
+            }
         }
 
         viewModel.ErrorMessage = "ERROR";
@@ -85,6 +93,7 @@ public class AuthController : Controller
             if (result.Succeeded)
                 return RedirectToAction("AccountDetails", "Account");   
         }
+        viewModel.ErrorMessage = "Invalid email or password";
         return View(viewModel);
     }
 

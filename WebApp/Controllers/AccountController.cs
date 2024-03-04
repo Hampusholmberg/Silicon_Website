@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
+using WebApp.Models.Forms;
 
 namespace WebApp.Controllers
 {

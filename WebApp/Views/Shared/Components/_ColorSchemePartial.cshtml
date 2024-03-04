@@ -1,0 +1,9 @@
+﻿@switch (ViewBag.theme)
+{
+    case "dark":
+        <link rel="stylesheet" href="~/css/site-dark-mode.min.css" asp-append-version="true" />
+        break;
+    default:
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        break;
+}

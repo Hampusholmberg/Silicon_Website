@@ -29,7 +29,7 @@ namespace WebApp.Controllers
                         new () { ImageUrl ="/images/showcase/logoipsum4.svg", AltText = "Logotype for a brand that uses our services." },
                     },
 
-                    Link = new () { ControllerName = "Courses", ActionName = "Index", Text = "Get started for free"  } 
+                    Link = new () { ControllerName = "", ActionName = "", Text = "Get started for free"  } 
 
                 },
 

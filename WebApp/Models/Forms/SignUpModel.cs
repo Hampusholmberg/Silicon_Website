@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Entities;
 using System.ComponentModel.DataAnnotations;
+using WebApp.Helpers;
 
 namespace WebApp.Models.Forms;
 
@@ -34,7 +35,7 @@ public class SignUpModel
 
 
     [Display(Name = "I agree to the Terms & Conditions.", Order = 5)]
-    [Required(ErrorMessage = "You must agree to the terms & conditions")]
+    [RequiredCheckbox(ErrorMessage = "You must agree to the terms & conditions")]
     public bool TermsAndConditions { get; set; } = false;
 
 

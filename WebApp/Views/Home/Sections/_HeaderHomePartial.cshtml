@@ -18,8 +18,10 @@
             <div id="btn-switch" class="btn-switch hidden">
                 <label>Light</label>
                 <label class="switch" for="switch-mode">
-                    <input type="checkbox" id="switch-mode" />
-                    <div class="slider round"></div>
+                    <a asp-action="ChangeColorScheme" asp-controller="Home">
+                        <input type="checkbox" id="switch-mode" />
+                        <div class="slider round"></div>
+                    </a>
                 </label>
                 <label>Dark</label>
             </div>
@@ -43,8 +45,10 @@
             <div id="btn-switch" class="btn-switch hidden">
                 <label>Light</label>
                 <label class="switch" for="switch-mode">
-                    <input type="checkbox" id="switch-mode" />
-                    <div class="slider round"></div>
+                    <a asp-action="ChangeColorScheme" asp-controller="Home">
+                        <input type="checkbox" id="switch-mode" />
+                        <div class="slider round"></div>
+                    </a> 
                 </label>
                 <label>Dark</label>
             </div>
