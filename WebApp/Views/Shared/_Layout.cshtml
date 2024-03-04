@@ -12,12 +12,12 @@
 </head>
 <body>
 
-    <div class="wrapper">
+    <div class="wrapper dark-mode">
 
         @* header *@
         @await Html.PartialAsync("~/Views/Home/Sections/_HeaderHomePartial.cshtml")
 
-        <main>
+        <main class="dark-mode">
             @RenderBody()
         </main>
 

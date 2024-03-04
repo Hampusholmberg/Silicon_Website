@@ -1,31 +1,59 @@
-﻿<header>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+
+<header>
     <div id="header-menu" class="container">
 
-        <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img src="~/images/silicone-logo-light_theme.svg" /></a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img src="~/images/silicone-logo-light_theme.svg" /></a>
 
-        @* HIDDEN *@
-        <div id="navigation" class="navigation hidden">
-            <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>
-            <a class="menu-link" href="#features">Features</a>
-            <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
-        </div>
+            <div id="navigation" class="navigation hidden">
+                <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>
+                <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
+                <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
+            </div>
 
-        @* HIDDEN *@
-        <div id="btn-switch" class="btn-switch hidden">
-            <label>Light</label>
-            <label class="switch" for="switch-mode">
-                <input type="checkbox" id="switch-mode" />
-                <div class="slider round"></div>
-            </label>
-            <label>Dark</label>
-        </div>
+            <div id="btn-switch" class="btn-switch hidden">
+                <label>Light</label>
+                <label class="switch" for="switch-mode">
+                    <input type="checkbox" id="switch-mode" />
+                    <div class="slider round"></div>
+                </label>
+                <label>Dark</label>
+            </div>
 
-        @* HIDDEN *@
-        <div id="account-buttons" class="account-buttons hidden">
-            <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</a>
-            <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><i class="fa-regular fa-user"></i> Sign Up</a>
-        </div>
+            <div id="account-buttons" class="account-buttons hidden">
+                <a asp-controller="Account" asp-action="AccountDetails">
+                    <img src="/images/people/albert-flores.png" class="profile-thumb">
+                </a>
+            </div>
+        }
+        else
+        {
+            <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img src="~/images/silicone-logo-light_theme.svg" /></a>
 
+            <div id="navigation" class="navigation hidden">
+                <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>
+                <a class="menu-link" href="#features" >Features</a>
+                <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
+            </div>
+
+            <div id="btn-switch" class="btn-switch hidden">
+                <label>Light</label>
+                <label class="switch" for="switch-mode">
+                    <input type="checkbox" id="switch-mode" />
+                    <div class="slider round"></div>
+                </label>
+                <label>Dark</label>
+            </div>
+
+            <div id="account-buttons" class="account-buttons hidden">
+                <a class="btn-gray" asp-controller="Auth" asp-action="SignIn"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</a>
+                <a class="btn-theme" asp-controller="Auth" asp-action="SignUp"><i class="fa-regular fa-user"></i> Sign Up</a>
+            </div>
+        }
         
         <button class="btn-mobile" onclick="toggleMenu()"><i id="btn-mobile-icon" class="fa-solid fa-bars"></i></button>
     </div>

@@ -29,10 +29,12 @@
                 display: grid;
                 grid-template-columns: auto auto;
                 grid-template-areas: "label label" "input input" "span span";
+                align-content: start;
 
                 span {
                     grid-area: span;
                     text-align: start;
+                    min-height: 26px;
                 }
 
                 input, textarea {
@@ -52,7 +54,7 @@
             form {
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
+                column-gap: 1rem;
 
 
 

@@ -47,6 +47,13 @@ header {
 
             .btn-gray {
             }
+
+            a {
+                .profile-thumb {
+                    max-width: 44px;
+                    border-radius: 999px;
+                }
+            }
         }
     }
 }
