@@ -6,11 +6,16 @@
 
         @if (Model.ProfilePicture.ImageUrl != null)
         {
-            <img src="@Model.ProfilePicture.ImageUrl" alt="" />
+            <div class="img-div">
+                <img src="@Model.ProfilePicture.ImageUrl" alt="" />
+
+            </div>
         }
         else
         {
-            <img src="~/images/icons/no-profile-picture.svg" alt="" />
+            <div class="img-div">
+                <img src="~/images/icons/no-profile-picture.svg" alt="" />
+            </div>
         }
 
         <p class="user-name">@Model?.FirstName @Model?.LastName</p>
@@ -19,7 +24,7 @@
 
     <div class="account-nav">
 
-        <a asp-controller="Account" asp-action="AccountDetails" class="account-nav-link"><i class="fa-solid fa-gear"></i> Account Details</a>
+        <a asp-controller="Account" asp-action="AccountDetails" class="account-nav-link"><i class="fa-solid fa-gear"></i>  Account Details</a>
         <a asp-controller="Account" asp-action="AccountSecurity" class="account-nav-link"><i class="fa-solid fa-lock"></i> Security</a>
         <a asp-controller="Account" asp-action="SavedItems" class="account-nav-link"><i class="fa-solid fa-bookmark"></i> Saved Courses</a>
         <a asp-controller="Auth" asp-action="SignOut" class="account-nav-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</a>

@@ -17,9 +17,14 @@ header {
         }
 
         .navigation {
+
             @include lg {
                 display: flex !important;
                 gap: 1.5rem;
+
+                #details-link {
+                    display: none;
+                }
             }
         }
 
@@ -48,10 +53,20 @@ header {
             .btn-gray {
             }
 
-            a {
+            .profile-thumb-a {
+                width: 44px;
+                height: 44px;
+                overflow: hidden;
+                border-radius: 999px;
+                display: none;
+
+                @include lg {
+                    display: block;
+                }
+
                 .profile-thumb {
-                    max-width: 44px;
-                    border-radius: 999px;
+                    max-width: 100%;
+                    height: auto;
                 }
             }
         }

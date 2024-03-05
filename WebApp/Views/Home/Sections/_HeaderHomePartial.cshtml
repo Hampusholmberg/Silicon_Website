@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject UserManager<ApplicationUser> UserManager
+﻿@inject UserManager<ApplicationUser> UserManager
 @inject SignInManager<ApplicationUser> SignInManager
 
 <header>
@@ -13,6 +12,7 @@
                 <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>
                 <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
                 <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
+                <a id="details-link" class="menu-link" asp-controller="Account" asp-action="AccountDetails">Account Details</a>
             </div>
 
             <div id="btn-switch" class="btn-switch hidden">
@@ -27,19 +27,26 @@
             </div>
 
             <div id="account-buttons" class="account-buttons hidden">
-                <a asp-controller="Account" asp-action="AccountDetails">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    var user = await UserManager.Users
+                        .Include(x => x.UserProfile)
+                        .Include(x => x.UserProfile.ProfilePicture)
+                        .FirstOrDefaultAsync(x => x.Email == User.Identity!.Name);
 
-                    @if (Model.ProfilePicture.ImageUrl != null)
+                    if (user.UserProfile.ProfilePicture != null)
                     {
-                        <img src="@Model.ProfilePicture.ImageUrl" alt="" class="profile-thumb" />
+                        <a asp-controller="Account" asp-action="AccountDetails" class="profile-thumb-a" id="profile-thumb-a">
+                            <img src="@user.UserProfile.ProfilePicture!.ImageUrl" alt="" class="profile-thumb" />
+                        </a>
                     }
                     else
                     {
-                        <img src="~/images/icons/no-profile-picture.svg" alt="" class="profile-thumb" />
+                        <a asp-controller="Account" asp-action="AccountDetails" class="profile-thumb-a" id="profile-thumb-a">
+                            <img src="~/images/icons/no-profile-picture.svg" alt="" class="profile-thumb" />
+                        </a>
                     }
-
-
-                </a>
+                }
             </div>
         }
         else

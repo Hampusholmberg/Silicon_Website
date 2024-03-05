@@ -4,6 +4,7 @@
 .account-menu {
     width: 320px;
 
+
     @include lg {
         border-right: 1px solid $gray-300;
         margin-right: 3rem;
@@ -15,17 +16,25 @@
     }
 
     .account-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        img {
-            max-height: 120px;
-            max-width: 120px;
-            border-radius: 50%;
+        .img-div {
+            height: 120px;
+            width: 120px;
+            border-radius: 60px;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
         }
 
         text-align: center;
     }
 
     .account-nav {
-        padding-left: 1rem;
     }
 }

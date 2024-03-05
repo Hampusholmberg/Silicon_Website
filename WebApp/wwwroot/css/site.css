@@ -561,6 +561,9 @@ header .container {
     display: flex !important;
     gap: 1.5rem;
   }
+  header .container .navigation #details-link {
+    display: none;
+  }
 }
 header .container .btn-mobile {
   border: none;
@@ -583,9 +586,21 @@ header .container .btn-mobile {
     gap: 1rem;
   }
 }
-header .container .account-buttons a .profile-thumb {
-  max-width: 44px;
+header .container .account-buttons .profile-thumb-a {
+  width: 44px;
+  height: 44px;
+  overflow: hidden;
   border-radius: 999px;
+  display: none;
+}
+@media (min-width: 992px) {
+  header .container .account-buttons .profile-thumb-a {
+    display: block;
+  }
+}
+header .container .account-buttons .profile-thumb-a .profile-thumb {
+  max-width: 100%;
+  height: auto;
 }
 
 .mobile-toggled {
@@ -1538,17 +1553,21 @@ footer .container .social-media {
   }
 }
 .account-menu .account-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
-.account-menu .account-details img {
-  max-height: 120px;
-  max-width: 120px;
-  border-radius: 50%;
+.account-menu .account-details .img-div {
+  height: 120px;
+  width: 120px;
+  border-radius: 60px;
+  overflow: hidden;
 }
-.account-menu .account-nav {
-  padding-left: 1rem;
+.account-menu .account-details .img-div img {
+  width: 100%;
+  height: auto;
 }
-
 .account-security .container {
   display: flex;
   flex-direction: column;
