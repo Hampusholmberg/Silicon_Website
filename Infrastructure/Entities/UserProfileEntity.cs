@@ -22,7 +22,7 @@ namespace Infrastructure.Entities
         public int? ProfilePictureId { get; set; }
         public ProfilePictureEntity? ProfilePicture { get; set; }
 
-        public ICollection<UserSavedItemEntity>? SavedItems { get; set; }
+        //public ICollection<UserSavedItemEntity>? SavedItems { get; set; }
 
         public virtual ApplicationUser User { get; set; } = null!;
     }

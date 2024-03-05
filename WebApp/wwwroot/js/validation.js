@@ -21,7 +21,14 @@ const formErrorHandler = (e, validationResult) => {
     }
 }
 
-const lengthValidator = (value, minLength = 2) => {
+const lengthValidatorName = (value, minLength = 2) => {
+    if (value.length >= minLength)
+        return true
+
+    else return false
+}
+
+const lengthValidatorPhone = (value, minLength = 7) => {
     if (value.length >= minLength)
         return true
 
@@ -46,7 +53,10 @@ const emailValidator = (value) => {
 
 
 const textValidation = (e) => {
-    formErrorHandler(e, lengthValidator(e.target.value))
+    formErrorHandler(e, lengthValidatorName(e.target.value))
+}
+const phoneValidation = (e) => {
+    formErrorHandler(e, lengthValidatorPhone(e.target.value))
 }
 const emailValidation = (e) => {
     formErrorHandler(e, emailValidator(e.target.value))
@@ -67,6 +77,9 @@ inputs.forEach(input => {
                     break;
                 case 'email':
                     emailValidation(e)
+                    break;
+                case 'PhoneNumber':
+                    phoneValidation(e)
                     break;
             }
         })

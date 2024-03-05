@@ -24,31 +24,13 @@ public class AccountViewModel
 
 
     [Display(Name = "Phone number", Prompt = "Enter your phone number")]
-    [Required(ErrorMessage = "Invalid phone number")]
     public string? PhoneNumber { get; set; }
 
 
     [Display(Name = "Bio (optional)", Prompt = "Add a short bio...")]
     public string? Bio { get; set; }
-
-
-    public int? AddressId { get; set; }
-
-
-    [Display(Name = "Street name", Prompt = "Enter your street name")]
-    public string? AddressLine1 { get; set; }
-
-
-    [Display(Name = "c/o (optional)", Prompt = "Enter your c/o")]
-    public string? AddressLine2 { get; set; }
-
-
-    [Display(Name = "Postal code", Prompt = "Enter your postal code")]
-    public string? PostalCode { get; set; }
-
-
-    [Display(Name = "City", Prompt = "Enter your city")]
-    public string? City { get; set; }
+    
+    public AddressViewModel? Address { get; set; }
 
     public ImageViewModel? ProfilePicture { get; set; }
     public List<CourseViewModel>? SavedCourses { get; set; }
@@ -63,18 +45,6 @@ public class AccountViewModel
             Email = userProfile.Email,
             PhoneNumber = userProfile.PhoneNumber,
             Bio = userProfile.Bio,
-            AddressLine1 = userProfile.Address?.AddressLine1,
-            AddressLine2 = userProfile.Address?.AddressLine2,
-            PostalCode = userProfile.Address?.PostalCode,
-            City = userProfile.Address?.City,
         };
     }
-
-
-
-
-
-
-
-
 }

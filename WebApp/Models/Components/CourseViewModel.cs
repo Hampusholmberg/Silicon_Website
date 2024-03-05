@@ -1,4 +1,7 @@
-﻿namespace WebApp.Models.Components;
+﻿using Infrastructure.Entities;
+using WebApp.Models.Forms;
+
+namespace WebApp.Models.Components;
 
 public class CourseViewModel
 {
@@ -13,4 +16,5 @@ public class CourseViewModel
     public AuthorViewModel CourseAuthor { get; set; } = null!;
     public ImageViewModel Image { get; set; } = new ImageViewModel();
     public List<CourseViewModel>? Courses { get; set; }
+
 }

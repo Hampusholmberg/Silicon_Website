@@ -34,7 +34,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AddressLine2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(450)");
@@ -44,83 +44,11 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressLine1", "PostalCode", "City")
+                    b.HasIndex("AddressLine1", "AddressLine2", "PostalCode", "City")
                         .IsUnique()
-                        .HasFilter("[AddressLine1] IS NOT NULL AND [PostalCode] IS NOT NULL AND [City] IS NOT NULL");
+                        .HasFilter("[AddressLine1] IS NOT NULL AND [AddressLine2] IS NOT NULL AND [PostalCode] IS NOT NULL AND [City] IS NOT NULL");
 
                     b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.CourseAuthorEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("FacebookFollowersQty")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("YoutubeFollowersQty")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CourseAuthors");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CourseAuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("HoursToComplete")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Ingress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LikesAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LikesPercentage")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CourseAuthorId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.ProfilePictureEntity", b =>
@@ -182,30 +110,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("ProfilePictureId");
 
                     b.ToTable("UserProfiles");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.UserSavedItemEntity", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("UserId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("UserSavedItems");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.ApplicationUser", b =>
@@ -418,17 +322,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
-                {
-                    b.HasOne("Infrastructure.Entities.CourseAuthorEntity", "CourseAuthor")
-                        .WithMany()
-                        .HasForeignKey("CourseAuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CourseAuthor");
-                });
-
             modelBuilder.Entity("Infrastructure.Entities.UserProfileEntity", b =>
                 {
                     b.HasOne("Infrastructure.Entities.AddressEntity", "Address")
@@ -448,25 +341,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Address");
 
                     b.Navigation("ProfilePicture");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.UserSavedItemEntity", b =>
-                {
-                    b.HasOne("Infrastructure.Entities.CourseEntity", "Course")
-                        .WithMany("Users")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Infrastructure.Entities.UserProfileEntity", "User")
-                        .WithMany("SavedItems")
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
 
                     b.Navigation("User");
                 });
@@ -520,16 +394,6 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Infrastructure.Entities.UserProfileEntity", b =>
-                {
-                    b.Navigation("SavedItems");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.ApplicationUser", b =>

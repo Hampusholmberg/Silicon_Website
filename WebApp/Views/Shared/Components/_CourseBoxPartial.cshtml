@@ -2,9 +2,16 @@
 
 <div class="course-box">
 
+    <button class="save-course-btn">
+        <i class="fa-regular fa-bookmark"></i>
+    </button>
+
     <a class="content-box" asp-controller="Courses" asp-action="Details" asp-route-id="@Model.Id">
 
-        <img src="@Model.Image.ImageUrl" alt="@Model.Image.AltText" />
+        <div class="img-div" >
+            <img src="@Model.Image.ImageUrl" alt="@Model.Image.AltText" />
+
+        </div>
 
         <div class="text">
 

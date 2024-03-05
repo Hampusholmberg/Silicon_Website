@@ -28,7 +28,17 @@
 
             <div id="account-buttons" class="account-buttons hidden">
                 <a asp-controller="Account" asp-action="AccountDetails">
-                    <img src="/images/people/albert-flores.png" class="profile-thumb">
+
+                    @if (Model.ProfilePicture.ImageUrl != null)
+                    {
+                        <img src="@Model.ProfilePicture.ImageUrl" alt="" class="profile-thumb" />
+                    }
+                    else
+                    {
+                        <img src="~/images/icons/no-profile-picture.svg" alt="" class="profile-thumb" />
+                    }
+
+
                 </a>
             </div>
         }

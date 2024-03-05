@@ -22,7 +22,7 @@ public class UserProfileRepository : Repo<UserProfileEntity>
         {
             IEnumerable<UserProfileEntity> result = await _context.UserProfiles
                 .Include(x => x.Address)
-                .Include(x => x.SavedItems)
+                //.Include(x => x.SavedItems)
                 .Include(x => x.ProfilePicture)               
                 .ToListAsync();
             return ResponseFactory.Ok(result);
@@ -39,7 +39,7 @@ public class UserProfileRepository : Repo<UserProfileEntity>
         {
             var result = await _context.UserProfiles
                 .Include(x => x.Address)
-                .Include(x => x.SavedItems)
+                //.Include(x => x.SavedItems)
                 .Include(x => x.ProfilePicture)
                 .FirstOrDefaultAsync(predicate);
             if (result == null)

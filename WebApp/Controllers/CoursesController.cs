@@ -1,13 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
+﻿using Infrastructure.Entities;
+using Infrastructure.Models;
+using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using WebApp.Models.Components;
 using WebApp.Models.Views;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class CoursesController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserProfileRepository _userProfileRepository;
 
+        public CoursesController(UserManager<ApplicationUser> userManager, UserProfileRepository userProfileRepository)
+        {
+            _userManager = userManager;
+            _userProfileRepository = userProfileRepository;
+        }
 
         public List<CourseViewModel> courses = new List<CourseViewModel>
         {
@@ -52,12 +64,20 @@ namespace WebApp.Controllers
             },
         };
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                var userProfile = await _userProfileRepository.GetOneAsync(x => x.Email == user.Email);
+                user.UserProfile = (UserProfileEntity)userProfile.ContentResult!;
+            }
+
             var viewModel = new CoursesIndexViewModel
             {
                 Courses = courses,
-                Title = "Courses"
+                Title = "Courses",
+                User = user!
             };
 
             ViewData["Title"] = viewModel.Title;

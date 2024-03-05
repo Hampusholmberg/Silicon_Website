@@ -4,7 +4,15 @@
 
     <div class="account-details">
 
-        <img src="/images/people/albert-flores.png" alt=""/>
+        @if (Model.ProfilePicture.ImageUrl != null)
+        {
+            <img src="@Model.ProfilePicture.ImageUrl" alt="" />
+        }
+        else
+        {
+            <img src="~/images/icons/no-profile-picture.svg" alt="" />
+        }
+
         <p class="user-name">@Model?.FirstName @Model?.LastName</p>
         <p class="user-email">@Model?.Email</p>
     </div>

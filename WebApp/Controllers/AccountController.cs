@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Models.Forms;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using System.Net;
 
 namespace WebApp.Controllers
 {
@@ -48,10 +50,17 @@ namespace WebApp.Controllers
                     Email = userProfile.Email,
                     PhoneNumber = userProfile.PhoneNumber,
                     Bio = userProfile.Bio,
-                    AddressLine1 = userProfile.Address?.AddressLine1,
-                    AddressLine2 = userProfile.Address?.AddressLine2,
-                    PostalCode = userProfile.Address?.PostalCode,
-                    City = userProfile.Address?.City,
+                    Address = new AddressViewModel
+                    {
+                        AddressLine1 = userProfile.Address?.AddressLine1,
+                        AddressLine2 = userProfile.Address?.AddressLine2,
+                        PostalCode = userProfile.Address?.PostalCode,
+                        City = userProfile.Address?.City,
+                    },
+                    ProfilePicture = new ImageViewModel
+                    {
+                        ImageUrl = userProfile.ProfilePicture?.ImageUrl
+                    }
                 };
 
                 return View(viewModel);
@@ -104,10 +113,10 @@ namespace WebApp.Controllers
             {
                 AddressEntity address = new AddressEntity
                 {
-                    AddressLine1 = viewModel.AddressLine1,
-                    AddressLine2 = viewModel.AddressLine2,
-                    PostalCode = viewModel.PostalCode,
-                    City = viewModel.City
+                    AddressLine1 = viewModel.Address.AddressLine1,
+                    AddressLine2 = viewModel.Address.AddressLine2,
+                    PostalCode = viewModel.Address.PostalCode,
+                    City = viewModel.Address.City
                 };
 
                 var result = await _addressRepository.ExistsAsync(x => 
@@ -151,10 +160,15 @@ namespace WebApp.Controllers
                 Email = "hampus@email.se",
                 PhoneNumber = "0701 112 112",
                 Bio = "hej hej",
-                AddressLine1 = "Stora Strandgatan 39",
-                AddressLine2 = "",
-                PostalCode = "261 29",
-                City = "Landskrona",
+                
+                Address = new AddressViewModel
+                {
+                    AddressLine1 = "Stora Strandgatan 39",
+                    AddressLine2 = "",
+                    PostalCode = "261 29",
+                    City = "Landskrona",
+                },
+
                 ProfilePicture = new ImageViewModel { ImageUrl = "/images/people/albert-flores.png" }
             };
 
@@ -172,10 +186,15 @@ namespace WebApp.Controllers
                 Email = "hampus@email.se",
                 PhoneNumber = "0701 112 112",
                 Bio = "hej hej",
-                AddressLine1 = "Stora Strandgatan 39",
-                AddressLine2 = "",
-                PostalCode = "261 29",
-                City = "Landskrona",
+
+                Address = new AddressViewModel 
+                { 
+                    AddressLine1 = "Stora Strandgatan 39",
+                    AddressLine2 = "",
+                    PostalCode = "261 29",
+                    City = "Landskrona",
+                },
+
                 ProfilePicture = new ImageViewModel { ImageUrl = "/images/people/albert-flores.png" },
                 SavedCourses = new List<CourseViewModel>
                 {

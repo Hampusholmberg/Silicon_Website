@@ -24,11 +24,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(x =>
 
 
 builder.Services.AddScoped<AddressRepository>();
-builder.Services.AddScoped<CourseAuthorRepository>();
-builder.Services.AddScoped<CourseRepository>();
+//builder.Services.AddScoped<CourseAuthorRepository>();
+//builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<ProfilePictureRepository>();
 builder.Services.AddScoped<UserProfileRepository>();
-builder.Services.AddScoped<UserSavedItemRepository>();
+//builder.Services.AddScoped<UserSavedItemRepository>();
 
 
 

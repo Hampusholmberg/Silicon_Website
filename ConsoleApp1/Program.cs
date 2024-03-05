@@ -12,11 +12,11 @@ var builder = Host.CreateDefaultBuilder().ConfigureServices(services =>
     services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString));
 
     services.AddScoped<AddressRepository>();
-    services.AddScoped<CourseAuthorRepository>();
-    services.AddScoped<CourseRepository>();
+    //services.AddScoped<CourseAuthorRepository>();
+    //services.AddScoped<CourseRepository>();
     services.AddScoped<ProfilePictureRepository>();
     services.AddScoped<UserProfileRepository>();
-    services.AddScoped<UserSavedItemRepository>();
+    //services.AddScoped<UserSavedItemRepository>();
     services.AddScoped<MenuService>();
 
 }).Build();

@@ -1,6 +1,26 @@
 ﻿.course-box {
     display: flex;
     justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+
+    .save-course-btn {
+        position: absolute;
+        right: 12%;
+        top: 1rem;
+        border-radius: 999px;
+        height: 3rem;
+        width: 3rem;
+        border: none;
+
+        @include md {
+            right: 10%;
+        }
+
+        @include xl {
+            right: 6%;
+        }
+    }
 
     .content-box {
         color: $gray-800;
@@ -10,9 +30,13 @@
         @include shadow-s;
         overflow: hidden;
 
-        img {
-            width: 100%;
+        .img-div {
+
+            img {
+                width: 100%;
+            }
         }
+
 
         .text {
             padding: 20px 20px 0px 20px;

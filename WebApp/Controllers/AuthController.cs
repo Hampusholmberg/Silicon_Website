@@ -27,6 +27,10 @@ public class AuthController : Controller
     [HttpGet]
     public IActionResult SignUp()
     {
+        if (_signInManager.IsSignedIn(User))
+        {
+            return RedirectToAction("AccountDetails", "Account");
+        }
         var viewModel = new SignUpViewModel();
         viewModel.Form = new SignUpModel();
         return View(viewModel);
@@ -76,6 +80,10 @@ public class AuthController : Controller
     [HttpGet]
     public IActionResult SignIn()
     {
+        if (_signInManager.IsSignedIn(User))
+        {
+            return RedirectToAction("AccountDetails", "Account");
+        }
         var viewModel = new SignInViewModel();
         viewModel.Form = new SignInModel();
         return View(viewModel);

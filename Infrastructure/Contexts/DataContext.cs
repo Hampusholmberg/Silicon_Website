@@ -14,12 +14,8 @@ public partial class DataContext : IdentityDbContext<ApplicationUser>
     }
 
     public DbSet<AddressEntity> Addresses { get; set; }
-    public DbSet<CourseAuthorEntity> CourseAuthors { get; set; }
-    public DbSet<CourseEntity> Courses { get; set; }
     public DbSet<ProfilePictureEntity> ProfilePictures { get; set; }
     public DbSet<UserProfileEntity> UserProfiles { get; set; }
-    public DbSet<UserSavedItemEntity> UserSavedItems { get; set; }
-
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,27 +27,21 @@ public partial class DataContext : IdentityDbContext<ApplicationUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        //Composite key
-        modelBuilder.Entity<UserSavedItemEntity>()
-            .HasKey(x => new { x.UserId, x.CourseId });
 
         //Unique indexes
         modelBuilder.Entity<AddressEntity>()
-            .HasIndex(x => new { x.AddressLine1, x.PostalCode, x.City })
+            .HasIndex(x => new { x.AddressLine1, x.AddressLine2, x.PostalCode, x.City })
             .IsUnique();
 
-        modelBuilder.Entity<CourseEntity>()
-            .HasIndex(x => x.Name)
-            .IsUnique();
 
         modelBuilder.Entity<UserProfileEntity>()
             .HasIndex(x => x.Email)
             .IsUnique();
+
 
         modelBuilder.Entity<ApplicationUser>()
             .HasOne(u => u.UserProfile)
             .WithOne(p => p.User)
             .HasForeignKey<UserProfileEntity>(p => p.Id);
     }
-
 }
