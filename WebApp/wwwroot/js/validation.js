@@ -51,6 +51,14 @@ const emailValidator = (value) => {
     return false;
 }
 
+const passwordValidator = (value) => {
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+    if (regex.test(value))
+        return true
+
+    return false;    
+}
+
 
 const textValidation = (e) => {
     formErrorHandler(e, lengthValidatorName(e.target.value))
@@ -60,6 +68,9 @@ const phoneValidation = (e) => {
 }
 const emailValidation = (e) => {
     formErrorHandler(e, emailValidator(e.target.value))
+}
+const passwordValidation = (e) => {
+    formErrorHandler(e, passwordValidator(e.target.value))
 }
 
 let forms = document.querySelectorAll('form')
@@ -78,8 +89,11 @@ inputs.forEach(input => {
                 case 'email':
                     emailValidation(e)
                     break;
-                case 'PhoneNumber':
+                case 'tel':
                     phoneValidation(e)
+                    break;
+                case 'password':
+                    passwordValidation(e)
                     break;
             }
         })

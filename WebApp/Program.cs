@@ -1,6 +1,7 @@
 using Infrastructure.Contexts;
 using Infrastructure.Models;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Education\05._ASP.NET\Silicon_Website\Infrastructure\Data\silicon_db.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True";
@@ -24,11 +25,11 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(x =>
 
 
 builder.Services.AddScoped<AddressRepository>();
-//builder.Services.AddScoped<CourseAuthorRepository>();
-//builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<ProfilePictureRepository>();
 builder.Services.AddScoped<UserProfileRepository>();
-//builder.Services.AddScoped<UserSavedItemRepository>();
+
+builder.Services.AddScoped<UserProfileService>();
+builder.Services.AddScoped<AddressService>();
 
 
 

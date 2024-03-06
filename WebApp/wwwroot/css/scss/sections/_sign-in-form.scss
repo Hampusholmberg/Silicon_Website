@@ -32,8 +32,8 @@
 
             .input-div {
                 display: grid;
-                grid-template-columns: auto auto;
-                grid-template-areas: "label label" "input input" "span span";
+                grid-template-columns: auto ;
+                grid-template-areas: "label " "input " "span ";
 
                 @include md {
                     height: 85px;
@@ -41,7 +41,8 @@
 
                 span {
                     grid-area: span;
-                    text-align: start;
+                    text-align: end;
+                    height: 26px;
                 }
 
                 input {

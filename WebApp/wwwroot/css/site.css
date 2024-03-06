@@ -1180,8 +1180,8 @@ footer .container .social-media {
 }
 .sign-in .container #sign-in-form .input-div, .sign-in .container #sign-up-form .input-div, .sign-up .container #sign-in-form .input-div, .sign-up .container #sign-up-form .input-div {
   display: grid;
-  grid-template-columns: auto auto;
-  grid-template-areas: "label label" "input input" "span span";
+  grid-template-columns: auto;
+  grid-template-areas: "label " "input " "span ";
 }
 @media (min-width: 768px) {
   .sign-in .container #sign-in-form .input-div, .sign-in .container #sign-up-form .input-div, .sign-up .container #sign-in-form .input-div, .sign-up .container #sign-up-form .input-div {
@@ -1190,7 +1190,8 @@ footer .container .social-media {
 }
 .sign-in .container #sign-in-form .input-div span, .sign-in .container #sign-up-form .input-div span, .sign-up .container #sign-in-form .input-div span, .sign-up .container #sign-up-form .input-div span {
   grid-area: span;
-  text-align: start;
+  text-align: end;
+  height: 26px;
 }
 .sign-in .container #sign-in-form .input-div input, .sign-in .container #sign-up-form .input-div input, .sign-up .container #sign-in-form .input-div input, .sign-up .container #sign-up-form .input-div input {
   width: 100%;

@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Entities;
+using Infrastructure.Models;
 using System.ComponentModel.DataAnnotations;
 using WebApp.Models.Components;
 
@@ -45,6 +46,32 @@ public class AccountViewModel
             Email = userProfile.Email,
             PhoneNumber = userProfile.PhoneNumber,
             Bio = userProfile.Bio,
+        };
+    }
+
+
+    public static implicit operator AccountViewModel(ApplicationUser applicationUser)
+    {
+        return new AccountViewModel
+        {
+            FirstName = applicationUser.FirstName,
+            LastName = applicationUser.LastName,
+            Email = applicationUser.UserName,
+            PhoneNumber = applicationUser.UserProfile.PhoneNumber,
+            Bio = applicationUser.UserProfile.Bio,
+
+            Address = new AddressViewModel
+            {
+                AddressLine1 = applicationUser.UserProfile.Address.AddressLine1,
+                AddressLine2 = applicationUser.UserProfile.Address.AddressLine2,
+                PostalCode = applicationUser.UserProfile.Address.PostalCode,
+                City = applicationUser.UserProfile.Address.City,
+            },
+            ProfilePicture = new ImageViewModel
+            {
+                ImageUrl = applicationUser.UserProfile.ProfilePicture.ImageUrl,
+                AltText = applicationUser.UserProfile.ProfilePicture.AltText,
+            }
         };
     }
 }
