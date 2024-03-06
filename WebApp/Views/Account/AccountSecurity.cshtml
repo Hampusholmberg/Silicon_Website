@@ -42,10 +42,12 @@
             <div class="delete-account">
                 <p>Delete account</p>
                 <p>When you delete your account, your public profile will be deactivated immediately. If you change your mind before the 14 days are up, sign in with your email and password, and we’ll send you a link to reactivate your account.</p>
-                <form id="account-security-delete-account-form">
+                <form id="account-security-delete-account-form" method="post">
                     <input type="checkbox" />
                     <label>Yes, I want to delete my account.</label>
-                    <button class="btn-theme btn-delete">Delete</button>
+                    <a asp-action="DeleteAccount" asp-controller="Account" class="btn-theme btn-delete">
+                        Delete
+                    </a>
                 </form>
 
             </div>

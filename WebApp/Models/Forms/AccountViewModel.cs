@@ -62,15 +62,16 @@ public class AccountViewModel
 
             Address = new AddressViewModel
             {
-                AddressLine1 = applicationUser.UserProfile.Address.AddressLine1,
-                AddressLine2 = applicationUser.UserProfile.Address.AddressLine2,
-                PostalCode = applicationUser.UserProfile.Address.PostalCode,
-                City = applicationUser.UserProfile.Address.City,
+                AddressLine1 = applicationUser.UserProfile.Address?.AddressLine1,
+                AddressLine2 = applicationUser.UserProfile.Address?.AddressLine2,
+                PostalCode = applicationUser.UserProfile.Address?.PostalCode,
+                City = applicationUser.UserProfile.Address?.City,
             },
+
             ProfilePicture = new ImageViewModel
             {
-                ImageUrl = applicationUser.UserProfile.ProfilePicture.ImageUrl,
-                AltText = applicationUser.UserProfile.ProfilePicture.AltText,
+                ImageUrl = applicationUser.UserProfile.ProfilePicture?.ImageUrl,
+                AltText = applicationUser.UserProfile.ProfilePicture?.AltText,
             }
         };
     }

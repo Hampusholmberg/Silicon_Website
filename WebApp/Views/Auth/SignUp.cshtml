@@ -10,7 +10,7 @@
             <h1>Create Account</h1>
             <p class="error-flag">@Model.ErrorMessage</p>
 
-            <p>Already have an account?  <a href="#">Sign in here.</a></p>
+            <p>Already have an account?  <a asp-action="SignIn" asp-controller="Auth">Sign in here.</a></p>
 
             <div class="user-name">
                 <div class="input-div first-name-input" id="sign-up-form-first-name">

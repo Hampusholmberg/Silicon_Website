@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Infrastructure.Models;
 using WebApp.Models.Forms;
 using Infrastructure.Services;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebApp.Controllers
 {
@@ -92,18 +93,7 @@ namespace WebApp.Controllers
 
 
 
-        [Route("/account-security")]
-        public async Task<IActionResult> AccountSecurity()
-        {
-            if (_signInManager.IsSignedIn(User))
-            {
-                AccountViewModel viewModel = await _userProfileService.GetLoggedInUserAsync(User);
 
-                return View(viewModel);
-            }
-
-            return View();
-        }
 
 
         [Route("/account-saved-items")]
@@ -163,6 +153,36 @@ namespace WebApp.Controllers
             HttpContext.Session.Clear();
 
             return RedirectToAction("Index", "Home");
+        }
+
+
+
+        [Route("/account-security")]
+        public async Task<IActionResult> AccountSecurity()
+        {
+            if (_signInManager.IsSignedIn(User))
+            {
+                AccountViewModel viewModel = await _userProfileService.GetLoggedInUserAsync(User);
+
+                return View(viewModel);
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> DeleteAccount()
+        {
+            var user = await _userProfileService.GetLoggedInUserAsync(User);
+
+            if (user != null! )
+            {
+                await _signInManager.SignOutAsync();
+                var result = await _userManager.DeleteAsync(user);
+                Console.WriteLine(result);
+
+                return RedirectToAction("Index", "Home");
+            }
+            return RedirectToAction("AccountSecurity", "Account");
         }
     }
 }

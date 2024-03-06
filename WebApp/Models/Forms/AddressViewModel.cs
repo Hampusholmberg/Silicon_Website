@@ -9,7 +9,7 @@ public class AddressViewModel
 
 
     [Display(Name = "Street name", Prompt = "Enter your street name")]
-    public string AddressLine1 { get; set; } = null!;
+    public string? AddressLine1 { get; set; }
 
 
     [Display(Name = "c/o (optional)", Prompt = "Enter your c/o")]

@@ -11,7 +11,7 @@
             <h1>Welcome Back</h1>
             <p class="error-flag">@Model.ErrorMessage</p>
 
-            <p>Don’t have an account yet? <a>Sign up here.</a></p>
+            <p>Don’t have an account yet? <a asp-action="SignUp" asp-controller="Auth">Sign up here.</a></p>
 
             <form novalidate method="post" asp-controller="Auth" asp-action="SignIn" id="sign-in-form">
 

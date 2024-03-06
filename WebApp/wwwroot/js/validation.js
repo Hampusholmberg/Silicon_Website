@@ -89,7 +89,7 @@ inputs.forEach(input => {
                 case 'email':
                     emailValidation(e)
                     break;
-                case 'tel':
+                case 'phonenumber':
                     phoneValidation(e)
                     break;
                 case 'password':
