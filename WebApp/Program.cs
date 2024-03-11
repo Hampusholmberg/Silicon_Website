@@ -27,20 +27,26 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(x =>
 builder.Services.AddScoped<AddressRepository>();
 builder.Services.AddScoped<ProfilePictureRepository>();
 builder.Services.AddScoped<UserProfileRepository>();
-
 builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<AddressService>();
 
-
+builder.Services.AddAuthentication().AddFacebook(x =>
+{
+    x.AppId = "1207900177254117";
+    x.AppSecret = "98b127990b849526db855cb51fdd4364";
+    x.Fields.Add("first_name");
+    x.Fields.Add("last_name");
+});
 
 var app = builder.Build();
 
 app.UseHsts();
-//app.UseStatusCodePagesWithRedirects("/error");
+app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+//app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

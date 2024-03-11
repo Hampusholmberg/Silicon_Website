@@ -429,6 +429,25 @@ a:hover {
   color: #FFFFFF;
 }
 
+.btn-delete {
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  background: #EF4444;
+  color: #FFFFFF;
+  border: 1px solid #EF4444;
+}
+.btn-delete:hover {
+  text-decoration: none;
+  background: #FFFFFF;
+  color: #EF4444;
+}
+
 .course-box {
   display: flex;
   justify-content: center;
@@ -1702,4 +1721,26 @@ footer .container .social-media {
     align-content: center;
     gap: 1rem;
   }
+}
+
+.not-found {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.not-found .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.not-found .container .img-div {
+  max-width: 500px;
+}
+.not-found .container .img-div img {
+  width: 100%;
+}
+.not-found .container a {
+  display: flex;
+  align-items: center;
 }

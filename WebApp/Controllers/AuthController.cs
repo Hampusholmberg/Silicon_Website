@@ -4,6 +4,8 @@ using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Principal;
 using WebApp.Models.Forms;
 using WebApp.Models.Views;
 
@@ -110,4 +112,96 @@ public class AuthController : Controller
         await _signInManager.SignOutAsync();
         return RedirectToAction("Index","Home");
     }
+
+
+    #region Facebook sign in
+    [HttpGet]
+    public IActionResult Facebook()
+    {
+        var authProps = _signInManager.ConfigureExternalAuthenticationProperties("Facebook", Url.Action("FacebookCallback"));
+        return new ChallengeResult("Facebook", authProps);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> FacebookCallback()
+    {
+        var info = await _signInManager.GetExternalLoginInfoAsync();
+        if (info != null!)
+        {
+            foreach (var claim in info.Principal.Claims)
+            {
+                Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
+            }
+
+            var fbUser = new ApplicationUser
+            {
+                FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!,
+                LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
+                Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+                UserName = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+
+                UserProfile = new UserProfileEntity
+                {
+                    FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!,
+                    LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
+                    Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+
+
+
+                    ProfilePicture = new ProfilePictureEntity
+                    {
+                        //ImageUrl = info.Principal.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture") ?? ""
+                    },
+                    Address = new AddressEntity
+                    {
+                        AddressLine1 = info.Principal.FindFirstValue(ClaimTypes.StreetAddress),
+                        PostalCode = info.Principal.FindFirstValue(ClaimTypes.PostalCode),
+                        City = info.Principal.FindFirstValue(ClaimTypes.Locality),
+                    }
+                }
+            };
+
+            var siliconUser = await _userManager.FindByEmailAsync(fbUser.Email);
+
+            if (siliconUser == null) 
+            {
+                var result = await _userManager.CreateAsync(fbUser);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(fbUser, isPersistent: false);
+                    return RedirectToAction("AccountDetails", "Account");
+                }
+            }
+            
+            if (siliconUser != null)
+            {
+                var userProfile = _userProfileRepository.GetOneAsync(x => x.Email == siliconUser.Email).Result.ContentResult;
+
+
+                if (fbUser.FirstName != siliconUser.FirstName || fbUser.LastName != siliconUser.LastName || fbUser.Email != siliconUser.Email)
+                {
+                    siliconUser.FirstName = fbUser.FirstName;
+                    siliconUser.LastName = fbUser.LastName;
+                    siliconUser.Email = fbUser.Email;
+
+
+                    siliconUser.UserProfile.FirstName = fbUser.FirstName;
+                    siliconUser.UserProfile.LastName = fbUser.LastName;
+                    siliconUser.UserProfile.Email = fbUser.Email;
+
+                    await _userManager.UpdateAsync(siliconUser);
+                }
+                await _signInManager.SignInAsync(siliconUser, isPersistent: false);
+                return RedirectToAction("AccountDetails", "Account");
+
+            }
+        }
+
+        return View();
+    }
+
+
+    #endregion
+
 }
