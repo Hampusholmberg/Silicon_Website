@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using System.Security.Principal;
 using WebApp.Models.Forms;
 using WebApp.Models.Views;
 
@@ -101,7 +100,7 @@ public class AuthController : Controller
             var result = await _signInManager.PasswordSignInAsync(viewModel.Form.Email, viewModel.Form.Password, false, false);
 
             if (result.Succeeded)
-                return RedirectToAction("AccountDetails", "Account");   
+                return RedirectToAction("AccountDetails", "Account");
         }
         viewModel.ErrorMessage = "Invalid email or password";
         return View(viewModel);
@@ -110,7 +109,7 @@ public class AuthController : Controller
     public async Task<IActionResult> SignOut()
     {
         await _signInManager.SignOutAsync();
-        return RedirectToAction("Index","Home");
+        return RedirectToAction("Index", "Home");
     }
 
 
@@ -163,7 +162,7 @@ public class AuthController : Controller
 
             var siliconUser = await _userManager.FindByEmailAsync(fbUser.Email);
 
-            if (siliconUser == null) 
+            if (siliconUser == null)
             {
                 var result = await _userManager.CreateAsync(fbUser);
 
@@ -173,10 +172,10 @@ public class AuthController : Controller
                     return RedirectToAction("AccountDetails", "Account");
                 }
             }
-            
+
             if (siliconUser != null)
             {
-                var userProfile = _userProfileRepository.GetOneAsync(x => x.Email == siliconUser.Email).Result.ContentResult;
+                var userProfile = _userProfileRepository.GetOneAsync(x => x.Email == siliconUser.Email);
 
 
                 if (fbUser.FirstName != siliconUser.FirstName || fbUser.LastName != siliconUser.LastName || fbUser.Email != siliconUser.Email)
@@ -200,8 +199,5 @@ public class AuthController : Controller
 
         return View();
     }
-
-
     #endregion
-
 }

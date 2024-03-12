@@ -614,12 +614,14 @@ header .container .account-buttons .profile-thumb-a {
 }
 @media (min-width: 992px) {
   header .container .account-buttons .profile-thumb-a {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 header .container .account-buttons .profile-thumb-a .profile-thumb {
-  max-width: 100%;
-  height: auto;
+  max-width: auto;
+  height: 100%;
 }
 
 .mobile-toggled {
@@ -1583,10 +1585,13 @@ footer .container .social-media {
   width: 120px;
   border-radius: 60px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .account-menu .account-details .img-div img {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
 }
 .account-security .container {
   display: flex;

@@ -29,7 +29,7 @@ public class AddressService
                 x.PostalCode == address.PostalCode &&
                 x.City == address.City);
 
-            switch (result.Exists!.Value)
+            switch (result)
             {
                 case false:
                     user.UserProfile.Address = address;
@@ -45,7 +45,7 @@ public class AddressService
 
                     if (existingAddress != null)
                     {
-                        user.UserProfile.Address = (AddressEntity)existingAddress.ContentResult!;
+                        user.UserProfile.Address = existingAddress;
                         await _userManager.UpdateAsync(user);
                     }
                     break;

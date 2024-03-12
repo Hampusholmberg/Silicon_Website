@@ -61,12 +61,14 @@ header {
                 display: none;
 
                 @include lg {
-                    display: block;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
 
                 .profile-thumb {
-                    max-width: 100%;
-                    height: auto;
+                    max-width: auto;
+                    height: 100%;
                 }
             }
         }

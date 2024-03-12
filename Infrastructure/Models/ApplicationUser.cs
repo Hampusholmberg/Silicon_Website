@@ -16,6 +16,8 @@ public class ApplicationUser : IdentityUser
     [ProtectedPersonalData]
     public string LastName { get; set; } = null!;
 
+    public bool IsExternalAccount { get; set; } = false;
+
 
     public virtual UserProfileEntity UserProfile { get; set; }
 }

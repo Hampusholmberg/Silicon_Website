@@ -1,6 +1,5 @@
 ﻿using Infrastructure.Contexts;
 using Infrastructure.Entities;
-using Infrastructure.Factories;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -16,7 +15,7 @@ public class UserProfileRepository : Repo<UserProfileEntity>
         _context = context;
     }
 
-    public override async Task<ResponseResult> GetAllAsync()
+    public override async Task<IEnumerable<UserProfileEntity>> GetAllAsync()
     {
         try
         {
@@ -25,15 +24,16 @@ public class UserProfileRepository : Repo<UserProfileEntity>
                 //.Include(x => x.SavedItems)
                 .Include(x => x.ProfilePicture)               
                 .ToListAsync();
-            return ResponseFactory.Ok(result);
+            return result;
         }
         catch (Exception ex)
         {
-            return ResponseFactory.Error(ex.Message);
+            Console.WriteLine($"Error occurred while trying to get the entities: {ex.Message}");
+            return null!;
         }
     }
 
-    public override async Task<ResponseResult> GetOneAsync(Expression<Func<UserProfileEntity, bool>> predicate)
+    public override async Task<UserProfileEntity> GetOneAsync(Expression<Func<UserProfileEntity, bool>> predicate)
     {
         try
         {
@@ -43,13 +43,18 @@ public class UserProfileRepository : Repo<UserProfileEntity>
                 .Include(x => x.ProfilePicture)
                 .FirstOrDefaultAsync(predicate);
             if (result == null)
-                return ResponseFactory.NotFound();
+            {
+                Console.WriteLine($"Error occurred while trying to get the entity: 404 - Entity not found");
+                return null!;
+            }
 
-            return ResponseFactory.Ok(result);
+
+            return result;
         }
         catch (Exception ex)
         {
-            return ResponseFactory.Error(ex.Message);
+            Console.WriteLine($"Error occurred while trying to get the entity: {ex.Message}");
+            return null!;
         }
     }
 }

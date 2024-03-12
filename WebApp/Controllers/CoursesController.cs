@@ -70,7 +70,7 @@ namespace WebApp.Controllers
             if (user != null)
             {
                 var userProfile = await _userProfileRepository.GetOneAsync(x => x.Email == user.Email);
-                user.UserProfile = (UserProfileEntity)userProfile.ContentResult!;
+                user.UserProfile = userProfile;
             }
 
             var viewModel = new CoursesIndexViewModel

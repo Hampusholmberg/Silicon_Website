@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Contexts;
-using Infrastructure.Factories;
 using Infrastructure.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -15,52 +14,57 @@ public abstract class Repo<TEntity> where TEntity : class
         _context = context;
     }
 
-    public virtual async Task<ResponseResult> CreateAsync(TEntity entity)
+    public virtual async Task<TEntity> CreateAsync(TEntity entity)
     {
         try 
         { 
             var result = await _context.Set<TEntity>().AddAsync(entity);
             await _context.SaveChangesAsync();
 
-            return ResponseFactory.Ok(result);
+            return entity;
         }
         catch (Exception ex) 
         {
-            return ResponseFactory.Error(ex.Message);
+            Console.WriteLine($"Error occurred while creating entity: {ex.Message}");
+            return null!;
         }
     }
 
-    public virtual async Task<ResponseResult> GetAllAsync()
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
     {
         try
         {
             IEnumerable<TEntity> result = await _context.Set<TEntity>().ToListAsync();
-            return ResponseFactory.Ok(result);
-
+            return result;
         }
         catch (Exception ex) 
         {
-            return ResponseFactory.Error(ex.Message);
+            Console.WriteLine($"Error occurred while trying to get all entities: {ex.Message}");
+            return null!;
         }
     }
 
-    public virtual async Task<ResponseResult> GetOneAsync(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<TEntity> GetOneAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
             var result = await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
-            if (result == null)
-                return ResponseFactory.NotFound();
+            if (result != null)
+            {
+                return result!; 
+            }
 
-            return ResponseFactory.Ok(result);
+            Console.WriteLine($"Error occurred while trying to get the entity: 404 - Entity not found");
+            return null!;
         }
         catch (Exception ex) 
         {
-            return ResponseFactory.Error(ex.Message);
+            Console.WriteLine($"Error occurred while trying to get the entity: {ex.Message}");
+            return null!;
         }
     }
 
-    public virtual async Task<ResponseResult> UpdateAsync(Expression<Func<TEntity, bool>> predicate, TEntity entity)
+    public virtual async Task<TEntity> UpdateAsync(Expression<Func<TEntity, bool>> predicate, TEntity entity)
     {
         try
         {
@@ -69,19 +73,20 @@ public abstract class Repo<TEntity> where TEntity : class
             {
                 _context.Entry(result).CurrentValues.SetValues(entity);
                 await _context.SaveChangesAsync();
-                return ResponseFactory.Ok(result);
+                return entity;
             }
 
-            return ResponseFactory.NotFound();
-
+            Console.WriteLine($"Error occurred while trying to get the entity: 404 - Entity not found");
+            return null!;
         }
         catch (Exception ex) 
         {
-            return ResponseFactory.Error(ex.Message);
+            Console.WriteLine($"Error occurred while trying to update the entity: {ex.Message}");
+            return null!;
         }
     }
 
-    public virtual async Task<ResponseResult> DeleteAsync(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<TEntity> DeleteAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
@@ -90,33 +95,35 @@ public abstract class Repo<TEntity> where TEntity : class
             {
                 _context.Set<TEntity>().Remove(result);
                 await _context.SaveChangesAsync();
-                return ResponseFactory.Ok(result);
+                return result;
             }
 
-            return ResponseFactory.NotFound();
+            Console.WriteLine($"Error occurred while trying to get the entity: 404 - Entity not found");
+            return null!;
 
         }
         catch (Exception ex) 
         {
-            return ResponseFactory.Error(ex.Message);
+            Console.WriteLine($"Error occurred while trying to delete the entity: {ex.Message}");
+            return null!;
         }
     }
 
-    public virtual async Task<ResponseResult> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
+    public virtual async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate)
     {
         try
         {
             var result = await _context.Set<TEntity>().AnyAsync(predicate);
             if (result == true)
             {
-                return ResponseFactory.Exists();
+                return true;
             }
-            return ResponseFactory.NotFound();
+            return false;
         }   
         catch (Exception ex)
         {
-            return ResponseFactory.Error(ex.Message);
+            Console.WriteLine($"Error occurred while trying to delete the entity: {ex.Message}");
+            return false;
         }
     }
-
 }

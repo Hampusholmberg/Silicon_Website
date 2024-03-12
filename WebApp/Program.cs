@@ -30,12 +30,19 @@ builder.Services.AddScoped<UserProfileRepository>();
 builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<AddressService>();
 
-builder.Services.AddAuthentication().AddFacebook(x =>
+builder.Services.AddAuthentication().AddFacebook(x => 
 {
-    x.AppId = "1207900177254117";
-    x.AppSecret = "98b127990b849526db855cb51fdd4364";
-    x.Fields.Add("first_name");
-    x.Fields.Add("last_name");
+    x.AppId = "269272056121983";
+    x.AppSecret = "624813c34c7cd0e486bedfb27d6f9b29";
+    //x.Fields.Add("first_name");
+    //x.Fields.Add("last_name");
+    //x.Fields.Add("email"); 
+});
+
+builder.Services.AddAuthentication().AddGoogle(x =>
+{
+    x.ClientId = "Authentication:Google:ClientId";
+    x.ClientSecret = "Authentication:Google:ClientSecret";
 });
 
 var app = builder.Build();
@@ -46,7 +53,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-//app.UseAuthentication();
+app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
