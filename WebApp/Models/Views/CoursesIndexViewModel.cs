@@ -8,6 +8,5 @@ public class CoursesIndexViewModel
 {
     public string Title { get; set; } = "";
     public List<CourseViewModel> Courses { get; set; } = null!;
-    public ApplicationUser User { get; set; } = null!;
     public AccountViewModel Account { get; set; } = null!;
 }

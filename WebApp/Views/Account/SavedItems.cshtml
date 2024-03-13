@@ -8,21 +8,28 @@
 
         <div class="account-courses">
             
-            <h1>Saved Items</h1>
+            @if (Model.SavedCourses?.Count == 0 || Model.SavedCourses == null)
+            {
+                <h1>Saved Items</h1>
+            }
+            else
+            {
+                <h1>Saved Items</h1>
 
-            <button class="btn-delete-all"><i class="fa-regular fa-trash-can"></i> Delete all</button>
+                <a class="btn-delete-all" asp-action="RemoveAllCourses" asp-controller="Account">
+                    <i class="fa-regular fa-trash-can"></i> Delete all
+                </a>
 
-            <div class="grid">
-                @if (Model != null!)
-                {
-                    foreach (var course in Model.SavedCourses)
+                <div class="grid">
+                    @if (Model != null!)
                     {
-                        @await Html.PartialAsync("~/Views/Account/Components/_CourseBoxPartial.cshtml", course)
-
+                        foreach (var course in Model.SavedCourses)
+                        {
+                            @await Html.PartialAsync("~/Views/Account/Components/_CourseBoxPartial.cshtml", course)
+                        }
                     }
-                }
-            </div>
-           
+                </div>
+            }
         </div>
 
     </div>

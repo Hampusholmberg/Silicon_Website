@@ -2,9 +2,9 @@
 
 <div class="course-box">
 
-    <a class="save-course-btn" asp-action="SaveCourse" asp-controller="Account" asp-route-id="@Model.Id">
-        <i class="fa-regular fa-bookmark"></i>
-    </a>
+    <a class="save-course-btn" asp-action="SaveOrRemoveCourse" asp-controller="Account" asp-route-id="@Model.Id">
+            <i class="fa-solid fa-bookmark"></i>
+        </a>
 
     <a class="content-box" asp-controller="Courses" asp-action="Details" asp-route-id="@Model.Id">
 

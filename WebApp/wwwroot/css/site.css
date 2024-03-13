@@ -499,13 +499,22 @@ a:hover {
   box-sizing: border-box;
 }
 .course-box .save-course-btn {
+  background-color: white;
   position: absolute;
   right: 12%;
   top: 1rem;
   border-radius: 999px;
   height: 3rem;
   width: 3rem;
-  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.course-box .save-course-btn i {
+  color: #33354D;
+}
+.course-box .save-course-btn:hover i {
+  color: #6366F1;
 }
 @media (min-width: 768px) {
   .course-box .save-course-btn {
@@ -1741,6 +1750,7 @@ footer .container .social-media {
   .account-saved-items .container {
     display: grid;
     grid-template-columns: auto 1fr;
+    align-items: start;
   }
   .account-saved-items .container .account-menu {
     align-self: start;
@@ -1765,13 +1775,13 @@ footer .container .social-media {
 .account-saved-items .container .account-courses h1 {
   grid-area: header;
 }
-.account-saved-items .container .account-courses button {
+.account-saved-items .container .account-courses .btn-delete-all {
   grid-area: button;
   width: 147px;
   align-self: center;
 }
 @media (min-width: 992px) {
-  .account-saved-items .container .account-courses button {
+  .account-saved-items .container .account-courses .btn-delete-all {
     justify-self: end;
   }
 }

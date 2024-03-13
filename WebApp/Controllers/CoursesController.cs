@@ -3,7 +3,6 @@ using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models.Components;
@@ -16,13 +15,15 @@ namespace WebApp.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly UserProfileRepository _userProfileRepository;
+        private readonly UserProfileService _userProfileService;
         private readonly CourseService _courseService;
         private readonly CourseRepository _courseRepository;
 
-        public CoursesController(UserManager<ApplicationUser> userManager, UserProfileRepository userProfileRepository, CourseService courseService, CourseRepository courseRepository)
+        public CoursesController(UserManager<ApplicationUser> userManager, UserProfileRepository userProfileRepository, UserProfileService userProfileService, CourseService courseService, CourseRepository courseRepository)
         {
             _userManager = userManager;
             _userProfileRepository = userProfileRepository;
+            _userProfileService = userProfileService;
             _courseService = courseService;
             _courseRepository = courseRepository;
         }
@@ -74,26 +75,28 @@ namespace WebApp.Controllers
         {
             await _courseService.RunAsync();
 
-            List<CourseEntity> coursesEntities = await _courseRepository.GetAllAsync();
-            List<CourseViewModel> courses = coursesEntities.Select(course => (CourseViewModel)course).ToList();
+            List<CourseViewModel> courses = (await _courseRepository.GetAllAsync())
+                .Select(course => (CourseViewModel)course)
+                .ToList();
+            var userCourses = await _courseService.GetSavedCoursesAsync(User);
+            var user = await _userProfileService.GetLoggedInUserAsync(User);
 
-
-            var user = await _userManager.GetUserAsync(User);
-            if (user != null)
+            foreach (var course in courses)
             {
-                var userProfile = await _userProfileRepository.GetOneAsync(x => x.Email == user.Email);
-                user.UserProfile = userProfile;
+                var result = user.UserProfile.SavedItems?.Any(x => x.CourseId == course.Id);
+                if (result == true)
+                {
+                    course.IsSaved = true;
+                }
             }
 
             var viewModel = new CoursesIndexViewModel
             {
                 Courses = courses,
                 Title = "Courses",
-                User = user!
             };
 
             ViewData["Title"] = viewModel.Title;
-
             return View(viewModel);
         }
 
@@ -111,7 +114,7 @@ namespace WebApp.Controllers
         {
             if (course != null)
             {
-                var result = await _courseService.SaveCourseAsync(course.Id, User);
+                var result = await _courseService.SaveOrRemoveCourseAsync(course.Id, User);
             }
 
             return RedirectToAction("Index", "Courses");

@@ -2,6 +2,7 @@
 using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using System.Security.Claims;
 
 namespace Infrastructure.Services;
@@ -132,7 +133,7 @@ public class CourseService
     }
 
 
-    public async Task<bool> SaveCourseAsync(int id, ClaimsPrincipal loggedInUser)
+    public async Task<bool> SaveOrRemoveCourseAsync(int id, ClaimsPrincipal loggedInUser)
     {
         var user = await _userProfileService.GetLoggedInUserAsync(loggedInUser);
         if (user != null)
@@ -157,7 +158,38 @@ public class CourseService
             }
         }
 
-        return false; 
+        return false;
     }
 
+    public async Task<List<SavedCoursesEntity>> GetSavedCoursesAsync(ClaimsPrincipal loggedInUser)
+    {
+        var user = await _userProfileService.GetLoggedInUserAsync(loggedInUser);
+
+        if (user != null)
+        {
+            List<SavedCoursesEntity> savedCourses = [];
+
+            foreach (var savedItem in user.UserProfile.SavedItems!)
+            {
+                savedCourses.Add(savedItem);
+            }
+            return savedCourses;
+        }
+
+        Console.WriteLine("error");
+        return null!;
+    }
+
+    public async Task RemoveAllCoursesAssociatedWithUserAsync(ClaimsPrincipal loggedInUser)
+    {
+        var user = await _userProfileService.GetLoggedInUserAsync(loggedInUser);
+
+        if (user.UserProfile.SavedItems != null)
+        {
+            foreach (var userCourse in user.UserProfile.SavedItems)
+            {
+                await _savedCoursesRepository.DeleteAsync(x => x.CourseId == userCourse.CourseId && x.UserProfileId == userCourse.UserProfileId);
+            }
+        }
+    }
 }

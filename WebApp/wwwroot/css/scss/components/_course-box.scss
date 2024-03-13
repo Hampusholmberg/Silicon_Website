@@ -5,13 +5,29 @@
     box-sizing: border-box;
 
     .save-course-btn {
+        background-color: white;
         position: absolute;
         right: 12%;
         top: 1rem;
         border-radius: 999px;
         height: 3rem;
         width: 3rem;
-        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+            color: $gray-800;
+        }
+
+        &:hover {
+
+            i {
+                color: $theme;
+            }
+        }
+
+
 
         @include md {
             right: 10%;

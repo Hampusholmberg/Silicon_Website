@@ -96,36 +96,40 @@ namespace WebApp.Controllers
         [Route("/account/SavedItems")]
         public async Task<IActionResult> SavedItems()
         {
-            List<CourseEntity> coursesEntities = await _courseRepository.GetAllAsync();
-            List<CourseViewModel> courses = coursesEntities.Select(course => (CourseViewModel)course).ToList();
-
-            var user = await _userProfileService.GetLoggedInUserAsync(User);
-            
+            List<CourseViewModel> courses = (await _courseRepository.GetAllAsync())
+                .Select(course => (CourseViewModel)course)
+                .ToList();
+            var userCourses = await _courseService.GetSavedCoursesAsync(User);
 
             List<CourseViewModel> coursesToDisplay = [];
             foreach (var course in courses)
             {
-                var exists = await _savedCoursesRepository.ExistsAsync(x => x.CourseId == course.Id && x.UserProfileId == user.UserProfile.Id);
-                if (exists)
+                var result = userCourses.Any(x => x.CourseId == course.Id);
+                if (result)
                 {
                     coursesToDisplay.Add(course);
                 }
             }
 
             AccountViewModel viewModel = await _userProfileService.GetLoggedInUserAsync(User);
-
             viewModel.SavedCourses = coursesToDisplay;
 
             return View(viewModel);
         }
 
-        public async Task<IActionResult> SaveCourse(CourseViewModel course)
+        public async Task<IActionResult> SaveOrRemoveCourse(CourseViewModel course)
         {
             if (course != null)
             {
-                var result = await _courseService.SaveCourseAsync(course.Id, User);
+                var result = await _courseService.SaveOrRemoveCourseAsync(course.Id, User);
             }
 
+            return RedirectToAction("SavedItems", "Account");
+        }
+
+        public async Task<IActionResult> RemoveAllCourses()
+        {
+            await _courseService.RemoveAllCoursesAssociatedWithUserAsync(User);
             return RedirectToAction("SavedItems", "Account");
         }
 

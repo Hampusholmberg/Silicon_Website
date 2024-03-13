@@ -13,6 +13,7 @@ public class CourseViewModel
     public int HoursToComplete { get; set; }
     public int? LikesPercentage { get; set; }
     public string? LikesAmount { get; set; }
+    public bool IsSaved { get; set; } = false;
     public AuthorViewModel CourseAuthor { get; set; } = null!;
     public ImageViewModel Image { get; set; } = new ImageViewModel();
     public List<CourseViewModel>? Courses { get; set; }
@@ -20,7 +21,6 @@ public class CourseViewModel
 
     public static implicit operator CourseViewModel(CourseEntity Course)
     {
-
         return new CourseViewModel
         {
             Id = Course.Id,

@@ -8,6 +8,7 @@
         @include lg {
             display: grid;
             grid-template-columns: auto 1fr;
+            align-items: start;
 
             .account-menu {
                 align-self: start;
@@ -40,7 +41,7 @@
                 }
             }
 
-            button {
+            .btn-delete-all {
                 grid-area: button;
                 width: 147px;
                 align-self: center;
@@ -54,7 +55,6 @@
             }
 
             .grid {
-
                 @include md {
                     grid-area: grid;
                     display: flex;
