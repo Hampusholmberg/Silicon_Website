@@ -34,15 +34,12 @@ builder.Services.AddAuthentication().AddFacebook(x =>
 {
     x.AppId = "269272056121983";
     x.AppSecret = "624813c34c7cd0e486bedfb27d6f9b29";
-    //x.Fields.Add("first_name");
-    //x.Fields.Add("last_name");
-    //x.Fields.Add("email"); 
 });
 
 builder.Services.AddAuthentication().AddGoogle(x =>
 {
-    x.ClientId = "Authentication:Google:ClientId";
-    x.ClientSecret = "Authentication:Google:ClientSecret";
+    x.ClientId = "1047036215054-r8sdc3bphqdgt3aqbmp590c241t48ckd.apps.googleusercontent.com";
+    x.ClientSecret = "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";
 });
 
 var app = builder.Build();
@@ -53,7 +50,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-app.UseAuthentication();
+//app.UseAuthentication();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

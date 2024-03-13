@@ -147,10 +147,10 @@ public class AuthController : Controller
 
 
 
-                    ProfilePicture = new ProfilePictureEntity
-                    {
-                        //ImageUrl = info.Principal.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture") ?? ""
-                    },
+                    //ProfilePicture = new ProfilePictureEntity
+                    //{
+                    //    //ImageUrl = info.Principal.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture") ?? ""
+                    //},
                     Address = new AddressEntity
                     {
                         AddressLine1 = info.Principal.FindFirstValue(ClaimTypes.StreetAddress),
@@ -194,6 +194,98 @@ public class AuthController : Controller
                 await _signInManager.SignInAsync(siliconUser, isPersistent: false);
                 return RedirectToAction("AccountDetails", "Account");
 
+            }
+        }
+        return View();
+    }
+    #endregion
+
+
+    #region Google sign in
+    [HttpGet]
+    public IActionResult Google()
+    {
+        var authProps = _signInManager.ConfigureExternalAuthenticationProperties("Google", Url.Action("GoogleCallback"));
+        return new ChallengeResult("Google", authProps);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GoogleCallback()
+    {
+        var info = await _signInManager.GetExternalLoginInfoAsync();
+
+        string profilePictureUrl = null;
+        foreach (var claim in info.Principal.Claims)
+        {
+            Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
+            if (claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture")
+            {
+                profilePictureUrl = claim.Value;
+                break; // Stop searching after finding the profile picture claim
+            }
+        }
+
+        if (info != null!)
+        {
+            var googleUser = new ApplicationUser
+            {
+                FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!,
+                LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
+                Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+                UserName = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+
+                UserProfile = new UserProfileEntity
+                {
+                    FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!,
+                    LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
+                    Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
+
+                    //ProfilePicture = new ProfilePictureEntity
+                    //{
+                    //    //ImageUrl = info.Principal.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture") ?? ""
+                    //},
+
+                    Address = new AddressEntity
+                    {
+                        AddressLine1 = info.Principal.FindFirstValue(ClaimTypes.StreetAddress),
+                        PostalCode = info.Principal.FindFirstValue(ClaimTypes.PostalCode),
+                        City = info.Principal.FindFirstValue(ClaimTypes.Locality),
+                    }
+                }
+            };
+
+            var siliconUser = await _userManager.FindByEmailAsync(googleUser.Email);
+
+            if (siliconUser == null)
+            {
+                var result = await _userManager.CreateAsync(googleUser);
+
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(googleUser, isPersistent: false);
+                    return RedirectToAction("AccountDetails", "Account");
+                }
+            }
+
+            if (siliconUser != null)
+            {
+                var userProfile = await _userProfileRepository.GetOneAsync(x => x.Email == siliconUser.Email);
+
+
+                if (googleUser.FirstName != siliconUser.FirstName || googleUser.LastName != siliconUser.LastName || googleUser.Email != siliconUser.Email)
+                {
+                    siliconUser.FirstName = googleUser.FirstName;
+                    siliconUser.LastName = googleUser.LastName;
+                    siliconUser.Email = googleUser.Email;
+
+                    siliconUser.UserProfile.FirstName = googleUser.FirstName;
+                    siliconUser.UserProfile.LastName = googleUser.LastName;
+                    siliconUser.UserProfile.Email = googleUser.Email;
+
+                    await _userManager.UpdateAsync(siliconUser);
+                }
+                await _signInManager.SignInAsync(siliconUser, isPersistent: false);
+                return RedirectToAction("AccountDetails", "Account");
             }
         }
 

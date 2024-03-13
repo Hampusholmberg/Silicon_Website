@@ -181,6 +181,50 @@ h6, .h6 {
   grid-template-rows: auto 1fr auto;
 }
 
+.dark {
+  background-color: #0B0F19;
+  color: #FFFFFF;
+}
+.dark .features, .dark .download-our-app, .dark .newsletter, .dark .contact {
+  background-color: #151822;
+}
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark h7, .dark h8, .dark a, .dark i {
+  color: #FFFFFF;
+}
+.dark p, .dark label {
+  color: #9397AD;
+}
+.dark .btn-gray {
+  background-color: #171b25;
+  color: #D4D7E5;
+}
+.dark .btn-gray i {
+  color: #D4D7E5;
+}
+.dark input, .dark select, .dark textarea {
+  background-color: #1a1d26;
+  border: 1px solid #43464d;
+  color: #FFFFFF;
+}
+.dark .features .img-div {
+  background-color: #1E212B;
+}
+.dark .newsletter i {
+  color: #43464d;
+}
+.dark .account-menu {
+  border-right: 1px solid #33354D;
+}
+.dark #account-details-basic-info-form {
+  border-bottom: 1px solid #33354D;
+}
+.dark #contact-form {
+  background-color: #0B0F19 !important;
+}
+.dark footer a {
+  background-color: #171b25;
+}
+
 a {
   line-height: 160%;
   font-weight: 400;
@@ -699,6 +743,19 @@ footer .container .social-media {
   padding: 20px;
   border: 1px solid #E2E5F1;
   transition: all 0.15s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.features .container .tool-features .box .img-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 72px;
+  width: 72px;
+  border-radius: 7px;
+  margin-bottom: 1rem;
 }
 @media (min-width: 992px) {
   .features .container .tool-features .box:nth-child(1) {
@@ -1588,6 +1645,7 @@ footer .container .social-media {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 .account-menu .account-details .img-div img {
   width: auto;

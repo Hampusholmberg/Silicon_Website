@@ -13,7 +13,10 @@
                 foreach(var feature in Model.Features)
                 {
                     <div class="box">
-                        <img src="@feature.FeatureImage.ImageUrl" alt="@feature.FeatureImage.AltText" />
+                        <div class="img-div">
+                            <img src="@feature.FeatureImage.ImageUrl" alt="@feature.FeatureImage.AltText" />
+                        </div>
+
                         <h5>@feature.FeatureTitle</h5>
                         <p>@feature.FeatureDescription</p>
                     </div>
