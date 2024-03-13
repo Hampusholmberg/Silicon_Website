@@ -30,11 +30,11 @@ public abstract class Repo<TEntity> where TEntity : class
         }
     }
 
-    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
+    public virtual async Task<List<TEntity>> GetAllAsync()
     {
         try
         {
-            IEnumerable<TEntity> result = await _context.Set<TEntity>().ToListAsync();
+            List<TEntity> result = await _context.Set<TEntity>().ToListAsync();
             return result;
         }
         catch (Exception ex) 

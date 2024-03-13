@@ -15,11 +15,11 @@ public class UserProfileRepository : Repo<UserProfileEntity>
         _context = context;
     }
 
-    public override async Task<IEnumerable<UserProfileEntity>> GetAllAsync()
+    public override async Task<List<UserProfileEntity>> GetAllAsync()
     {
         try
         {
-            IEnumerable<UserProfileEntity> result = await _context.UserProfiles
+            List<UserProfileEntity> result = await _context.UserProfiles
                 .Include(x => x.Address)
                 //.Include(x => x.SavedItems)
                 .Include(x => x.ProfilePicture)               
@@ -47,7 +47,6 @@ public class UserProfileRepository : Repo<UserProfileEntity>
                 Console.WriteLine($"Error occurred while trying to get the entity: 404 - Entity not found");
                 return null!;
             }
-
 
             return result;
         }

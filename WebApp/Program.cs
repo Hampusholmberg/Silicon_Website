@@ -27,8 +27,13 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(x =>
 builder.Services.AddScoped<AddressRepository>();
 builder.Services.AddScoped<ProfilePictureRepository>();
 builder.Services.AddScoped<UserProfileRepository>();
+builder.Services.AddScoped<CourseRepository>();
+builder.Services.AddScoped<CourseAuthorRepository>();
+builder.Services.AddScoped<SavedCoursesRepository>();
+
 builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<AddressService>();
+builder.Services.AddScoped<CourseService>();
 
 builder.Services.AddAuthentication().AddFacebook(x => 
 {

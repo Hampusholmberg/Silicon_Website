@@ -51,6 +51,127 @@ namespace Infrastructure.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.CourseAuthorEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FacebookFollowersQty")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YoutubeFollowersQty")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("CourseAuthors");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.CourseAuthorImageEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AltText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseAuthorImages");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseAuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HoursToComplete")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ingress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LikesAmount")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LikesPercentage")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("ImageId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.CourseImageEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AltText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseImages");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.ProfilePictureEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -68,6 +189,24 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProfilePictures");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.SavedCoursesEntity", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserProfileId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserProfileEntityId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CourseId", "UserProfileId");
+
+                    b.HasIndex("UserProfileEntityId");
+
+                    b.ToTable("SavedCourses");
                 });
 
             modelBuilder.Entity("Infrastructure.Entities.UserProfileEntity", b =>
@@ -324,6 +463,43 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.CourseAuthorEntity", b =>
+                {
+                    b.HasOne("Infrastructure.Entities.CourseAuthorImageEntity", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
+                {
+                    b.HasOne("Infrastructure.Entities.CourseAuthorEntity", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Entities.CourseImageEntity", "Image")
+                        .WithMany()
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Image");
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.SavedCoursesEntity", b =>
+                {
+                    b.HasOne("Infrastructure.Entities.UserProfileEntity", null)
+                        .WithMany("SavedItems")
+                        .HasForeignKey("UserProfileEntityId");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.UserProfileEntity", b =>
                 {
                     b.HasOne("Infrastructure.Entities.AddressEntity", "Address")
@@ -396,6 +572,11 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Infrastructure.Entities.UserProfileEntity", b =>
+                {
+                    b.Navigation("SavedItems");
                 });
 
             modelBuilder.Entity("Infrastructure.Models.ApplicationUser", b =>

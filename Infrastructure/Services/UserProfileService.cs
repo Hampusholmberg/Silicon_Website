@@ -29,6 +29,7 @@ public class UserProfileService
                 .Include(x => x.UserProfile)
                 .Include(x => x.UserProfile.Address)
                 .Include(x => x.UserProfile.ProfilePicture)
+                .Include(x => x.UserProfile.SavedItems)
                 .FirstOrDefaultAsync(x => x.Email == user.Identity.Name);
 
             if ( loggedInUser != null! )

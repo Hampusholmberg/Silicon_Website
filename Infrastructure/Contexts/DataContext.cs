@@ -3,7 +3,6 @@ using Infrastructure.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Contexts;
 
@@ -14,8 +13,13 @@ public partial class DataContext : IdentityDbContext<ApplicationUser>
     }
 
     public DbSet<AddressEntity> Addresses { get; set; }
+    public DbSet<CourseEntity> Courses { get; set; }
+    public DbSet<CourseImageEntity> CourseImages { get; set; }
+    public DbSet<CourseAuthorEntity> CourseAuthors { get; set; }
+    public DbSet<CourseAuthorImageEntity> CourseAuthorImages { get; set; }
     public DbSet<ProfilePictureEntity> ProfilePictures { get; set; }
     public DbSet<UserProfileEntity> UserProfiles { get; set; }
+    public DbSet<SavedCoursesEntity> SavedCourses { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -26,6 +30,10 @@ public partial class DataContext : IdentityDbContext<ApplicationUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        //Composite Key
+        modelBuilder.Entity<SavedCoursesEntity>()
+            .HasKey(x => new { x.CourseId, x.UserProfileId });
 
 
         //Unique indexes

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Infrastructure.Models;
 using WebApp.Models.Forms;
 using Infrastructure.Services;
-using Microsoft.IdentityModel.Tokens;
+using Infrastructure.Repositories;
 
 namespace WebApp.Controllers
 {
@@ -17,15 +17,20 @@ namespace WebApp.Controllers
         private readonly UserProfileService _userProfileService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly CourseRepository _courseRepository;
+        private readonly SavedCoursesRepository _savedCoursesRepository;
+        private readonly CourseService _courseService;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, UserProfileService userProfileService, AddressService addressService)
+        public AccountController(AddressService addressService, UserProfileService userProfileService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, CourseRepository courseRepository, SavedCoursesRepository savedCoursesRepository, CourseService courseService)
         {
+            _addressService = addressService;
+            _userProfileService = userProfileService;
             _userManager = userManager;
             _signInManager = signInManager;
-            _userProfileService = userProfileService;
-            _addressService = addressService;
+            _courseRepository = courseRepository;
+            _savedCoursesRepository = savedCoursesRepository;
+            _courseService = courseService;
         }
-
 
         [HttpGet]
         [Route("/account-details")]
@@ -88,57 +93,40 @@ namespace WebApp.Controllers
         }
 
 
-
-
-        [Route("/account-saved-items")]
+        [Route("/account/SavedItems")]
         public async Task<IActionResult> SavedItems()
         {
+            List<CourseEntity> coursesEntities = await _courseRepository.GetAllAsync();
+            List<CourseViewModel> courses = coursesEntities.Select(course => (CourseViewModel)course).ToList();
+
+            var user = await _userProfileService.GetLoggedInUserAsync(User);
+            
+
+            List<CourseViewModel> coursesToDisplay = [];
+            foreach (var course in courses)
+            {
+                var exists = await _savedCoursesRepository.ExistsAsync(x => x.CourseId == course.Id && x.UserProfileId == user.UserProfile.Id);
+                if (exists)
+                {
+                    coursesToDisplay.Add(course);
+                }
+            }
+
             AccountViewModel viewModel = await _userProfileService.GetLoggedInUserAsync(User);
 
-            viewModel.SavedCourses = new List<CourseViewModel>
-            {
-                new ()
-                {
-                    Id = 1,
-                    CourseName = "Fullstack Web Developer Course from Scratch",
-                    CourseDescription ="Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                    CourseIngress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-                    Price = 12.50m,
-                    HoursToComplete = 220,
-                    LikesPercentage = 94,
-                    LikesAmount = 4.2m,
-                    Image = new () { ImageUrl = "/images/courses/fullstack-course.png", AltText = ""},
-                    CourseAuthor = new() { Id = 1, Name = "Albert Flores", Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.", YoutubeFollowersQty = 240, FacebookFollowersQty = 180, Image = new () { ImageUrl = "/images/people/albert-flores.png", AltText="" } },
-                },
-                new ()
-                {
-                    Id = 2,
-                    CourseName = "HTML, CSS, JavaScript Web Developer",
-                    CourseDescription ="Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                    CourseIngress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-                    Price = 15.99m,
-                    HoursToComplete = 160,
-                    LikesPercentage = 92,
-                    LikesAmount = 3.1m,
-                    Image = new () { ImageUrl = "/images/courses/frontend-course.png", AltText = ""},
-                    CourseAuthor = new() { Id = 1, Name = "Jenny Wilson & Marvin McKinney", Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.", YoutubeFollowersQty = 240, FacebookFollowersQty = 180, Image = new () { ImageUrl = "/images/people/albert-flores.png", AltText="" } },
-                },
-                new ()
-                {
-                    Id = 3,
-                    CourseName = "The Complete Front-End Web Development Course",
-                    CourseDescription ="Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                    CourseIngress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-                    Price = 9.99m,
-                    HoursToComplete = 100,
-                    LikesPercentage = 98,
-                    LikesAmount = 2.7m,
-                    Image = new () { ImageUrl = "/images/courses/webdev-course.png", AltText = ""},
-                    CourseAuthor = new() { Id = 1, Name = "Albert Flores", Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.", YoutubeFollowersQty = 240, FacebookFollowersQty = 180, Image = new () { ImageUrl = "/images/people/albert-flores.png", AltText="" } },
-                },
-            };
+            viewModel.SavedCourses = coursesToDisplay;
 
             return View(viewModel);
+        }
+
+        public async Task<IActionResult> SaveCourse(CourseViewModel course)
+        {
+            if (course != null)
+            {
+                var result = await _courseService.SaveCourseAsync(course.Id, User);
+            }
+
+            return RedirectToAction("SavedItems", "Account");
         }
 
 
@@ -148,7 +136,6 @@ namespace WebApp.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
 
 
         [Route("/account-security")]
