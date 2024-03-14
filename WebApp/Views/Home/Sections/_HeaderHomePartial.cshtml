@@ -6,7 +6,8 @@
 
         @if (SignInManager.IsSignedIn(User))
         {
-            <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img src="~/images/silicone-logo-light_theme.svg" /></a>
+            @* <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img id="silicon-logo-img" src="~/images/silicone-logo-light_theme.svg" /></a> *@
+            <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img id="silicon-logo-img"/></a>
 
             <div id="navigation" class="navigation hidden">
                 <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>
@@ -51,7 +52,7 @@
         }
         else
         {
-            <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img src="~/images/silicone-logo-light_theme.svg" /></a>
+            <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img id="silicon-logo-img" src="~/images/silicone-logo-light_theme.svg" /></a>
 
             <div id="navigation" class="navigation hidden">
                 <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>

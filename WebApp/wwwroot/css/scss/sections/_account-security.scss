@@ -49,48 +49,64 @@
                 }
             }
 
-            form {
+            #account-security-change-password-form {
                 display: flex;
                 flex-direction: column;
                 gap: 1rem;
+                align-items: center;
 
+                @include lg {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-areas: "cp vac1" "np cnp" "btn vac2";
+                    gap: 1rem;
+
+
+                    .input-div {
+
+                        &:nth-child(1) {
+                            grid-area: cp;
+                        }
+
+                        &:nth-child(2) {
+                            grid-area: np;
+                        }
+
+                        &:nth-child(3) {
+                            grid-area: cnp;
+                        }
+                    }
+
+                    .buttons {
+                        grid-area: btn;
+                    }
+                }
 
 
                 .buttons {
+                    grid-area: btn;
                     display: flex;
                     gap: 1rem;
                 }
             }
+
+            #account-security-delete-account-form {
+                
+                
+                a {
+                    max-width: 100px;
+                }
+            }
+        }
+
+        .delete-account {
+            p {
+                color: $gray-700;
+            }
+
+            .h4 {
+                color: $theme !important;
+            }
         }
     }
 }
-
-
-/*#account-details-basic-info-form {
-    border-bottom: 1px solid $gray-300;
-
-    @include lg {
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "firstname lastname" "email phone" "bio bio" "buttons e";
-
-
-        .bio-textarea {
-            grid-area: bio;
-        }
-
-        .buttons {
-            grid-area: buttons;
-        }
-    }
-}
-
-#account-details-address-form {
-    @include lg {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-    }
-}*/

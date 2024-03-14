@@ -56,11 +56,31 @@
         background-color: $gray-900 !important;
     }
 
+    .courses-grid, .account-saved-items {
+        .content-box {
+            background-color: #151822;
+        }
+    }
 
+    .work-for-us {
+        .container {
+            background-color: #151822;
+        }
+    }
 
+    .delete-account {
+        p {
+            color: $white !important;
+        }
+    }
 
-
-
+    header {
+        #btn-switch {
+            label {
+                color: $gray-500;
+            }
+        }
+    }
 
     footer {
         a {
