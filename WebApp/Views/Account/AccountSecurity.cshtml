@@ -1,10 +1,10 @@
-﻿@model AccountViewModel
+﻿@model AccountSecurityViewModel
 
 <sections class="account-security">
 
     <div class="container">
 
-        @await Html.PartialAsync("~/views/account/sections/_AccountMenuPartial.cshtml", Model)
+        @await Html.PartialAsync("~/views/account/sections/_AccountMenuPartial.cshtml", Model.LoggedInUser)
 
         <div class="account-details-forms">
 
@@ -12,24 +12,24 @@
 
             <p class="h4"> Password</p>
 
-            <form id="account-security-change-password-form">
+            <form id="account-security-change-password-form" method="post" asp-action="ChangePassword" asp-controller="Account">
 
                 <div class="input-div">
-                    <label >Current Password</label>
-                    <input type="password"  />
-                    <span ></span>
+                    <label asp-for=@Model.PasswordForm.CurrentPassword> </label>
+                    <input asp-for=@Model.PasswordForm.CurrentPassword />
+                    <span asp-validation-for=PasswordForm.CurrentPassword ></span>
                 </div>
 
                 <div class="input-div">
-                    <label >New password</label>
-                    <input />
-                    <span ></span>
+                    <label asp-for=@Model.PasswordForm.NewPassword> </label>
+                    <input asp-for=@Model.PasswordForm.NewPassword />
+                    <span asp-validation-for=@Model.PasswordForm.NewPassword></span>
                 </div>
 
                 <div class="input-div">
-                    <label>Confirm new password</label>
-                    <input />
-                    <span></span>
+                    <label asp-for=@Model.PasswordForm.ConfirmPassword> </label>
+                    <input asp-for=@Model.PasswordForm.ConfirmPassword />
+                    <span asp-validation-for=@Model.PasswordForm.ConfirmPassword></span>
                 </div>
 
                 <div class="buttons">
@@ -42,16 +42,19 @@
             <div class="delete-account">
                 <p class="h4">Delete account</p>
                 <p>When you delete your account, your public profile will be deactivated immediately. If you change your mind before the 14 days are up, sign in with your email and password, and we’ll send you a link to reactivate your account.</p>
-                <form id="account-security-delete-account-form" method="post">
-                    <input type="checkbox" />
-                    <label>Yes, I want to delete my account.</label>
-                    <a asp-action="DeleteAccount" asp-controller="Account" class="btn-delete">
+                
+                <form id="account-security-delete-account-form" method="post" asp-action="DeleteAccount" asp-controller="Account">
+                    <div class="checkbox-div">
+                        <input type="checkbox" asp-for=@Model.DeleteAccountForm.TermsAndConditions />
+                        <label asp-for=@Model.DeleteAccountForm.TermsAndConditions></label>
+                    </div>
+
+                    <button type="submit" class="btn-delete">
                         Delete
-                    </a>
+                    </button>
                 </form>
 
             </div>
-
 
         </div>
 

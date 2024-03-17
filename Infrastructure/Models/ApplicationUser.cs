@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace Infrastructure.Models;
 
 public class ApplicationUser : IdentityUser
@@ -20,4 +21,6 @@ public class ApplicationUser : IdentityUser
 
 
     public virtual UserProfileEntity UserProfile { get; set; }
+
+
 }

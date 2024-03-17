@@ -97,7 +97,7 @@ public class AuthController : Controller
 
         if (ModelState.IsValid)
         {
-            var result = await _signInManager.PasswordSignInAsync(viewModel.Form.Email, viewModel.Form.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(viewModel.Form.Email, viewModel.Form.Password, viewModel.Form.RememberMe, false);
 
             if (result.Succeeded)
                 return RedirectToAction("AccountDetails", "Account");
@@ -221,7 +221,7 @@ public class AuthController : Controller
             if (claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture")
             {
                 profilePictureUrl = claim.Value;
-                break; // Stop searching after finding the profile picture claim
+                break;
             }
         }
 

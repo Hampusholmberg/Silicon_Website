@@ -30,9 +30,15 @@
                 width: 80%;
             }
 
+            .checkbox-div {
+                display: flex;
+                align-items: center;
+                gap: .6rem;
+            }
+                
             .input-div {
                 display: grid;
-                grid-template-columns: auto ;
+                grid-template-columns: auto;
                 grid-template-areas: "label " "input " "span ";
 
                 @include md {

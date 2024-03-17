@@ -7,6 +7,8 @@ using Infrastructure.Models;
 using WebApp.Models.Forms;
 using Infrastructure.Services;
 using Infrastructure.Repositories;
+using WebApp.Models.Views;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Manage.Internal;
 
 namespace WebApp.Controllers
 {
@@ -142,31 +144,68 @@ namespace WebApp.Controllers
         }
 
 
+        //[Route("/account-security")]
+        //public async Task<IActionResult> AccountSecurity()
+        //{
+        //    if (_signInManager.IsSignedIn(User))
+        //    {
+        //        AccountViewModel viewModel = await _userProfileService.GetLoggedInUserAsync(User);
+
+        //        return View(viewModel);
+        //    }
+
+        //    return View();
+        //}
+
+
         [Route("/account-security")]
         public async Task<IActionResult> AccountSecurity()
         {
             if (_signInManager.IsSignedIn(User))
             {
-                AccountViewModel viewModel = await _userProfileService.GetLoggedInUserAsync(User);
-
+                AccountSecurityViewModel viewModel = new AccountSecurityViewModel();
+                viewModel.PasswordForm = new PasswordChangeModel();
+                viewModel.LoggedInUser = await _userProfileService.GetLoggedInUserAsync(User);
                 return View(viewModel);
             }
 
             return View();
         }
 
-        public async Task<IActionResult> DeleteAccount()
+        public async Task<IActionResult> ChangePassword(AccountSecurityViewModel viewModel)
         {
-            var user = await _userProfileService.GetLoggedInUserAsync(User);
-
-            if (user != null! )
+            if (ModelState.IsValid)
             {
-                await _signInManager.SignOutAsync();
-                var result = await _userManager.DeleteAsync(user);
-                Console.WriteLine(result);
+                var user = await _userProfileService.GetLoggedInUserAsync(User);
 
+                if (user != null)
+                {
+                    var result = await _userManager.ChangePasswordAsync(user ,viewModel.PasswordForm!.CurrentPassword, viewModel.PasswordForm.NewPassword);
+                }
+                
                 return RedirectToAction("Index", "Home");
             }
+
+            return RedirectToAction("AccountSecurity", "Account");
+        }
+
+
+        public async Task<IActionResult> DeleteAccount(AccountSecurityViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userProfileService.GetLoggedInUserAsync(User);
+
+                if (user != null!)
+                {
+                    await _signInManager.SignOutAsync();
+                    var result = await _userManager.DeleteAsync(user);
+                    Console.WriteLine(result);
+
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             return RedirectToAction("AccountSecurity", "Account");
         }
     }

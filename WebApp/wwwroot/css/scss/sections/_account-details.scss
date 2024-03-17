@@ -70,9 +70,10 @@
 
 #account-details-basic-info-form {
     border-bottom: 1px solid $gray-300;
-        @include lg {
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
+    padding-bottom: 3rem;
+    margin-bottom: 2rem;
+
+    @include lg {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
