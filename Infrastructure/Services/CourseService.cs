@@ -130,6 +130,15 @@ public class CourseService
         await _courseRepository.CreateAsync(course_1);
         await _courseRepository.CreateAsync(course_2);
         await _courseRepository.CreateAsync(course_3);
+
+
+        await _courseRepository.CreateAsync(course_2);
+        await _courseRepository.CreateAsync(course_3);
+        await _courseRepository.CreateAsync(course_1);
+
+        await _courseRepository.CreateAsync(course_3);
+        await _courseRepository.CreateAsync(course_1);
+        await _courseRepository.CreateAsync(course_2);
     }
 
 

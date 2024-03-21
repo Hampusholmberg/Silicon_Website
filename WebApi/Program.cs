@@ -15,15 +15,9 @@ builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString)
 // Add services to the container.
 builder.Services.AddControllers();
 
-//builder.Services.AddScoped<AddressRepository>();
-//builder.Services.AddScoped<ProfilePictureRepository>();
-//builder.Services.AddScoped<UserProfileRepository>();
+// Repos
 builder.Services.AddScoped<CourseRepository>();
-//builder.Services.AddScoped<CourseAuthorRepository>();
-//builder.Services.AddScoped<SavedCoursesRepository>();
-//builder.Services.AddScoped<UserProfileService>();
-//builder.Services.AddScoped<AddressService>();
-//builder.Services.AddScoped<CourseService>();
+builder.Services.AddScoped<SubscriberRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -38,6 +32,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

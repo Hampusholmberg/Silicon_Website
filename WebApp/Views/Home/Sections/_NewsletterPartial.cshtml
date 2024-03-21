@@ -1,4 +1,6 @@
-﻿<section class="newsletter">
+﻿@model NewsletterModel
+
+<section class="newsletter">
 
     <div class="container">
 
@@ -10,68 +12,72 @@
 
         </div>
 
-        <div class="mid">
+        <form asp-action="Subscribe" asp-controller="Home">
+            <div class="mid">
 
-            <p class="h5">Sign up for<br/> Newsletters</p>
+                <p class="h5">Sign up for<br/> Newsletters</p>
 
-            <div class="checkboxes">
-                <div class="checkbox">
-                    <input id="checkbox-daily-newsletter" type="checkbox" />
-                    <label for="checkbox-daily-newsletter">Daily Newsletter</label>
+                <div class="checkboxes">
+                    <div class="checkbox">
+                        <input asp-for=@Model.DailyNewsletter id="checkbox-daily-newsletter" type="checkbox" />
+                        <label asp-for=@Model.DailyNewsletter> </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <input asp-for=@Model.AdvertisingUpdates id="checkbox-advertising-updates" type="checkbox" />
+                        <label asp-for=@Model.AdvertisingUpdates> </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <input asp-for=@Model.WeekInReview id ="checkbox-week-in-review" type="checkbox" />
+                        <label asp-for=@Model.WeekInReview> </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <input asp-for=@Model.EventUpdates type="checkbox" />
+                        <label asp-for=@Model.EventUpdates> </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <input asp-for=@Model.StartupsWeekly type="checkbox" />
+                        <label asp-for=@Model.StartupsWeekly> </label>
+                    </div>
+
+                    <div class="checkbox">
+                        <input asp-for=@Model.Podcasts type="checkbox" />
+                        <label asp-for=@Model.Podcasts> </label>
+                    </div>
                 </div>
 
-                <div class="checkbox">
-                    <input id="checkbox-advertising-updates" type="checkbox" />
-                    <label for="checkbox-advertising-updates">Advertising Updates</label>
-                </div>
-
-                <div class="checkbox">
-                    <input id="checkbox-week-in-review" type="checkbox" />
-                    <label for="checkbox-week-in-review">Week in Review</label>
-                </div>
-
-                <div class="checkbox">
-                    <input id="checkbox-event-updates" type="checkbox" />
-                    <label for="checkbox-event-updates">Event Updates</label>
-                </div>
-
-                <div class="checkbox">
-                    <input id="checkbox-startups-weekly" type="checkbox" />
-                    <label for="checkbox-startups-weekly">Startups Weekly</label>
-                </div>
-
-                <div class="checkbox">
-                    <input id="checkbox-podcasts" type="checkbox" />
-                    <label for="checkbox-podcasts">Podcasts</label>
-                </div>
             </div>
 
-        </div>
+            <div class="bottom">
 
-        <div class="bottom">
+                <div class="email-signup">
 
-            <form class="email-signup">
+                    <div class="registration">
 
-                <div class="registration">
+                        <div class="email-input">
 
-                    <div class="email-input">
+                            <i class="fa-regular fa-envelope"></i>
 
-                        <i class="fa-regular fa-envelope"></i>
+                            <input asp-for=@Model.Email id="email-input-newsletter" class="placeholder-icon" />
 
-                        <input id="email-input-newsletter" class="placeholder-icon" placeholder="Your Email" />
+                        </div>
+
+                        <p class="text-xs">* Yes, I agree to the terms and privacy policy.</p>
 
                     </div>
 
-                    <p class="text-xs">* Yes, I agree to the terms and privacy policy.</p>
+                    <button type="submit" class="btn-theme">Subscribe</button>
+
+                    @* <p class="error-flag">@Model.ErrorMessage</p> *@
+                    @* <p class="error-flag">@Model.SuccessMessage</p> *@
 
                 </div>
 
-                <button class="btn-theme">Subscribe</button>
-
-            </form>
-
-        </div>
-
+            </div>
+        </form>
     </div>
 
 </section>

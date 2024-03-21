@@ -20,6 +20,7 @@ public partial class DataContext : IdentityDbContext<ApplicationUser>
     public DbSet<ProfilePictureEntity> ProfilePictures { get; set; }
     public DbSet<UserProfileEntity> UserProfiles { get; set; }
     public DbSet<SavedCoursesEntity> SavedCourses { get; set; }
+    public DbSet<SubscriberEntity> Subscribers { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

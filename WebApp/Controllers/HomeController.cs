@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Newtonsoft.Json;
+using System.Text;
 using WebApp.Models.Components;
+using WebApp.Models.Forms;
 using WebApp.Models.Sections;
 using WebApp.Models.Views;
 
@@ -23,13 +27,13 @@ namespace WebApp.Controllers
                     BrandsText = "Largest companies use our tool to work efficiently",
                     BrandImages = new List<ImageViewModel>
                     {
-                        new () { ImageUrl ="/images/showcase/logoipsum1.svg", AltText = "Logotype for a brand that uses our services." },
-                        new () { ImageUrl ="/images/showcase/logoipsum2.svg", AltText = "Logotype for a brand that uses our services." },
-                        new () { ImageUrl ="/images/showcase/logoipsum3.svg", AltText = "Logotype for a brand that uses our services." },
-                        new () { ImageUrl ="/images/showcase/logoipsum4.svg", AltText = "Logotype for a brand that uses our services." },
+                        new() { ImageUrl = "/images/showcase/logoipsum1.svg", AltText = "Logotype for a brand that uses our services." },
+                        new() { ImageUrl = "/images/showcase/logoipsum2.svg", AltText = "Logotype for a brand that uses our services." },
+                        new() { ImageUrl = "/images/showcase/logoipsum3.svg", AltText = "Logotype for a brand that uses our services." },
+                        new() { ImageUrl = "/images/showcase/logoipsum4.svg", AltText = "Logotype for a brand that uses our services." },
                     },
 
-                    Link = new () { ControllerName = "", ActionName = "", Text = "Get started for free"  } 
+                    Link = new() { ControllerName = "", ActionName = "", Text = "Get started for free" }
 
                 },
 
@@ -41,31 +45,65 @@ namespace WebApp.Controllers
 
                     Features = new List<FeatureViewModel>
                     {
-                        new () {FeatureImage = new () 
+                        new() { FeatureImage = new()
                         { ImageUrl = "/images/features/chat.svg", AltText = "" }, FeatureTitle = "Comments on Tasks", FeatureDescription = "Id mollis consectetur congue egestas egestas suspendisse blandit justo." },
 
-                        new () {FeatureImage = new () 
+                        new() { FeatureImage = new()
                         { ImageUrl = "/images/features/presentation.svg", AltText = "" }, FeatureTitle = "Tasks Analytics", FeatureDescription = "Non imperdiet facilisis nulla tellus Morbi scelerisque eget adipiscing vulputate." },
 
-                        new () {FeatureImage = new () 
+                        new() { FeatureImage = new()
                         { ImageUrl = "/images/features/add-group.svg", AltText = "" }, FeatureTitle = "Multiple Assignees", FeatureDescription = "A elementum, imperdiet enim, pretium etiam facilisi in aenean quam mauris." },
 
-                        new () {FeatureImage = new () 
+                        new() { FeatureImage = new()
                         { ImageUrl = "/images/features/bell.svg", AltText = "" }, FeatureTitle = "Notifications", FeatureDescription = "Diam, suspendisse velit cras ac. Lobortis diam volutpat, eget pellentesque viverra." },
 
-                        new () {FeatureImage = new () 
+                        new() { FeatureImage = new()
                         { ImageUrl = "/images/features/tasks.svg", AltText = "" }, FeatureTitle = "Sections & Subtasks", FeatureDescription = "Mi feugiat hac id in. Sit elit placerat lacus nibh lorem ridiculus lectus." },
 
-                        new () {FeatureImage = new () 
+                        new() { FeatureImage = new()
                         { ImageUrl = "/images/features/shield.svg", AltText = "" }, FeatureTitle = "Data Security", FeatureDescription = "Aliquam malesuada neque eget elit nulla vestibulum nunc cras." },
                     }
 
-                }
+                },
+
+                Subscriber = new NewsletterModel()
+                
+
             };
 
             ViewData["Title"] = viewModel.Title;
 
             return View(viewModel);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Subscribe(NewsletterModel subscriber)
+        {
+            if (ModelState.IsValid)
+            {
+                using var http = new HttpClient();
+
+                var subscriberAsJson = new StringContent(JsonConvert.SerializeObject(subscriber), Encoding.UTF8, "application/json");
+
+                var result = await http.PostAsync(@"https://localhost:7153/api/subscribers", subscriberAsJson);
+            }
+
+            return RedirectToAction("Index", "Home")!;
+        }        
+        
+        public async Task<IActionResult> UnSubscribe(NewsletterModel subscriber)
+        {
+            if (ModelState.IsValid)
+            {
+                using var http = new HttpClient();
+
+                var ApiUrl = $"https://localhost:7153/api/subscribers?email={Uri.EscapeDataString(subscriber.Email)}";
+
+                var result = await http.DeleteAsync(ApiUrl);
+            }
+
+            return RedirectToAction("Index", "Home")!;
         }
     }
 }

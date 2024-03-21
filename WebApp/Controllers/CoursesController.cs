@@ -30,8 +30,8 @@ namespace WebApp.Controllers
         }
 
         public async Task<IActionResult> Index()
-        {            
-            //await _courseService.RunAsync();
+        {
+            await _courseService.RunAsync();
 
             using var http = new HttpClient();
             var response = await http.GetAsync(@"https://localhost:7153/api/courses");
