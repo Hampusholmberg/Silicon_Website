@@ -20,6 +20,7 @@ public class CourseEntity
     public CourseImageEntity Image { get; set; } = null!;
 
     public int CourseAuthorId { get; set; }
+    public int AuthorId { get; set; }
     public CourseAuthorEntity Author { get; set; } = null!;
 
 

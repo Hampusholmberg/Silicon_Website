@@ -13,8 +13,8 @@
         <div class="details">
             <div class="tags"></div>
 
-            <h1>@Model.CourseName</h1>
-            <p>@Model.CourseIngress</p>
+            <h1>@Model.Name</h1>
+            <p>@Model.Ingress</p>
 
             <div class="reviews">
                 <p><i class="fa-regular fa-thumbs-up"></i> @Model.LikesPercentage % (@Model.LikesAmount K)</p>
@@ -24,9 +24,9 @@
         </div>
 
         <div class="author-thumb">
-            <img class="author-img" src="@Model.CourseAuthor.Image.ImageUrl" />
+            <img class="author-img" src="@Model.Author.Image.ImageUrl" />
             <p>Created by</p>
-            <p>@Model.CourseAuthor.Name</p>
+            <p>@Model.Author.Name</p>
         </div>
 
     </div>
