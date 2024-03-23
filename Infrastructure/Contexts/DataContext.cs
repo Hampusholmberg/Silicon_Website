@@ -21,6 +21,7 @@ public partial class DataContext : IdentityDbContext<ApplicationUser>
     public DbSet<UserProfileEntity> UserProfiles { get; set; }
     public DbSet<SavedCoursesEntity> SavedCourses { get; set; }
     public DbSet<SubscriberEntity> Subscribers { get; set; }
+    public DbSet<ContactRequestEntity> ContactRequests { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -30,6 +30,7 @@ builder.Services.AddScoped<UserProfileRepository>();
 builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<CourseAuthorRepository>();
 builder.Services.AddScoped<SavedCoursesRepository>();
+builder.Services.AddScoped<ContactRequestRepository>();
 
 builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<AddressService>();

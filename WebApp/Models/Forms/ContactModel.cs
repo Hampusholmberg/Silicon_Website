@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Infrastructure.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models.Forms;
 
@@ -6,7 +7,7 @@ public class ContactModel
 {
     [Display(Name = "Full name", Prompt = "Enter your full name", Order = 0)]
     [Required(ErrorMessage = "Please enter your name")]
-    public string FullName { get; set; } = null!;
+    public string Sender { get; set; } = null!;
 
     [Display(Name = "Email address", Prompt = "Enter your email address", Order = 1)]
     [Required(ErrorMessage = "Please enter your email address")]
@@ -20,10 +21,6 @@ public class ContactModel
     [Required(ErrorMessage = "Please enter message")]
     public string Message { get; set; } = null!;
 
-
-
-
-
     public List<string> Services { get; set; } = new List<string> 
     {
         "-",
@@ -31,4 +28,15 @@ public class ContactModel
         "Career",
         "Example"
     };
+
+    public static implicit operator ContactRequestEntity(ContactModel model)
+    {
+        return new ContactRequestEntity
+        {
+            Sender = model.Sender,
+            Email = model.Email,
+            Message = model.Message,
+            Service = model.Service
+        };
+    }
 }

@@ -623,6 +623,18 @@ label {
   color: #0B0F19;
 }
 
+.error-flag {
+  color: #EF4444;
+  justify-self: center;
+  background-color: #FDE8E8;
+}
+
+.success-flag {
+  color: #22C55E;
+  justify-self: center;
+  background-color: #E8FDE8;
+}
+
 .hidden {
   display: none !important;
 }
@@ -1249,11 +1261,6 @@ footer .container .social-media {
   max-width: 100%;
 }
 
-.sign-in .error-flag, .sign-up .error-flag {
-  color: #EF4444;
-  justify-self: center;
-  background-color: #FDE8E8;
-}
 .sign-in .container, .sign-up .container {
   display: flex;
   flex-direction: column;

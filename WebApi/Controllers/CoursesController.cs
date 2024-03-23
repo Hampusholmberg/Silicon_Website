@@ -64,9 +64,6 @@ public class CoursesController : ControllerBase
         catch { return Problem(); }
     }
 
-
-
-
     #endregion
 
 

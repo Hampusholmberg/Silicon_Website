@@ -61,3 +61,15 @@ textarea {
 label {
     color: $gray-900;
 }
+
+.error-flag {
+    color: $danger;
+    justify-self: center;
+    background-color: #FDE8E8;
+}
+
+.success-flag {
+    color: $success;
+    justify-self: center;
+    background-color: #E8FDE8;
+}

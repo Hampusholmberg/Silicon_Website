@@ -90,7 +90,7 @@ namespace WebApp.Controllers
             }
 
             return RedirectToAction("Index", "Home")!;
-        }        
+        }
         
         public async Task<IActionResult> UnSubscribe(NewsletterModel subscriber)
         {

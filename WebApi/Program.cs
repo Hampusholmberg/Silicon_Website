@@ -18,6 +18,7 @@ builder.Services.AddControllers();
 // Repos
 builder.Services.AddScoped<CourseRepository>();
 builder.Services.AddScoped<SubscriberRepository>();
+builder.Services.AddScoped<ContactRequestRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
