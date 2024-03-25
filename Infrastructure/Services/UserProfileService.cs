@@ -9,17 +9,12 @@ namespace Infrastructure.Services;
 public class UserProfileService
 {
 
-    private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly UserProfileRepository _userProfileRepository;
 
-    public UserProfileService(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, UserProfileRepository userProfileRepository)
+    public UserProfileService(UserManager<ApplicationUser> userManager)
     {
-        _signInManager = signInManager;
         _userManager = userManager;
-        _userProfileRepository = userProfileRepository;
     }
-
 
     public async Task<ApplicationUser> GetLoggedInUserAsync(ClaimsPrincipal user)
     {

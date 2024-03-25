@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Newtonsoft.Json;
 using System.Text;
 using WebApp.Models.Components;

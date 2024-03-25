@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;

@@ -1,8 +1,6 @@
 ﻿using Infrastructure.Dtos;
-using Infrastructure.Entities;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Filters;
 
 namespace WebApi.Controllers;
 

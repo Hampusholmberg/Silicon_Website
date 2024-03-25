@@ -145,12 +145,6 @@ public class AuthController : Controller
                     LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
                     Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
 
-
-
-                    //ProfilePicture = new ProfilePictureEntity
-                    //{
-                    //    //ImageUrl = info.Principal.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture") ?? ""
-                    //},
                     Address = new AddressEntity
                     {
                         AddressLine1 = info.Principal.FindFirstValue(ClaimTypes.StreetAddress),
@@ -214,8 +208,8 @@ public class AuthController : Controller
     {
         var info = await _signInManager.GetExternalLoginInfoAsync();
 
-        string profilePictureUrl = null;
-        foreach (var claim in info.Principal.Claims)
+        string profilePictureUrl = null!;
+        foreach (var claim in info!.Principal.Claims)
         {
             Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
             if (claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture")
@@ -239,11 +233,6 @@ public class AuthController : Controller
                     FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!,
                     LastName = info.Principal.FindFirstValue(ClaimTypes.Surname)!,
                     Email = info.Principal.FindFirstValue(ClaimTypes.Email)!,
-
-                    //ProfilePicture = new ProfilePictureEntity
-                    //{
-                    //    //ImageUrl = info.Principal.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture") ?? ""
-                    //},
 
                     Address = new AddressEntity
                     {

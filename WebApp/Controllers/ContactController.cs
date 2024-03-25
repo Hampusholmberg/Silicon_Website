@@ -1,22 +1,15 @@
-﻿using Infrastructure.Repositories;
-using Infrastructure.Entities;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebApp.Models.Views;
-using WebApp.Models.Forms;
-using Newtonsoft.Json;
-using System.Text;
 using Infrastructure.Services;
 
 namespace WebApp.Controllers;
 
 public class ContactController : Controller
 {
-    private readonly ContactRequestRepository _contactRequestRepository;
     private readonly ContactService _contactService;
 
-    public ContactController(ContactRequestRepository contactRequestRepository, ContactService contactService)
+    public ContactController(ContactService contactService)
     {
-        _contactRequestRepository = contactRequestRepository;
         _contactService = contactService;
     }
 

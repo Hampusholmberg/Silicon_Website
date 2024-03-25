@@ -1,9 +1,7 @@
 ﻿using Infrastructure.Entities;
-using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebApp.Models.Components;
@@ -41,18 +39,21 @@ namespace WebApp.Controllers
                 var userCourses = await _courseService.GetSavedCoursesAsync(User);
                 var user = await _userProfileService.GetLoggedInUserAsync(User);
 
-                foreach (var course in courses)
+                if (courses != null!)
                 {
-                    var result = user.UserProfile.SavedItems?.Any(x => x.CourseId == course.Id);
-                    if (result == true)
+                    foreach (var course in courses)
                     {
-                        course.IsSaved = true;
+                        var result = user.UserProfile.SavedItems?.Any(x => x.CourseId == course.Id);
+                        if (result == true)
+                        {
+                            course.IsSaved = true;
+                        }
                     }
                 }
 
                 var viewModel = new CoursesIndexViewModel
                 {
-                    Courses = courses,
+                    Courses = courses!,
                     Title = "Courses",
                 };
 
