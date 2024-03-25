@@ -15,6 +15,7 @@ public class ContactController : ControllerBase
         _contactRequestRepository = contactRequestRepository;
     }
 
+
     #region CREATE
 
     [HttpPost]
@@ -26,9 +27,7 @@ public class ContactController : ControllerBase
             {
                 var result = await _contactRequestRepository.CreateAsync(contactRequest);
                 if (result != null)
-                {
                     return Ok(result);
-                }
             }
             catch { return Problem(); }
         }

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Repositories;
+﻿using Infrastructure.Entities;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;
@@ -17,16 +18,23 @@ public class CoursesController : ControllerBase
 
     #region CREATE
 
-    //[HttpPost]
-    //public IActionResult Create()
-    //{
-
-    //    return Ok();
-    //}
+    [HttpPost]
+    public async Task <IActionResult> Create(CourseEntity course)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var result = await _courseRepository.CreateAsync(course);
+                if (result != null)
+                    return Ok();
+            }
+            catch { return Problem(); }
+        }
+        return BadRequest();
+    }
 
     #endregion
-
-
 
 
     #region READ
@@ -37,12 +45,10 @@ public class CoursesController : ControllerBase
         try
         {
             var result = await _courseRepository.GetOneAsync(x => x.Id == id);
-
             if (result != null!)
                 return Ok(result);
 
             return NotFound();
-            
         }
         catch { return Problem(); }
     }
@@ -53,12 +59,10 @@ public class CoursesController : ControllerBase
         try
         {
             var result = await _courseRepository.GetAllAsync();
-
             if (result != null!)
                 return Ok(result);
 
             return NotFound();
-            
         }
         catch { return Problem(); }
     }
@@ -66,17 +70,49 @@ public class CoursesController : ControllerBase
     #endregion
 
 
-
-
     #region UPDATE
+
+    [HttpPut]
+    public async Task<IActionResult> Update(CourseEntity course)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var result = await _courseRepository.UpdateAsync(x => x.Id == course.Id, course);
+                if (result != null)
+                    return Ok();
+            }
+            catch { return Problem(); }
+        }
+        return BadRequest();
+    }
+
     #endregion
-
-
 
 
     #region DELETE 
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(CourseEntity course)
+    {
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                var exists = await _courseRepository.ExistsAsync(x => x.Id == course.Id);
+                if (exists)
+                {
+                    var result = _courseRepository.DeleteAsync(x => x.Id == course.Id);
+                    return Ok();
+                }
+                return NotFound();
+            }
+            catch (Exception ex) { return Problem(); }
+        }
+        return BadRequest();
+    }
+
     #endregion
-
-
 
 }

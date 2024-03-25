@@ -17,7 +17,6 @@ public class SubscribersController : ControllerBase
     }
 
 
-
     #region CREATE
 
     [HttpPost]
@@ -48,13 +47,6 @@ public class SubscribersController : ControllerBase
     #endregion
 
 
-    #region READ
-    #endregion
-
-    #region UPDATE
-    #endregion
-
-
     #region DELETE 
 
     [HttpDelete]
@@ -80,7 +72,5 @@ public class SubscribersController : ControllerBase
     }
 
     #endregion
-
-
 
 }

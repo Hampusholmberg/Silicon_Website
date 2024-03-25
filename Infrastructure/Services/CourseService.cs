@@ -40,7 +40,9 @@ public class CourseService
 
     public async Task PopulateCourseTableAsync()
     {
-        CourseEntity course_1 = new CourseEntity
+        List<CourseEntity> courses = new List<CourseEntity>
+        {
+            new CourseEntity
         {
             Name = "Fullstack Web Developer Course from Scratch",
             Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
@@ -68,8 +70,9 @@ public class CourseService
                 }
             }
 
-        };
-        CourseEntity course_2 = new CourseEntity
+        },
+
+            new CourseEntity
         {
             Name = "HTML, CSS, JavaScript Web Developer",
             Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
@@ -96,8 +99,9 @@ public class CourseService
                     ImageUrl = "/images/people/albert-flores.png"
                 }
             }
-        };
-        CourseEntity course_3 = new CourseEntity
+        },
+            
+            new CourseEntity
         {
             Name = "The Complete Front-End Web Development Course",
             Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
@@ -124,20 +128,187 @@ public class CourseService
                     ImageUrl = "/images/people/albert-flores.png"
                 }
             }
+        },
+
+            new CourseEntity
+        {
+            Name = "The Complete Front-End Web Development Course",
+            Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+            Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+            Price = 9.99m,
+            HoursToComplete = 100,
+            LikesPercentage = 98,
+            LikesAmount = "2.7m",
+
+            Image = new CourseImageEntity
+            {
+                ImageUrl = "/images/courses/webdev-course.png"
+            },
+
+            Author = new CourseAuthorEntity
+            {
+                Name = "Albert Flores",
+                Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                YoutubeFollowersQty = 240,
+                FacebookFollowersQty = 180,
+
+                Image = new CourseAuthorImageEntity
+                {
+                    ImageUrl = "/images/people/albert-flores.png"
+                }
+            }
+        },
+
+            new CourseEntity
+        {
+            Name = "Fullstack Web Developer Course from Scratch",
+            Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+            Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+            Price = 12.50m,
+            HoursToComplete = 220,
+            LikesPercentage = 94,
+            LikesAmount = "4.2m",
+
+            Image = new CourseImageEntity
+            {
+                ImageUrl = "/images/courses/fullstack-course.png"
+            },
+
+            Author = new CourseAuthorEntity
+            {
+                Name = "Albert Flores",
+                Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                YoutubeFollowersQty = 240,
+                FacebookFollowersQty = 180,
+
+                Image = new CourseAuthorImageEntity
+                {
+                    ImageUrl = "/images/people/albert-flores.png"
+                }
+            }
+
+        },
+
+            new CourseEntity
+            {
+                Name = "HTML, CSS, JavaScript Web Developer",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 15.99m,
+                HoursToComplete = 160,
+                LikesPercentage = 92,
+                LikesAmount = "3.1m",
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/frontend-course.png"
+                },
+
+                Author = new CourseAuthorEntity
+                {
+                    Name = "Jenny Wilson & Marvin McKinney",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                }
+            },
+
+            new CourseEntity
+            {
+                Name = "HTML, CSS, JavaScript Web Developer",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 15.99m,
+                HoursToComplete = 160,
+                LikesPercentage = 92,
+                LikesAmount = "3.1m",
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/frontend-course.png"
+                },
+
+                Author = new CourseAuthorEntity
+                {
+                    Name = "Jenny Wilson & Marvin McKinney",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                }
+            },
+
+            new CourseEntity
+            {
+                Name = "The Complete Front-End Web Development Course",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 9.99m,
+                HoursToComplete = 100,
+                LikesPercentage = 98,
+                LikesAmount = "2.7m",
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/webdev-course.png"
+                },
+
+                Author = new CourseAuthorEntity
+                {
+                    Name = "Albert Flores",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                }
+            },
+
+            new CourseEntity
+            {
+                Name = "Fullstack Web Developer Course from Scratch",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 12.50m,
+                HoursToComplete = 220,
+                LikesPercentage = 94,
+                LikesAmount = "4.2m",
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/fullstack-course.png"
+                },
+
+                Author = new CourseAuthorEntity
+                {
+                    Name = "Albert Flores",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                }
+
+            },
         };
 
-        await _courseRepository.CreateAsync(course_1);
-        await _courseRepository.CreateAsync(course_2);
-        await _courseRepository.CreateAsync(course_3);
-
-
-        await _courseRepository.CreateAsync(course_2);
-        await _courseRepository.CreateAsync(course_3);
-        await _courseRepository.CreateAsync(course_1);
-
-        await _courseRepository.CreateAsync(course_3);
-        await _courseRepository.CreateAsync(course_1);
-        await _courseRepository.CreateAsync(course_2);
+        foreach (var course in courses)
+            await _courseRepository.CreateAsync(course);
     }
 
 
