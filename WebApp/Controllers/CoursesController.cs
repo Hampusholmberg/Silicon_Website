@@ -14,16 +14,12 @@ namespace WebApp.Controllers
     [Authorize]
     public class CoursesController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly UserProfileRepository _userProfileRepository;
         private readonly UserProfileService _userProfileService;
         private readonly CourseService _courseService;
         private readonly CourseRepository _courseRepository;
 
-        public CoursesController(UserManager<ApplicationUser> userManager, UserProfileRepository userProfileRepository, UserProfileService userProfileService, CourseService courseService, CourseRepository courseRepository)
+        public CoursesController(UserProfileService userProfileService, CourseService courseService, CourseRepository courseRepository)
         {
-            _userManager = userManager;
-            _userProfileRepository = userProfileRepository;
             _userProfileService = userProfileService;
             _courseService = courseService;
             _courseRepository = courseRepository;

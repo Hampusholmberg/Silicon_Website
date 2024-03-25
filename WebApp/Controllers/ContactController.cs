@@ -3,16 +3,21 @@ using Infrastructure.Entities;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models.Views;
 using WebApp.Models.Forms;
+using Newtonsoft.Json;
+using System.Text;
+using Infrastructure.Services;
 
 namespace WebApp.Controllers;
 
 public class ContactController : Controller
 {
     private readonly ContactRequestRepository _contactRequestRepository;
+    private readonly ContactService _contactService;
 
-    public ContactController(ContactRequestRepository contactRequestRepository)
+    public ContactController(ContactRequestRepository contactRequestRepository, ContactService contactService)
     {
         _contactRequestRepository = contactRequestRepository;
+        _contactService = contactService;
     }
 
     [HttpGet]
@@ -24,21 +29,25 @@ public class ContactController : Controller
         return View(viewModel);
     }
 
+
     [HttpPost]
     public async Task <IActionResult> Index(ContactViewModel viewModel)
     {
         if (ModelState.IsValid)
         {
-            var result = await _contactRequestRepository.CreateAsync(viewModel.Form);
+            var result = await _contactService.SendContactRequest(viewModel.Form);
 
-            if (result != null) 
+            if (result.SuccessMessage != null)
             {
-                viewModel.SuccessMessage = "Your message has been sent!";
-                return View(viewModel);
+                ModelState.Clear();
+                viewModel = new ContactViewModel();
             }
-        }
 
-        viewModel.ErrorMessage = "Something went wrong, your message has not been sent!";
+            viewModel.ErrorMessage = result.ErrorMessage;
+            viewModel.SuccessMessage = result.SuccessMessage;
+
+            return View(viewModel);
+        }
         return View(viewModel);
     }
 }

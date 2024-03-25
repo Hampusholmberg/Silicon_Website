@@ -35,6 +35,7 @@ builder.Services.AddScoped<ContactRequestRepository>();
 builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<CourseService>();
+builder.Services.AddScoped<ContactService>();
 
 builder.Services.AddAuthentication().AddFacebook(x => 
 {
