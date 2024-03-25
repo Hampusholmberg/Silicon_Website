@@ -8,6 +8,7 @@ namespace Infrastructure.Services;
 
 public class ContactService
 {
+    private readonly string _apiKey = "?key=ZTMwZjkzYzUtMzg2My00MzBlLThiNjItMzU2ZGQ1NTIxMTBi";
 
     public async Task<ContactResponse> SendContactRequest(ContactRequestEntity contact)
     {
@@ -22,7 +23,7 @@ public class ContactService
 
         try
         {
-            var result = await http.PostAsync(@"https://localhost:7153/api/contact", contactRequestAsJson);
+            var result = await http.PostAsync($"https://localhost:7153/api/contact{_apiKey}", contactRequestAsJson);
 
             switch (result.StatusCode)
             {

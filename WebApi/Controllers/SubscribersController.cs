@@ -1,12 +1,13 @@
 ﻿using Infrastructure.Dtos;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters;
 
 namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-//[UseApiKey]
+[UseApiKey]
 public class SubscribersController : ControllerBase
 {
     private readonly SubscriberRepository _subscriberRepository;

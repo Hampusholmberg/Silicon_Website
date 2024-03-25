@@ -10,6 +10,7 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly string _apiKey = "?key=ZTMwZjkzYzUtMzg2My00MzBlLThiNjItMzU2ZGQ1NTIxMTBi";
         public IActionResult Index()
         {
             var viewModel = new HomeIndexViewModel
@@ -85,19 +86,21 @@ namespace WebApp.Controllers
 
                 var subscriberAsJson = new StringContent(JsonConvert.SerializeObject(subscriber), Encoding.UTF8, "application/json");
 
-                var result = await http.PostAsync(@"https://localhost:7153/api/subscribers", subscriberAsJson);
+                var result = await http.PostAsync($"https://localhost:7153/api/subscribers{_apiKey}", subscriberAsJson);
             }
 
             return RedirectToAction("Index", "Home")!;
         }
         
+
+        //TESTA DENNA
         public async Task<IActionResult> UnSubscribe(NewsletterModel subscriber)
         {
             if (ModelState.IsValid)
             {
                 using var http = new HttpClient();
 
-                var ApiUrl = $"https://localhost:7153/api/subscribers?email={Uri.EscapeDataString(subscriber.Email)}";
+                var ApiUrl = $"https://localhost:7153/api/subscribers{_apiKey}?email={Uri.EscapeDataString(subscriber.Email)}";
 
                 var result = await http.DeleteAsync(ApiUrl);
             }

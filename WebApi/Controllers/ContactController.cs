@@ -1,11 +1,13 @@
 ﻿using Infrastructure.Entities;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Filters;
 
 namespace WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[UseApiKey]
 public class ContactController : ControllerBase
 {
     private readonly ContactRequestRepository _contactRequestRepository;

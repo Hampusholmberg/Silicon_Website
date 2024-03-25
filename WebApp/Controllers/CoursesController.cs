@@ -12,6 +12,8 @@ namespace WebApp.Controllers
     [Authorize]
     public class CoursesController : Controller
     {
+        private readonly string _apiKey = "?key=ZTMwZjkzYzUtMzg2My00MzBlLThiNjItMzU2ZGQ1NTIxMTBi";
+
         private readonly UserProfileService _userProfileService;
         private readonly CourseService _courseService;
         private readonly CourseRepository _courseRepository;
@@ -23,17 +25,18 @@ namespace WebApp.Controllers
             _courseRepository = courseRepository;
         }
 
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
             await _courseService.RunAsync();
 
             using var http = new HttpClient();
-            var response = await http.GetAsync(@"https://localhost:7153/api/courses");
+            var response = await http.GetAsync($"https://localhost:7153/api/courses{_apiKey}");
+            int TotalNumberOfCourses = 0;
 
             if (response != null)
             {
                 string jsonContent = await response.Content.ReadAsStringAsync();
-
                 var courses = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(jsonContent);
 
                 var userCourses = await _courseService.GetSavedCoursesAsync(User);
@@ -41,6 +44,8 @@ namespace WebApp.Controllers
 
                 if (courses != null!)
                 {
+                    TotalNumberOfCourses = courses.Count();
+
                     foreach (var course in courses)
                     {
                         var result = user.UserProfile.SavedItems?.Any(x => x.CourseId == course.Id);
@@ -55,6 +60,9 @@ namespace WebApp.Controllers
                 {
                     Courses = courses!,
                     Title = "Courses",
+                    CurrentPage = page,
+                    PageSize = pageSize,
+                    TotalCount = TotalNumberOfCourses,
                 };
 
                 ViewData["Title"] = viewModel.Title;
@@ -66,13 +74,20 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            List<CourseEntity> coursesEntities = await _courseRepository.GetAllAsync();
-            List<CourseViewModel> courses = coursesEntities.Select(course => (CourseViewModel)course).ToList();
+            using var http = new HttpClient();
+            CourseViewModel viewModel = new();
 
-            CourseViewModel viewModel = courses[id-1];
+            var result = await http.GetAsync($"https://localhost:7153/api/courses/{id}/{_apiKey}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                string jsonContent = await result.Content.ReadAsStringAsync();
+                viewModel = JsonConvert.DeserializeObject<CourseViewModel>(jsonContent)!;
+            }
 
             return View(viewModel);
         }
+
 
         public async Task<IActionResult> SaveCourse(CourseViewModel course)
         {
@@ -80,7 +95,6 @@ namespace WebApp.Controllers
             {
                 var result = await _courseService.SaveOrRemoveCourseAsync(course.Id, User);
             }
-
             return RedirectToAction("Index", "Courses");
         }
     }
