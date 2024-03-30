@@ -1,4 +1,5 @@
-﻿using Infrastructure.Models;
+﻿using Infrastructure.Dtos;
+using Infrastructure.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task <IActionResult> GetToken(ApplicationUser user)
+        public async Task <IActionResult> GetToken(ApplicationUserDto user)
         {
             if (ModelState.IsValid)
             {
@@ -46,10 +47,9 @@ namespace WebApi.Controllers
                     };
 
                     var token = tokenHandler.CreateToken(tokenDescriptor);
-
                     var tokenString = tokenHandler.WriteToken(token);
 
-                    return Ok(new { Token = tokenString });
+                    return Ok(tokenString);
                 }
             }
 

@@ -4,7 +4,9 @@ using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Security.Claims;
+using System.Text;
 using WebApp.Models.Forms;
 using WebApp.Models.Views;
 
@@ -12,7 +14,6 @@ namespace WebApp.Controllers;
 
 public class AuthController : Controller
 {
-
     private readonly UserProfileRepository _userProfileRepository;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
@@ -94,13 +95,33 @@ public class AuthController : Controller
     [HttpPost]
     public async Task<IActionResult> SignIn(SignInViewModel viewModel)
     {
-
         if (ModelState.IsValid)
         {
             var result = await _signInManager.PasswordSignInAsync(viewModel.Form.Email, viewModel.Form.Password, viewModel.Form.RememberMe, false);
-
             if (result.Succeeded)
+            {
+                var user = await _signInManager.UserManager.GetUserAsync(User);
+                if (user!.IsAdmin)
+                {
+                    using var http = new HttpClient();
+                    var userAsJson = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                    var response = await http.PostAsync($"https://localhost:7153/api/auth", userAsJson);
+
+                    if(response.IsSuccessStatusCode)
+                    {
+                        var token = await response.Content.ReadAsStringAsync();
+                        var cookieOptions = new CookieOptions
+                        {
+                            HttpOnly = true,
+                            Secure = true,
+                            //Expires = DateTime.Now.AddDays(2),
+                        };
+
+                        Response.Cookies.Append("AccessToken", token, cookieOptions);
+                    }
+                }
                 return RedirectToAction("AccountDetails", "Account");
+            }
         }
         viewModel.ErrorMessage = "Invalid email or password";
         return View(viewModel);
@@ -108,6 +129,7 @@ public class AuthController : Controller
 
     public async Task<IActionResult> SignOut()
     {
+        Response.Cookies.Delete("AccessToken");
         await _signInManager.SignOutAsync();
         return RedirectToAction("Index", "Home");
     }

@@ -1,9 +1,8 @@
-﻿using Infrastructure.Entities;
-using Infrastructure.Repositories;
-using Infrastructure.Services;
+﻿using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using WebApp.Models.Components;
 using WebApp.Models.Views;
 
@@ -16,25 +15,28 @@ namespace WebApp.Controllers
 
         private readonly UserProfileService _userProfileService;
         private readonly CourseService _courseService;
-        private readonly CourseRepository _courseRepository;
+        private readonly IConfiguration _configuration;
 
-        public CoursesController(UserProfileService userProfileService, CourseService courseService, CourseRepository courseRepository)
+        public CoursesController(UserProfileService userProfileService, CourseService courseService, IConfiguration configuration)
         {
             _userProfileService = userProfileService;
             _courseService = courseService;
-            _courseRepository = courseRepository;
+            _configuration = configuration;
         }
-
 
         public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            await _courseService.RunAsync();
-
             using var http = new HttpClient();
-            var response = await http.GetAsync($"https://localhost:7153/api/courses{_apiKey}");
-            int TotalNumberOfCourses = 0;
 
-            if (response != null)
+            var token = HttpContext.Request.Cookies["AccessToken"];
+
+            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var apiUrl = $"https://localhost:7153/api/courses?key={_configuration["ApiKey:Secret"]}";
+
+            var response = await http.GetAsync(apiUrl);
+
+            if (response.IsSuccessStatusCode)
             {
                 string jsonContent = await response.Content.ReadAsStringAsync();
                 var courses = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(jsonContent);
@@ -44,7 +46,6 @@ namespace WebApp.Controllers
 
                 if (courses != null!)
                 {
-                    TotalNumberOfCourses = courses.Count();
 
                     foreach (var course in courses)
                     {
@@ -62,16 +63,15 @@ namespace WebApp.Controllers
                     Title = "Courses",
                     CurrentPage = page,
                     PageSize = pageSize,
-                    TotalCount = TotalNumberOfCourses,
                 };
 
                 ViewData["Title"] = viewModel.Title;
                 return View(viewModel);
+                
             }
 
             return View();
         }
-
 
         public async Task<IActionResult> Details(int id)
         {
@@ -88,7 +88,6 @@ namespace WebApp.Controllers
 
             return View(viewModel);
         }
-
 
         public async Task<IActionResult> SaveCourse(CourseViewModel course)
         {
