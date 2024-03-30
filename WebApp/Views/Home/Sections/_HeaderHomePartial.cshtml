@@ -6,13 +6,23 @@
 
         @if (SignInManager.IsSignedIn(User))
         {
-            @* <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img id="silicon-logo-img" src="~/images/silicone-logo-light_theme.svg" /></a> *@
+            var user = await UserManager.Users
+                .Include(x => x.UserProfile)
+                .Include(x => x.UserProfile.ProfilePicture)
+                .FirstOrDefaultAsync(x => x.Email == User.Identity!.Name);
+
             <a id="silicon-logo" asp-controller="Home" asp-action="Index"><img id="silicon-logo-img"/></a>
 
             <div id="navigation" class="navigation hidden">
                 <a class="menu-link" asp-controller="Home" asp-action="Index">Overview</a>
                 <a class="menu-link" asp-controller="Courses" asp-action="Index">Courses</a>
                 <a class="menu-link" asp-controller="Contact" asp-action="Index">Contact</a>
+                @{
+                    if(user != null && user.IsAdmin)
+                    {
+                        <a class="menu-link" asp-controller="Admin" asp-action="Index">Admin</a>
+                    }
+                }
                 <a id="details-link" class="menu-link" asp-controller="Account" asp-action="AccountDetails">Account Details</a>
             </div>
 
@@ -30,11 +40,6 @@
             <div id="account-buttons" class="account-buttons hidden">
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    var user = await UserManager.Users
-                        .Include(x => x.UserProfile)
-                        .Include(x => x.UserProfile.ProfilePicture)
-                        .FirstOrDefaultAsync(x => x.Email == User.Identity!.Name);
-
                     if (user.UserProfile.ProfilePicture != null)
                     {
                         <a asp-controller="Account" asp-action="AccountDetails" class="profile-thumb-a" id="profile-thumb-a">

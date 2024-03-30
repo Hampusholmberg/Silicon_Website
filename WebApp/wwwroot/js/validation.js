@@ -3,8 +3,6 @@ const formErrorHandler = (e, validationResult) => {
 
     let spanElement = document.querySelector(`[data-valmsg-for="${e.target.name}"]`)
 
-    console.log(spanElement)
-
     if (validationResult) {
         e.target.classList.remove('input-validation-error')
         e.target.classList.add('input-validation-valid')
@@ -72,9 +70,13 @@ const emailValidation = (e) => {
 const passwordValidation = (e) => {
     formErrorHandler(e, passwordValidator(e.target.value))
 }
+const textAreaValidation = (e) => {
+    formErrorHandler(e, lengthValidatorName(e.target.value))
+    console.log("hejhej")
+}
 
 let forms = document.querySelectorAll('form')
-let inputs = forms[0].querySelectorAll('input')
+let inputs = forms[0].querySelectorAll('input, textarea')
 
 inputs.forEach(input => {
     if (input.dataset.val === 'true') {
@@ -94,6 +96,9 @@ inputs.forEach(input => {
                     break;
                 case 'password':
                     passwordValidation(e)
+                    break;
+                case 'textarea':
+                    textAreaValidation(e)
                     break;
             }
         })

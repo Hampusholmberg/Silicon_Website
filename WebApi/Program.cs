@@ -1,7 +1,7 @@
 using Infrastructure.Contexts;
 using Infrastructure.Repositories;
-using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using WebApi.Configurations;
 
 var connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Education\05._ASP.NET\Silicon_Website\Infrastructure\Data\silicon_db.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True";
 
@@ -23,7 +23,7 @@ builder.Services.AddScoped<ContactRequestRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString));
+builder.Services.RegisterJwt(builder.Configuration); // new
 
 var app = builder.Build();
 
@@ -37,6 +37,7 @@ if (app.Environment.IsDevelopment())
 //app.UseCors(x => x.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
+app.UseAuthorization(); // new
+app.UseAuthentication(); // new
 app.MapControllers();
 app.Run();

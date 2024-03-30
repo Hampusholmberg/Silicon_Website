@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Entities;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Filters;
 
@@ -21,6 +22,7 @@ public class CoursesController : ControllerBase
     #region CREATE
 
     [HttpPost]
+    [Authorize]
     public async Task <IActionResult> Create(CourseEntity course)
     {
         if (ModelState.IsValid)
@@ -75,6 +77,7 @@ public class CoursesController : ControllerBase
     #region UPDATE
 
     [HttpPut]
+    [Authorize]
     public async Task<IActionResult> Update(CourseEntity course)
     {
         if (ModelState.IsValid)
@@ -96,6 +99,7 @@ public class CoursesController : ControllerBase
     #region DELETE 
 
     [HttpDelete]
+    [Authorize]
     public async Task<IActionResult> Delete(CourseEntity course)
     {
         if (ModelState.IsValid)

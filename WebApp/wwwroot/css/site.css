@@ -1860,3 +1860,18 @@ footer .container .social-media {
   display: flex;
   align-items: center;
 }
+
+.admin-index {
+  height: 100%;
+}
+.admin-index .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.admin-index .container a {
+  font-size: 26px;
+}

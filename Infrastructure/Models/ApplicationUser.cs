@@ -18,6 +18,7 @@ public class ApplicationUser : IdentityUser
     public string LastName { get; set; } = null!;
 
     public bool IsExternalAccount { get; set; } = false;
+    public bool IsAdmin { get; set; } = false;
 
 
     public virtual UserProfileEntity UserProfile { get; set; }

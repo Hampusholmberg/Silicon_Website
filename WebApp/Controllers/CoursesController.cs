@@ -72,6 +72,7 @@ namespace WebApp.Controllers
             return View();
         }
 
+
         public async Task<IActionResult> Details(int id)
         {
             using var http = new HttpClient();
