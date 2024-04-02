@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Entities;
 using Infrastructure.Repositories;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Filters;
@@ -9,14 +10,18 @@ namespace WebApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [UseApiKey]
-[Authorize(AuthenticationSchemes = "Bearer")]
+//[Authorize(AuthenticationSchemes = "Bearer")]
 public class CoursesController : ControllerBase
 {
     private readonly CourseRepository _courseRepository;
+    private readonly CourseService _courseService;
+    private readonly CourseCategoryRepository _courseCategoryRepository;
 
-    public CoursesController(CourseRepository courseRepository)
+    public CoursesController(CourseRepository courseRepository, CourseCategoryRepository courseCategoryRepository, CourseService courseService)
     {
         _courseRepository = courseRepository;
+        _courseCategoryRepository = courseCategoryRepository;
+        _courseService = courseService;
     }
 
 
@@ -29,7 +34,9 @@ public class CoursesController : ControllerBase
         {
             try
             {
-                var result = await _courseRepository.CreateAsync(course);
+                //var result = await _courseRepository.CreateAsync(course);
+
+                var result = await _courseService.CreateCourse(course);
                 if (result != null)
                     return Ok();
             }

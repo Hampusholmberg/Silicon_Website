@@ -130,6 +130,26 @@ namespace Infrastructure.Migrations
                     b.ToTable("CourseAuthorImages");
                 });
 
+            modelBuilder.Entity("Infrastructure.Entities.CourseCategoryEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("CourseCategories");
+                });
+
             modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -138,10 +158,10 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AuthorId")
+                    b.Property<int>("CourseAuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourseAuthorId")
+                    b.Property<int>("CourseCategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -158,9 +178,8 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LikesAmount")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("LikesAmount")
+                        .HasColumnType("int");
 
                     b.Property<int>("LikesPercentage")
                         .HasColumnType("int");
@@ -174,7 +193,9 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
+                    b.HasIndex("CourseAuthorId");
+
+                    b.HasIndex("CourseCategoryId");
 
                     b.HasIndex("ImageId");
 
@@ -542,9 +563,15 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Infrastructure.Entities.CourseEntity", b =>
                 {
-                    b.HasOne("Infrastructure.Entities.CourseAuthorEntity", "Author")
+                    b.HasOne("Infrastructure.Entities.CourseAuthorEntity", "CourseAuthor")
                         .WithMany()
-                        .HasForeignKey("AuthorId")
+                        .HasForeignKey("CourseAuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Infrastructure.Entities.CourseCategoryEntity", "CourseCategory")
+                        .WithMany()
+                        .HasForeignKey("CourseCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -554,7 +581,9 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Author");
+                    b.Navigation("CourseAuthor");
+
+                    b.Navigation("CourseCategory");
 
                     b.Navigation("Image");
                 });

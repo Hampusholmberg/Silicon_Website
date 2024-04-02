@@ -26,27 +26,35 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
+            await _courseService.RunAsync();
+
             using var http = new HttpClient();
 
-            var token = HttpContext.Request.Cookies["AccessToken"];
-
-            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            //var token = HttpContext.Request.Cookies["AccessToken"];
+            //http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             var apiUrl = $"https://localhost:7153/api/courses?key={_configuration["ApiKey:Secret"]}";
-
             var response = await http.GetAsync(apiUrl);
+            
 
-            if (response.IsSuccessStatusCode)
+            var apiUrlCategories = $"https://localhost:7153/api/categories";
+            var responseCategories = await http.GetAsync(apiUrlCategories);
+
+            if (response.IsSuccessStatusCode && responseCategories.IsSuccessStatusCode)
             {
-                string jsonContent = await response.Content.ReadAsStringAsync();
-                var courses = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(jsonContent);
+                string jsonContentCourses = await response.Content.ReadAsStringAsync();
+                var courses = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(jsonContentCourses);
+
+
+                string jsonContentCategories = await responseCategories.Content.ReadAsStringAsync();
+                var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryViewModel>>(jsonContentCategories);
+
 
                 var userCourses = await _courseService.GetSavedCoursesAsync(User);
                 var user = await _userProfileService.GetLoggedInUserAsync(User);
 
                 if (courses != null!)
                 {
-
                     foreach (var course in courses)
                     {
                         var result = user.UserProfile.SavedItems?.Any(x => x.CourseId == course.Id);
@@ -60,6 +68,7 @@ namespace WebApp.Controllers
                 var viewModel = new CoursesIndexViewModel
                 {
                     Courses = courses!,
+                    Categories = categories!,
                     Title = "Courses",
                     CurrentPage = page,
                     PageSize = pageSize,
@@ -67,7 +76,7 @@ namespace WebApp.Controllers
 
                 ViewData["Title"] = viewModel.Title;
                 return View(viewModel);
-                
+
             }
 
             return View();

@@ -7,6 +7,7 @@ public class CoursesIndexViewModel
 {
     public string Title { get; set; } = "";
     public IEnumerable<CourseViewModel> Courses { get; set; } = null!;
+    public IEnumerable<CategoryViewModel> Categories { get; set; } = null!;
     public AccountViewModel Account { get; set; } = null!;
     public int CurrentPage { get; set; }
     public int PageSize { get; set; }

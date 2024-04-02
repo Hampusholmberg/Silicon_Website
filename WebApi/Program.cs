@@ -1,7 +1,7 @@
 using Infrastructure.Contexts;
 using Infrastructure.Models;
 using Infrastructure.Repositories;
-using Microsoft.AspNetCore.Authorization;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Configurations;
@@ -22,10 +22,21 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Repos
+// Repos & Services
+builder.Services.AddScoped<AddressRepository>();
+builder.Services.AddScoped<ProfilePictureRepository>();
+builder.Services.AddScoped<UserProfileRepository>();
 builder.Services.AddScoped<CourseRepository>();
-builder.Services.AddScoped<SubscriberRepository>();
+builder.Services.AddScoped<CourseAuthorRepository>();
+builder.Services.AddScoped<SavedCoursesRepository>();
 builder.Services.AddScoped<ContactRequestRepository>();
+builder.Services.AddScoped<CourseCategoryRepository>();
+
+builder.Services.AddScoped<UserProfileService>();
+builder.Services.AddScoped<AddressService>();
+builder.Services.AddScoped<CourseService>();
+builder.Services.AddScoped<ContactService>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

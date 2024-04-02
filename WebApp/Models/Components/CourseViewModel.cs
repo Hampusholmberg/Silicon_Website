@@ -10,12 +10,12 @@ public class CourseViewModel
     public string Ingress { get; set; } = null!;
     public decimal Price { get; set; }
     public int HoursToComplete { get; set; }
-    public int? LikesPercentage { get; set; }
-    public string? LikesAmount { get; set; }
+    public int LikesPercentage { get; set; }
+    public int LikesAmount { get; set; }
     public bool IsSaved { get; set; } = false;
-    public AuthorViewModel Author { get; set; } = new AuthorViewModel();
+    public AuthorViewModel CourseAuthor { get; set; } = new AuthorViewModel();
     public ImageViewModel Image { get; set; } = new ImageViewModel();
-    public List<CourseViewModel>? Courses { get; set; }
+    public CategoryViewModel CourseCategory { get; set; } = null!;
 
 
     public static implicit operator CourseViewModel(CourseEntity course)
@@ -36,20 +36,25 @@ public class CourseViewModel
                 ImageUrl = course.Image.ImageUrl
             },
 
-            Author = new AuthorViewModel
+            CourseAuthor = new AuthorViewModel
             {
-                Id = course.AuthorId,
-                Name = course.Author.Name,
-                Description = course.Author.Description,
-                YoutubeFollowersQty = course.Author.YoutubeFollowersQty,
-                FacebookFollowersQty = course.Author.FacebookFollowersQty,
+                Id = course.CourseAuthorId,
+                Name = course.CourseAuthor.Name,
+                Description = course.CourseAuthor.Description,
+                YoutubeFollowersQty = course.CourseAuthor.YoutubeFollowersQty,
+                FacebookFollowersQty = course.CourseAuthor.FacebookFollowersQty,
 
                 Image = new ImageViewModel
                 {
-                    ImageUrl = course.Author.Image.ImageUrl
+                    ImageUrl = course.CourseAuthor.Image.ImageUrl
                 }
+            },
+
+            CourseCategory = new CategoryViewModel
+            {
+                Id = course.CourseCategory.Id,
+                Name = course.CourseCategory.Name,
             }
         };
     }
-
 }

@@ -1,4 +1,4 @@
-﻿@model List<WebApp.Models.Components.CourseViewModel>
+﻿@model CoursesIndexViewModel
 
 
 
@@ -9,13 +9,13 @@
         <h1>Courses</h1>
 
         <select class="view-filter">
-            <option value="value1">Option 1</option>
-            <option value="value2">Option 2</option>
-            <option value="value3">Option 3</option>
-            <option value="value4">Option 4</option>
-            <option value="value5">Option 5</option>
-            <option value="value6">Option 6</option>
-            <option value="value7">Option 7</option>
+            <option value="" >All Categories</option>
+            @{
+                foreach(var category in Model.Categories)
+                {
+                    <option value=@category.Name>@category.Name</option>
+                }
+            }
         </select>
 
         <div class="search-box">
@@ -28,7 +28,7 @@
 
 
         <div class="grid">
-            @foreach (var course in Model)
+            @foreach (var course in Model.Courses)
             {
                 @await Html.PartialAsync("~/Views/Courses/Components/_CourseBoxPartial.cshtml", course )
 

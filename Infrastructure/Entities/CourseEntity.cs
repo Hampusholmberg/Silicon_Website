@@ -13,15 +13,16 @@ public class CourseEntity
     public decimal Price { get; set; }
     public int HoursToComplete { get; set; }
     public int LikesPercentage { get; set; }
-    public string LikesAmount { get; set; } = null!;
+    public int LikesAmount { get; set; }
 
+    public int CourseCategoryId { get; set; }
+    public virtual CourseCategoryEntity? CourseCategory { get; set; }
 
     public int ImageId { get; set; }
-    public CourseImageEntity Image { get; set; } = null!;
+    public virtual CourseImageEntity? Image { get; set; }
 
     public int CourseAuthorId { get; set; }
-    public int AuthorId { get; set; }
-    public CourseAuthorEntity Author { get; set; } = null!;
+    public virtual CourseAuthorEntity? CourseAuthor { get; set; }
 
 
 }

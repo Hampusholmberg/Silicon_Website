@@ -22,6 +22,7 @@ public partial class DataContext : IdentityDbContext<ApplicationUser>
     public DbSet<SavedCoursesEntity> SavedCourses { get; set; }
     public DbSet<SubscriberEntity> Subscribers { get; set; }
     public DbSet<ContactRequestEntity> ContactRequests { get; set; }
+    public DbSet<CourseCategoryEntity> CourseCategories { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -53,5 +54,10 @@ public partial class DataContext : IdentityDbContext<ApplicationUser>
             .HasOne(u => u.UserProfile)
             .WithOne(p => p.User)
             .HasForeignKey<UserProfileEntity>(p => p.Id);
+
+
+        modelBuilder.Entity<CourseCategoryEntity>()
+            .HasIndex(x => x.Name)
+            .IsUnique();
     }
 }

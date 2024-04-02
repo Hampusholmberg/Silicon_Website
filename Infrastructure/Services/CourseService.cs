@@ -1,7 +1,11 @@
 ﻿using Infrastructure.Entities;
 using Infrastructure.Models;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 
 namespace Infrastructure.Services;
@@ -9,24 +13,28 @@ namespace Infrastructure.Services;
 public class CourseService
 {
     private readonly CourseRepository _courseRepository;
-    private readonly CourseAuthorRepository _authorRepository;
+    private readonly CourseCategoryRepository _courseCategoryRepository;
+    private readonly CourseAuthorRepository _courseAuthorRepository;
     private readonly ProfilePictureRepository _pictureRepository;
     private readonly UserProfileService _userProfileService;
     private readonly UserProfileRepository _userProfileRepository;
     private readonly SavedCoursesRepository _savedCoursesRepository;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly IConfiguration _configuration;
 
-    public CourseService(CourseRepository courseRepository, CourseAuthorRepository authorRepository, ProfilePictureRepository pictureRepository, UserProfileService userProfileService, UserProfileRepository userProfileRepository, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, SavedCoursesRepository savedCoursesRepository)
+    public CourseService(CourseRepository courseRepository, CourseCategoryRepository courseCategoryRepository, CourseAuthorRepository courseAuthorRepository, ProfilePictureRepository pictureRepository, UserProfileService userProfileService, UserProfileRepository userProfileRepository, SavedCoursesRepository savedCoursesRepository, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration)
     {
         _courseRepository = courseRepository;
-        _authorRepository = authorRepository;
+        _courseCategoryRepository = courseCategoryRepository;
+        _courseAuthorRepository = courseAuthorRepository;
         _pictureRepository = pictureRepository;
         _userProfileService = userProfileService;
         _userProfileRepository = userProfileRepository;
+        _savedCoursesRepository = savedCoursesRepository;
         _userManager = userManager;
         _signInManager = signInManager;
-        _savedCoursesRepository = savedCoursesRepository;
+        _configuration = configuration;
     }
 
     public async Task RunAsync()
@@ -50,14 +58,14 @@ public class CourseService
             Price = 12.50m,
             HoursToComplete = 220,
             LikesPercentage = 94,
-            LikesAmount = "4.2m",
+            LikesAmount = 4200,
 
             Image = new CourseImageEntity
             {
                 ImageUrl = "/images/courses/fullstack-course.png"
             },
 
-            Author = new CourseAuthorEntity
+            CourseAuthor = new CourseAuthorEntity
             {
                 Name = "Albert Flores",
                 Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
@@ -68,8 +76,11 @@ public class CourseService
                 {
                     ImageUrl = "/images/people/albert-flores.png"
                 }
+            },
+            CourseCategory = new CourseCategoryEntity
+            {
+                Name = "Frontend Development"
             }
-
         },
 
             new CourseEntity
@@ -80,14 +91,14 @@ public class CourseService
             Price = 15.99m,
             HoursToComplete = 160,
             LikesPercentage = 92,
-            LikesAmount = "3.1m",
+            LikesAmount = 3100,
 
             Image = new CourseImageEntity
             {
                 ImageUrl = "/images/courses/frontend-course.png"
             },
 
-            Author = new CourseAuthorEntity
+            CourseAuthor = new CourseAuthorEntity
             {
                 Name = "Jenny Wilson & Marvin McKinney",
                 Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
@@ -98,35 +109,10 @@ public class CourseService
                 {
                     ImageUrl = "/images/people/albert-flores.png"
                 }
-            }
-        },
-            
-            new CourseEntity
-        {
-            Name = "The Complete Front-End Web Development Course",
-            Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-            Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-            Price = 9.99m,
-            HoursToComplete = 100,
-            LikesPercentage = 98,
-            LikesAmount = "2.7m",
-
-            Image = new CourseImageEntity
-            {
-                ImageUrl = "/images/courses/webdev-course.png"
             },
-
-            Author = new CourseAuthorEntity
+            CourseCategory = new CourseCategoryEntity
             {
-                Name = "Albert Flores",
-                Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
-                YoutubeFollowersQty = 240,
-                FacebookFollowersQty = 180,
-
-                Image = new CourseAuthorImageEntity
-                {
-                    ImageUrl = "/images/people/albert-flores.png"
-                }
+                Name = "Backend Development"
             }
         },
 
@@ -138,14 +124,14 @@ public class CourseService
             Price = 9.99m,
             HoursToComplete = 100,
             LikesPercentage = 98,
-            LikesAmount = "2.7m",
+            LikesAmount = 2700,
 
             Image = new CourseImageEntity
             {
                 ImageUrl = "/images/courses/webdev-course.png"
             },
 
-            Author = new CourseAuthorEntity
+            CourseAuthor = new CourseAuthorEntity
             {
                 Name = "Albert Flores",
                 Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
@@ -156,7 +142,39 @@ public class CourseService
                 {
                     ImageUrl = "/images/people/albert-flores.png"
                 }
-            }
+            },
+            CourseCategoryId = 1
+        },
+
+            new CourseEntity
+        {
+            Name = "The Complete Front-End Web Development Course",
+            Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+            Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+            Price = 9.99m,
+            HoursToComplete = 100,
+            LikesPercentage = 98,
+            LikesAmount = 2700,
+
+            Image = new CourseImageEntity
+            {
+                ImageUrl = "/images/courses/webdev-course.png"
+            },
+
+            CourseAuthor = new CourseAuthorEntity
+            {
+                Name = "Albert Flores",
+                Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                YoutubeFollowersQty = 240,
+                FacebookFollowersQty = 180,
+
+                Image = new CourseAuthorImageEntity
+                {
+                    ImageUrl = "/images/people/albert-flores.png"
+                }
+            },
+            CourseCategoryId = 2
+
         },
 
             new CourseEntity
@@ -167,14 +185,14 @@ public class CourseService
             Price = 12.50m,
             HoursToComplete = 220,
             LikesPercentage = 94,
-            LikesAmount = "4.2m",
+            LikesAmount = 4200,
 
             Image = new CourseImageEntity
             {
                 ImageUrl = "/images/courses/fullstack-course.png"
             },
 
-            Author = new CourseAuthorEntity
+            CourseAuthor = new CourseAuthorEntity
             {
                 Name = "Albert Flores",
                 Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
@@ -185,7 +203,9 @@ public class CourseService
                 {
                     ImageUrl = "/images/people/albert-flores.png"
                 }
-            }
+            },
+            CourseCategoryId = 1
+
 
         },
 
@@ -197,14 +217,14 @@ public class CourseService
                 Price = 15.99m,
                 HoursToComplete = 160,
                 LikesPercentage = 92,
-                LikesAmount = "3.1m",
+                LikesAmount = 3100,
 
                 Image = new CourseImageEntity
                 {
                     ImageUrl = "/images/courses/frontend-course.png"
                 },
 
-                Author = new CourseAuthorEntity
+                CourseAuthor = new CourseAuthorEntity
                 {
                     Name = "Jenny Wilson & Marvin McKinney",
                     Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
@@ -215,7 +235,9 @@ public class CourseService
                     {
                         ImageUrl = "/images/people/albert-flores.png"
                     }
-                }
+                },
+                CourseCategoryId = 2
+
             },
 
             new CourseEntity
@@ -226,14 +248,14 @@ public class CourseService
                 Price = 15.99m,
                 HoursToComplete = 160,
                 LikesPercentage = 92,
-                LikesAmount = "3.1m",
+                LikesAmount = 3100,
 
                 Image = new CourseImageEntity
                 {
                     ImageUrl = "/images/courses/frontend-course.png"
                 },
 
-                Author = new CourseAuthorEntity
+                CourseAuthor = new CourseAuthorEntity
                 {
                     Name = "Jenny Wilson & Marvin McKinney",
                     Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
@@ -244,7 +266,8 @@ public class CourseService
                     {
                         ImageUrl = "/images/people/albert-flores.png"
                     }
-                }
+                },
+                CourseCategoryId = 1
             },
 
             new CourseEntity
@@ -255,14 +278,14 @@ public class CourseService
                 Price = 9.99m,
                 HoursToComplete = 100,
                 LikesPercentage = 98,
-                LikesAmount = "2.7m",
+                LikesAmount = 2700,
 
                 Image = new CourseImageEntity
                 {
                     ImageUrl = "/images/courses/webdev-course.png"
                 },
 
-                Author = new CourseAuthorEntity
+                CourseAuthor = new CourseAuthorEntity
                 {
                     Name = "Albert Flores",
                     Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
@@ -273,7 +296,8 @@ public class CourseService
                     {
                         ImageUrl = "/images/people/albert-flores.png"
                     }
-                }
+                },
+                CourseCategoryId = 2
             },
 
             new CourseEntity
@@ -284,14 +308,14 @@ public class CourseService
                 Price = 12.50m,
                 HoursToComplete = 220,
                 LikesPercentage = 94,
-                LikesAmount = "4.2m",
+                LikesAmount = 4200,
 
                 Image = new CourseImageEntity
                 {
                     ImageUrl = "/images/courses/fullstack-course.png"
                 },
 
-                Author = new CourseAuthorEntity
+                CourseAuthor = new CourseAuthorEntity
                 {
                     Name = "Albert Flores",
                     Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
@@ -302,15 +326,14 @@ public class CourseService
                     {
                         ImageUrl = "/images/people/albert-flores.png"
                     }
-                }
-
+                },
+                CourseCategoryId = 1
             },
         };
 
         foreach (var course in courses)
             await _courseRepository.CreateAsync(course);
     }
-
 
     public async Task<bool> SaveOrRemoveCourseAsync(int id, ClaimsPrincipal loggedInUser)
     {
@@ -370,5 +393,67 @@ public class CourseService
                 await _savedCoursesRepository.DeleteAsync(x => x.CourseId == userCourse.CourseId && x.UserProfileId == userCourse.UserProfileId);
             }
         }
-    }
+    }    
+
+    public async Task<CourseEntity> CreateCourse(CourseEntity course)
+    {
+        var courseAuthor = course.CourseAuthor;
+        var courseCategory = course.CourseCategory;
+
+        #region AUTHOR CHECK
+
+        if (courseAuthor != null)
+        {
+            var authorResult = await _courseAuthorRepository.ExistsAsync(x => 
+                x.Name == courseAuthor.Name);
+
+            switch (authorResult)
+            {
+                case true:
+                    courseAuthor = await _courseAuthorRepository.GetOneAsync(x => x.Name == courseAuthor.Name);
+                    course.CourseAuthorId = courseAuthor.Id;
+                    course.CourseAuthor = null!;
+                    break;
+
+                case false:
+                    var result = await _courseAuthorRepository.CreateAsync(courseAuthor);
+                    course.CourseAuthorId = result.Id;
+                    course.CourseAuthor = null!;
+                    break;
+            }
+        }
+
+        #endregion
+
+
+        #region CATEGORY CHECK
+
+        if (courseCategory != null)
+        {
+            var categoryResult = await _courseCategoryRepository.ExistsAsync(x => 
+                x.Name == courseCategory.Name);
+
+            switch (categoryResult)
+            {
+                case true:
+                    courseCategory = await _courseCategoryRepository.GetOneAsync(x => x.Name == courseCategory.Name);
+                    course.CourseCategoryId = courseCategory.Id;
+                    course.CourseCategory = null!;
+
+                    break;
+
+                case false:
+                    var result = await _courseCategoryRepository.CreateAsync(courseCategory);
+                    course.CourseCategoryId = result.Id;
+                    course.CourseCategory = null!;
+                    break;
+            }
+        }
+
+        #endregion
+
+        var created = await _courseRepository.CreateAsync(course);
+
+        return created;
+    } 
 }

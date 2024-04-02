@@ -19,8 +19,9 @@ public class CourseRepository : Repo<CourseEntity>
         {
             List<CourseEntity> result = await _context.Courses
                 .Include(x => x.Image)
-                .Include(x => x.Author)
-                .Include(x => x.Author.Image)
+                .Include(x => x.CourseAuthor)
+                .Include(x => x.CourseAuthor.Image)
+                .Include(x => x.CourseCategory)
                 .ToListAsync();
             return result;
         }
@@ -37,8 +38,8 @@ public class CourseRepository : Repo<CourseEntity>
         {
             var result = await _context.Courses
                 .Include(x => x.Image)
-                .Include(x => x.Author)
-                .Include(x => x.Author.Image)
+                .Include(x => x.CourseAuthor)
+                .Include(x => x.CourseAuthor.Image)
                 .FirstOrDefaultAsync(predicate);
             if (result == null)
             {
