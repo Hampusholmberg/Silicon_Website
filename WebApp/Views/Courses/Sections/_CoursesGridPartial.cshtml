@@ -8,12 +8,12 @@
 
         <h1>Courses</h1>
 
-        <select class="view-filter">
-            <option value="" >All Categories</option>
+        <select class="view-filter" onchange="location = this.value;">
+            <option value="">All Categories</option>
             @{
-                foreach(var category in Model.Categories)
+                foreach (var category in Model.Categories)
                 {
-                    <option value=@category.Name>@category.Name</option>
+                    <option value="@Url.Action("Index", "Courses", new { category = category.Name })">@category.Name</option>
                 }
             }
         </select>

@@ -24,36 +24,35 @@ namespace WebApp.Controllers
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(string category = null!)
         {
             await _courseService.RunAsync();
 
             using var http = new HttpClient();
 
-            //var token = HttpContext.Request.Cookies["AccessToken"];
-            //http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-            var apiUrl = $"https://localhost:7153/api/courses?key={_configuration["ApiKey:Secret"]}";
-            var response = await http.GetAsync(apiUrl);
-            
+            var apiUrlCourses = $"https://localhost:7153/api/courses?key={_configuration["ApiKey:Secret"]}";
+            var responseCourses = await http.GetAsync(apiUrlCourses);
 
             var apiUrlCategories = $"https://localhost:7153/api/categories";
             var responseCategories = await http.GetAsync(apiUrlCategories);
 
-            if (response.IsSuccessStatusCode && responseCategories.IsSuccessStatusCode)
+            if (responseCourses.IsSuccessStatusCode && responseCategories.IsSuccessStatusCode)
             {
-                string jsonContentCourses = await response.Content.ReadAsStringAsync();
+                string jsonContentCourses = await responseCourses.Content.ReadAsStringAsync();
                 var courses = JsonConvert.DeserializeObject<IEnumerable<CourseViewModel>>(jsonContentCourses);
-
 
                 string jsonContentCategories = await responseCategories.Content.ReadAsStringAsync();
                 var categories = JsonConvert.DeserializeObject<IEnumerable<CategoryViewModel>>(jsonContentCategories);
 
+                if (!string.IsNullOrEmpty(category))
+                {
+                    courses = courses!.Where(x => x.CourseCategory.Name == category);
+                }
 
                 var userCourses = await _courseService.GetSavedCoursesAsync(User);
                 var user = await _userProfileService.GetLoggedInUserAsync(User);
 
-                if (courses != null!)
+                if (courses != null)
                 {
                     foreach (var course in courses)
                     {
@@ -70,13 +69,10 @@ namespace WebApp.Controllers
                     Courses = courses!,
                     Categories = categories!,
                     Title = "Courses",
-                    CurrentPage = page,
-                    PageSize = pageSize,
                 };
 
                 ViewData["Title"] = viewModel.Title;
                 return View(viewModel);
-
             }
 
             return View();
