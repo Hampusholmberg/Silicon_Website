@@ -1,5 +1,4 @@
-﻿using Infrastructure.Contexts;
-using Infrastructure.Entities;
+﻿using Infrastructure.Entities;
 using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
@@ -13,26 +12,22 @@ namespace WebApi.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [UseApiKey]
-//[Authorize(AuthenticationSchemes = "Bearer")]
 public class CoursesController : ControllerBase
 {
     private readonly CourseRepository _courseRepository;
     private readonly CourseService _courseService;
-    private readonly CourseCategoryRepository _courseCategoryRepository;
-    private readonly DataContext _context;
 
-    public CoursesController(CourseRepository courseRepository, CourseCategoryRepository courseCategoryRepository, CourseService courseService, DataContext context)
+    public CoursesController(CourseRepository courseRepository, CourseService courseService)
     {
         _courseRepository = courseRepository;
-        _courseCategoryRepository = courseCategoryRepository;
         _courseService = courseService;
-        _context = context;
     }
 
 
     #region CREATE
 
     [HttpPost]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public async Task <IActionResult> Create(CourseEntity course)
     {
         if (ModelState.IsValid)
@@ -120,6 +115,7 @@ public class CoursesController : ControllerBase
     #region UPDATE
 
     [HttpPut]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public async Task<IActionResult> Update(CourseEntity course)
     {
         if (ModelState.IsValid)
@@ -141,6 +137,7 @@ public class CoursesController : ControllerBase
     #region DELETE 
 
     [HttpDelete]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public async Task<IActionResult> Delete(CourseEntity course)
     {
         if (ModelState.IsValid)

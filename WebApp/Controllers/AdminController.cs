@@ -32,6 +32,7 @@ public class AdminController : Controller
         return View();
     }
 
+    #region CREATE
     public async Task<IActionResult> CreateNewCourse(CreateCourseIndexViewModel viewModel)
     {
         viewModel.Title = "Create New Course";
@@ -75,8 +76,10 @@ public class AdminController : Controller
 
         return RedirectToAction("CreateNewCourse", "Admin", viewModel);
     }
+    #endregion
 
-    public async Task<IActionResult> UpdateCourse(CreateCourseIndexViewModel viewModel)
+    #region UPDATE
+    public async Task<IActionResult> UpdateExistingCourse(CreateCourseIndexViewModel viewModel)
     {
         using var http = new HttpClient();
         var response = await http.GetAsync($"https://localhost:7153/api/courses{_apiKey}");
@@ -92,6 +95,8 @@ public class AdminController : Controller
 
         return View(viewModel);
     }
+
+    #endregion
 
     #endregion
 
