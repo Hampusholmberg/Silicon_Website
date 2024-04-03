@@ -177,7 +177,6 @@ public class CourseService
             {
                 Name = "App Development"
             }
-
         },
 
             new CourseEntity
@@ -211,8 +210,6 @@ public class CourseService
             {
                 Name = "AI Development"
             }
-
-
         },
 
             new CourseEntity
@@ -243,7 +240,36 @@ public class CourseService
                     }
                 },
                 CourseCategoryId = 2
+            },
 
+            new CourseEntity
+            {
+                Name = "Creative CSS Drawing Course: Make Art With CSS",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 10.50m,
+                HoursToComplete = 220,
+                LikesPercentage = 94,
+                LikesAmount = 4200,
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/course-6.png"
+                },
+
+                CourseAuthor = new CourseAuthorEntity
+                {
+                    Name = "Robert Fox",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                },
+                CourseCategoryId = 2
             },
 
             new CourseEntity
@@ -337,6 +363,126 @@ public class CourseService
                     }
                 },
                 CourseCategoryId = 3
+            },
+
+            new CourseEntity
+            {
+                Name = "Learn JMETER from Scratch on Live Apps-Performance Testing",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 14.50m,
+                HoursToComplete = 160,
+                LikesPercentage = 92,
+                LikesAmount = 3100,
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/course-9.png"
+                },
+
+                CourseAuthor = new CourseAuthorEntity
+                {
+                    Name = "Jenny Wilson",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                },
+                CourseCategoryId = 3
+            },
+
+            new CourseEntity
+            {
+                Name = "The Complete Front-End Web Development Course",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 9.99m,
+                HoursToComplete = 100,
+                LikesPercentage = 98,
+                LikesAmount = 2700,
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/course-3.png"
+                },
+
+                CourseAuthor = new CourseAuthorEntity
+                {
+                    Name = "Albert Flores",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                },
+                CourseCategoryId = 2
+            },
+
+                        new CourseEntity
+            {
+                Name = "Learn JMETER from Scratch on Live Apps-Performance Testing",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 14.50m,
+                HoursToComplete = 160,
+                LikesPercentage = 92,
+                LikesAmount = 3100,
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/course-9.png"
+                },
+
+                CourseAuthor = new CourseAuthorEntity
+                {
+                    Name = "Jenny Wilson",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                },
+                CourseCategoryId = 3
+            },
+
+            new CourseEntity
+            {
+                Name = "The Complete Front-End Web Development Course",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 9.99m,
+                HoursToComplete = 100,
+                LikesPercentage = 98,
+                LikesAmount = 2700,
+
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/course-3.png"
+                },
+
+                CourseAuthor = new CourseAuthorEntity
+                {
+                    Name = "Albert Flores",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                },
+                CourseCategoryId = 2
             },
         };
 

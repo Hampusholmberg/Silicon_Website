@@ -1,4 +1,5 @@
-﻿using WebApp.Models.Components;
+﻿using Infrastructure.Models;
+using WebApp.Models.Components;
 using WebApp.Models.Forms;
 
 namespace WebApp.Models.Views;
@@ -9,9 +10,10 @@ public class CoursesIndexViewModel
     public IEnumerable<CourseViewModel> Courses { get; set; } = null!;
     public IEnumerable<CategoryViewModel> Categories { get; set; } = null!;
     public AccountViewModel Account { get; set; } = null!;
-    public int CurrentPage { get; set; }
-    public int PageSize { get; set; }
-    public int TotalCount { get; set; } 
+    public Pagination Pagination { get; set; } = new Pagination();
+    public int TotalItems { get; set; }
+    public int TotalPages { get; set; }
+
     public string? CourseCategory { get; set; }
     public string? SearchQuery { get; set; }
 }

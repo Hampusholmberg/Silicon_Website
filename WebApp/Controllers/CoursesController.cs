@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services;
+﻿using Infrastructure.Models;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -26,7 +27,7 @@ namespace WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int pageSize = 10, int CurrentPage = 1)
+        public async Task<IActionResult> Index(int CurrentPage = 1, int pageSize = 9)
         {
             await _courseService.RunAsync();
 
@@ -57,16 +58,21 @@ namespace WebApp.Controllers
                 Categories = categories!,
                 Title = "Courses",
             };
+            viewModel.Pagination = new Pagination
+            {
+                CurrentPage = CurrentPage,
+                PageSize = pageSize,
+                TotalItems = courses.TotalItems,
+                TotalPages = courses.TotalPages
+            };
 
             ViewData["Title"] = viewModel.Title;
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(CoursesIndexViewModel viewModel, string courseCategory = "", string searchQuery = "", int pageSize = 10, int CurrentPage = 1)
+        public async Task<IActionResult> Index(CoursesIndexViewModel viewModel)
         {
-            await _courseService.RunAsync();
-
             using var http = new HttpClient();
 
             var courses = await _webAppCourseService.GetCoursesAsync(viewModel.CourseCategory!, viewModel.SearchQuery!);

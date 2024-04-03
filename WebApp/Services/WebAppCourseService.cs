@@ -19,7 +19,13 @@ public class WebAppCourseService
     {
         using var http = new HttpClient();
 
-        var apiUrl = $"https://localhost:7153/api/courses?courseCategory={courseCategory}&searchQuery={searchQuery}&key={_configuration["ApiKey:Secret"]}";
+        var apiUrl = $"https://localhost:7153/api/courses?" +
+            $"courseCategory={courseCategory}&" +
+            $"searchQuery={searchQuery}&" +
+            //$"currentPage={currentPage}&" +
+            //$"pageSize={pageSize}&" +
+            $"key={_configuration["ApiKey:Secret"]}";
+
         var response = await http.GetAsync(apiUrl);
 
         if (response.IsSuccessStatusCode)

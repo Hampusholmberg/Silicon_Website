@@ -23,7 +23,7 @@
         <form method="post" asp-action="Index" asp-controller="Courses">
             <div class="search-box">
                 <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                <input placeholder="Search" asp-for="@Model.SearchQuery" />
+                <input placeholder="Search" asp-for="@Model.SearchQuery" onchange="this.form.submit()"/>
             </div>
         </form>
 
@@ -34,16 +34,28 @@
             }
         </div>
 
+        <form method="post" asp-action="Index" asp-controller="Courses">
+            <select asp-for="@Model.Pagination.CurrentPage" onchange="this.form.submit()">
+                @{
+                    for (int i = 1; i < Model.Pagination!.TotalPages + 1; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                }
+            </select>
+        </form>
+
+
+
     </div>
 
-    <script>
+@*     <script>
         const select = document.getElementById('courseCategorySelect');
         const hiddenInput = document.getElementById('courseCategoryHidden');
 
         select.addEventListener('change', () => {
             hiddenInput.value = select.value;
         });
-    </script>
-
+    </script> *@
 
 </section>
