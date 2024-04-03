@@ -3,6 +3,7 @@ using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using WebApp.Services;
 
 var connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Education\05._ASP.NET\Silicon_Website\Infrastructure\Data\silicon_db.mdf;Integrated Security=True;Connect Timeout=30;Encrypt=True";
 
@@ -37,6 +38,7 @@ builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<ContactService>();
+builder.Services.AddScoped<WebAppCourseService>();
 
 builder.Services.AddAuthentication().AddFacebook(x => 
 {

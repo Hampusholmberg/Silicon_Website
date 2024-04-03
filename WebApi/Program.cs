@@ -36,6 +36,7 @@ builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<AddressService>();
 builder.Services.AddScoped<CourseService>();
 builder.Services.AddScoped<ContactService>();
+//builder.Services.AddDbContext<DataContext>(x => x.UseSqlServer(connectionString));
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

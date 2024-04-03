@@ -8,15 +8,24 @@
 
         <h1>Courses</h1>
 
-        <select class="view-filter" onchange="location = this.value;">
-            <option value="">All Categories</option>
-            @{
-                foreach (var category in Model.Categories)
-                {
-                    <option value="@Url.Action("Index", "Courses", new { category = category.Name })">@category.Name</option>
+        <form method="post" asp-action="Index" asp-controller="Courses">
+
+            <select asp-for="@Model.CourseCategory" class="view-filter" onchange="this.form.submit()">
+
+                <option value="">All Categories</option>
+
+                @{
+                    foreach (var category in Model.Categories)
+                    {
+                        <option value="@category.Name">@category.Name</option>
+                    }
                 }
-            }
-        </select>
+
+            </select>
+
+            @* <button type="submit">Filter</button> *@
+
+        </form>
 
         <div class="search-box">
             <button>
@@ -31,12 +40,19 @@
             @foreach (var course in Model.Courses)
             {
                 @await Html.PartialAsync("~/Views/Courses/Components/_CourseBoxPartial.cshtml", course )
-
             }
-
         </div>
 
     </div>
+
+    <script>
+        const select = document.getElementById('courseCategorySelect');
+        const hiddenInput = document.getElementById('courseCategoryHidden');
+
+        select.addEventListener('change', () => {
+            hiddenInput.value = select.value;
+        });
+    </script>
 
 
 </section>

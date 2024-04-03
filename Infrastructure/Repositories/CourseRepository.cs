@@ -32,6 +32,24 @@ public class CourseRepository : Repo<CourseEntity>
         }
     }
 
+    public IQueryable<CourseEntity> GetAll()
+    {
+        try
+        {
+            IQueryable<CourseEntity> result = _context.Courses
+                .Include(x => x.Image)
+                .Include(x => x.CourseAuthor)
+                .Include(x => x.CourseAuthor.Image)
+                .Include(x => x.CourseCategory);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error occurred while trying to get the entities: {ex.Message}");
+            return null!;
+        }
+    }
+
     public override async Task<CourseEntity> GetOneAsync(Expression<Func<CourseEntity, bool>> predicate)
     {
         try

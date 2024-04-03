@@ -1,8 +1,11 @@
-﻿using Infrastructure.Entities;
+﻿using Infrastructure.Contexts;
+using Infrastructure.Entities;
+using Infrastructure.Models;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebApi.Filters;
 
 namespace WebApi.Controllers;
@@ -16,12 +19,14 @@ public class CoursesController : ControllerBase
     private readonly CourseRepository _courseRepository;
     private readonly CourseService _courseService;
     private readonly CourseCategoryRepository _courseCategoryRepository;
+    private readonly DataContext _context;
 
-    public CoursesController(CourseRepository courseRepository, CourseCategoryRepository courseCategoryRepository, CourseService courseService)
+    public CoursesController(CourseRepository courseRepository, CourseCategoryRepository courseCategoryRepository, CourseService courseService, DataContext context)
     {
         _courseRepository = courseRepository;
         _courseCategoryRepository = courseCategoryRepository;
         _courseService = courseService;
+        _context = context;
     }
 
 
@@ -65,18 +70,49 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<IActionResult> GetAll(string courseCategory = "", string searchQuery = "", int pageNumber = 1, int pageSize = 10)
     {
         try
         {
-            var result = await _courseRepository.GetAllAsync();
-            if (result != null!)
-                return Ok(result);
+            #region Query Filters
+            var courses = _courseRepository.GetAll();
 
-            return NotFound();
+            var query = courses.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(courseCategory))
+                query = query.Where(x => x.CourseCategory!.Name.Contains(courseCategory));
+
+            if (!string.IsNullOrWhiteSpace(searchQuery))
+                query = query.Where(x => x.Name.Contains(searchQuery) || x.CourseAuthor!.Name.Contains(searchQuery));
+
+            #endregion
+
+            var response = new CourseResponse
+            {
+                TotalItems = await query.CountAsync(),
+            };
+
+            response.TotalPages = (int)Math.Ceiling(response.TotalItems / (double)pageSize);
+            response.Courses = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return Ok(response);
         }
         catch { return Problem(); }
     }
+    
+    //[HttpGet]
+    //public async Task<IActionResult> GetAll()
+    //{
+    //    try
+    //    {
+    //        var result = await _courseRepository.GetAllAsync();
+    //        if (result != null!)
+    //            return Ok(result);
+
+    //        return NotFound();
+    //    }
+    //    catch { return Problem(); }
+    //}
 
     #endregion
 
