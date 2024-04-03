@@ -12,5 +12,6 @@ public class CoursesIndexViewModel
     public int CurrentPage { get; set; }
     public int PageSize { get; set; }
     public int TotalCount { get; set; } 
-    public string? CourseCategory {  get; set; }
+    public string? CourseCategory { get; set; }
+    public string? SearchQuery { get; set; }
 }

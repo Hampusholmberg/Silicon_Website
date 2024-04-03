@@ -9,31 +9,24 @@
         <h1>Courses</h1>
 
         <form method="post" asp-action="Index" asp-controller="Courses">
-
             <select asp-for="@Model.CourseCategory" class="view-filter" onchange="this.form.submit()">
-
                 <option value="">All Categories</option>
-
                 @{
                     foreach (var category in Model.Categories)
                     {
                         <option value="@category.Name">@category.Name</option>
                     }
                 }
-
             </select>
-
-            @* <button type="submit">Filter</button> *@
-
         </form>
 
-        <div class="search-box">
-            <button>
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-            <input placeholder="Search" />
-        </div>
-        
+        <form method="post" asp-action="Index" asp-controller="Courses">
+            <div class="search-box">
+                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <input placeholder="Search" asp-for="@Model.SearchQuery" />
+            </div>
+        </form>
+
 
 
         <div class="grid">

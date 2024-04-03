@@ -34,7 +34,7 @@ namespace WebApp.Controllers
 
             using var http = new HttpClient();
 
-            var courses = await _webAppCourseService.GetCoursesAsync("");
+            var courses = await _webAppCourseService.GetCoursesAsync("", "");
             var categories = await _webAppCourseService.GetCourseCategoriesAsync();
 
 
@@ -65,13 +65,13 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(CoursesIndexViewModel viewModel, string courseCategory = "", string courseQuery = "", int pageSize = 10, int CurrentPage = 1)
+        public async Task<IActionResult> Index(CoursesIndexViewModel viewModel, string courseCategory = "", string searchQuery = "", int pageSize = 10, int CurrentPage = 1)
         {
             await _courseService.RunAsync();
 
             using var http = new HttpClient();
 
-            var courses = await _webAppCourseService.GetCoursesAsync(viewModel.CourseCategory!);
+            var courses = await _webAppCourseService.GetCoursesAsync(viewModel.CourseCategory!, viewModel.SearchQuery!);
             var categories = await _webAppCourseService.GetCourseCategoriesAsync();
 
             var userCourses = await _courseService.GetSavedCoursesAsync(User);
