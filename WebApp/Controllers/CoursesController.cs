@@ -12,8 +12,6 @@ namespace WebApp.Controllers
     [Authorize]
     public class CoursesController : Controller
     {
-        private readonly string _apiKey = "?key=ZTMwZjkzYzUtMzg2My00MzBlLThiNjItMzU2ZGQ1NTIxMTBi";
-
         private readonly UserProfileService _userProfileService;
         private readonly CourseService _courseService;
         private readonly IConfiguration _configuration;
@@ -101,7 +99,7 @@ namespace WebApp.Controllers
             using var http = new HttpClient();
             CourseViewModel viewModel = new();
 
-            var result = await http.GetAsync($"https://localhost:7153/api/courses/{id}/{_apiKey}");
+            var result = await http.GetAsync($"https://localhost:7153/api/courses/{id}/?key={_configuration["ApiKey:Secret"]}");
 
             if (result.IsSuccessStatusCode)
             {
@@ -112,13 +110,13 @@ namespace WebApp.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> SaveCourse(CourseViewModel course)
+        public async Task<IActionResult> SaveCourse(CourseViewModel course, CoursesIndexViewModel viewModel)
         {
             if (course != null)
             {
                 var result = await _courseService.SaveOrRemoveCourseAsync(course.Id, User);
             }
-            return RedirectToAction("Index", "Courses");
+            return RedirectToAction("index", viewModel);
         }
     }
 }
