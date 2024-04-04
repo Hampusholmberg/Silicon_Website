@@ -136,13 +136,16 @@ namespace WebApp.Controllers
         }
 
         [Route("/account-security")]
-        public async Task<IActionResult> AccountSecurity()
+        public async Task<IActionResult> AccountSecurity(string deleteAccountMessage = "", string changePasswordSuccessMessage = "", string changePasswordErrorMessage = "" )
         {
             if (_signInManager.IsSignedIn(User))
             {
                 AccountSecurityViewModel viewModel = new AccountSecurityViewModel();
                 viewModel.PasswordForm = new PasswordChangeModel();
                 viewModel.LoggedInUser = await _userProfileService.GetLoggedInUserAsync(User);
+                viewModel.DeleteAccountMessage = deleteAccountMessage;
+                viewModel.ChangePasswordSuccessMessage = changePasswordSuccessMessage;
+                viewModel.ChangePasswordErrorMessage = changePasswordErrorMessage;
                 return View(viewModel);
             }
             return View();
@@ -157,11 +160,12 @@ namespace WebApp.Controllers
                 if (user != null)
                 {
                     var result = await _userManager.ChangePasswordAsync(user ,viewModel.PasswordForm!.CurrentPassword, viewModel.PasswordForm.NewPassword);
+                    if (result.Succeeded)
+                        return RedirectToAction("AccountSecurity", "Account", new { changePasswordSuccessMessage = "Password has been changed" });
+
                 }
-                
-                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction("AccountSecurity", "Account");
+            return RedirectToAction("AccountSecurity", "Account", new { changePasswordErrorMessage = "Invalid inputs, please try again" });
         }
 
         public async Task<IActionResult> DeleteAccount(AccountSecurityViewModel viewModel)
@@ -179,7 +183,7 @@ namespace WebApp.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-            return RedirectToAction("AccountSecurity", "Account");
+            return RedirectToAction("AccountSecurity", "Account", new { deleteAccountMessage = "You must confirm that you want to delete your account." });
         }
     }
 }

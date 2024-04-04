@@ -31,6 +31,7 @@ builder.Services.AddScoped<CourseAuthorRepository>();
 builder.Services.AddScoped<SavedCoursesRepository>();
 builder.Services.AddScoped<ContactRequestRepository>();
 builder.Services.AddScoped<CourseCategoryRepository>();
+builder.Services.AddScoped<SubscriberRepository>();
 
 builder.Services.AddScoped<UserProfileService>();
 builder.Services.AddScoped<AddressService>();

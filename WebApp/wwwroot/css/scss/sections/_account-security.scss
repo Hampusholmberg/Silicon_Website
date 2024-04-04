@@ -63,8 +63,12 @@
                 @include lg {
                     display: grid;
                     grid-template-columns: 1fr 1fr;
-                    grid-template-areas: "cp vac1" "np cnp" "btn vac2";
+                    grid-template-areas: "span span" "cp vac1" "np cnp" "btn vac2";
                     gap: 1rem;
+
+                    span {
+                        grid-area: span;
+                    }
 
                     .input-div {
 

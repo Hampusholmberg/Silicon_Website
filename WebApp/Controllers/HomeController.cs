@@ -86,6 +86,10 @@ namespace WebApp.Controllers
 
                 var subscriberAsJson = new StringContent(JsonConvert.SerializeObject(subscriber), Encoding.UTF8, "application/json");
 
+                var blabla = await subscriberAsJson.ReadAsStringAsync();
+
+                Console.WriteLine(blabla);
+
                 var result = await http.PostAsync($"https://localhost:7153/api/subscribers{_apiKey}", subscriberAsJson);
             }
 

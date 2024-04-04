@@ -1771,8 +1771,11 @@ footer .container .social-media {
   .account-security .container .account-details-forms #account-security-change-password-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "cp vac1" "np cnp" "btn vac2";
+    grid-template-areas: "span span" "cp vac1" "np cnp" "btn vac2";
     gap: 1rem;
+  }
+  .account-security .container .account-details-forms #account-security-change-password-form span {
+    grid-area: span;
   }
   .account-security .container .account-details-forms #account-security-change-password-form .input-div:nth-child(1) {
     grid-area: cp;
