@@ -1139,22 +1139,13 @@ footer .container .social-media {
 .courses-grid .container {
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-areas: "header header" "dropdown searchbox" "grid grid";
+  grid-template-areas: "header header" "dropdown searchbox" "grid grid" "pagination pagination";
   row-gap: 1rem;
-  /*
-  .grid {
-      grid-area: grid;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-  }*/
 }
 @media (min-width: 992px) {
   .courses-grid .container {
     grid-template-columns: 1fr auto auto;
-    grid-template-areas: "header dropdown searchbox" "grid grid grid";
+    grid-template-areas: "header dropdown searchbox" "grid grid grid" "pagination pagination pagination";
     align-items: center;
   }
 }
@@ -1234,6 +1225,35 @@ footer .container .social-media {
   .courses-grid .container .grid {
     grid-template-columns: 1fr 1fr 1fr;
   }
+}
+.courses-grid .container .pagination {
+  grid-area: pagination;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  font-size: 20px;
+  margin-bottom: 3rem;
+  margin-top: 1rem;
+}
+.courses-grid .container .pagination span {
+  background-color: #F3F6FF;
+  color: #000000;
+}
+.courses-grid .container .pagination a {
+  color: #000000;
+}
+.courses-grid .container .pagination a:hover {
+  background-color: #6366F1;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+.courses-grid .container .pagination a, .courses-grid .container .pagination span {
+  line-height: 36px;
+  height: 36px;
+  width: 36px;
+  text-align: center;
+  border-radius: 5px;
 }
 
 .work-for-us .container {
