@@ -149,11 +149,6 @@ public class AuthController : Controller
         var info = await _signInManager.GetExternalLoginInfoAsync();
         if (info != null!)
         {
-            foreach (var claim in info.Principal.Claims)
-            {
-                Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
-            }
-
             var fbUser = new ApplicationUser
             {
                 FirstName = info.Principal.FindFirstValue(ClaimTypes.GivenName)!,
@@ -233,7 +228,6 @@ public class AuthController : Controller
         string profilePictureUrl = null!;
         foreach (var claim in info!.Principal.Claims)
         {
-            Console.WriteLine($"Type: {claim.Type}, Value: {claim.Value}");
             if (claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/picture")
             {
                 profilePictureUrl = claim.Value;

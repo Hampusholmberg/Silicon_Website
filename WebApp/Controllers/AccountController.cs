@@ -47,7 +47,6 @@ namespace WebApp.Controllers
             return View();
         }
 
-
         // NO ERROR MESSAGES IMPLEMENTED!!
         public async Task<IActionResult> UpdateProfile(AccountViewModel viewModel)
         {
@@ -72,7 +71,6 @@ namespace WebApp.Controllers
             return RedirectToAction("AccountDetails", "Account");
         }
 
-
         // NO ERROR MESSAGES IMPLEMENTED!!
         public async Task<IActionResult> UpdateAddress(AccountViewModel viewModel)
         {
@@ -87,12 +85,10 @@ namespace WebApp.Controllers
                     PostalCode = viewModel.Address.PostalCode,
                     City = viewModel.Address.City
                 };
-
                 await _addressService.CreateAddressAsync(user);
             }
             return RedirectToAction("AccountDetails", "Account");
         }
-
 
         [Route("/account/SavedItems")]
         public async Task<IActionResult> SavedItems()
@@ -124,7 +120,6 @@ namespace WebApp.Controllers
             {
                 var result = await _courseService.SaveOrRemoveCourseAsync(course.Id, User);
             }
-
             return RedirectToAction("SavedItems", "Account");
         }
 
@@ -134,28 +129,11 @@ namespace WebApp.Controllers
             return RedirectToAction("SavedItems", "Account");
         }
 
-
         public async Task<IActionResult> SignOut()
         {
             HttpContext.Session.Clear();
-
             return RedirectToAction("Index", "Home");
         }
-
-
-        //[Route("/account-security")]
-        //public async Task<IActionResult> AccountSecurity()
-        //{
-        //    if (_signInManager.IsSignedIn(User))
-        //    {
-        //        AccountViewModel viewModel = await _userProfileService.GetLoggedInUserAsync(User);
-
-        //        return View(viewModel);
-        //    }
-
-        //    return View();
-        //}
-
 
         [Route("/account-security")]
         public async Task<IActionResult> AccountSecurity()
@@ -167,7 +145,6 @@ namespace WebApp.Controllers
                 viewModel.LoggedInUser = await _userProfileService.GetLoggedInUserAsync(User);
                 return View(viewModel);
             }
-
             return View();
         }
 
@@ -184,10 +161,8 @@ namespace WebApp.Controllers
                 
                 return RedirectToAction("Index", "Home");
             }
-
             return RedirectToAction("AccountSecurity", "Account");
         }
-
 
         public async Task<IActionResult> DeleteAccount(AccountSecurityViewModel viewModel)
         {
@@ -204,7 +179,6 @@ namespace WebApp.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
-
             return RedirectToAction("AccountSecurity", "Account");
         }
     }

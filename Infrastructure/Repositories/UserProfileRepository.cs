@@ -21,7 +21,6 @@ public class UserProfileRepository : Repo<UserProfileEntity>
         {
             List<UserProfileEntity> result = await _context.UserProfiles
                 .Include(x => x.Address)
-                //.Include(x => x.SavedItems)
                 .Include(x => x.ProfilePicture)               
                 .ToListAsync();
             return result;
@@ -39,7 +38,6 @@ public class UserProfileRepository : Repo<UserProfileEntity>
         {
             var result = await _context.UserProfiles
                 .Include(x => x.Address)
-                //.Include(x => x.SavedItems)
                 .Include(x => x.ProfilePicture)
                 .FirstOrDefaultAsync(predicate);
             if (result == null)

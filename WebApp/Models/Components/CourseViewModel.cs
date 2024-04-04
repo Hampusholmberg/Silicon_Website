@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Entities;
-using Infrastructure.Models;
 
 namespace WebApp.Models.Components;
 

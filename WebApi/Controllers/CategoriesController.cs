@@ -1,6 +1,4 @@
-﻿using Infrastructure.Entities;
-using Infrastructure.Repositories;
-using Microsoft.AspNetCore.Http;
+﻿using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers;

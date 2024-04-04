@@ -1,8 +1,5 @@
-﻿using Infrastructure.Models;
-using Infrastructure.Services;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using WebApp.Models.Components;
-using WebApp.Models.Views;
 
 namespace WebApp.Services;
 
@@ -39,7 +36,6 @@ public class WebAppCourseService
         return null!;
     }
 
-
     public async Task<IEnumerable<CategoryViewModel>> GetCourseCategoriesAsync()
     {
         using var http = new HttpClient();
@@ -56,12 +52,4 @@ public class WebAppCourseService
         }
         return null!;
     }
-
-
-
-
-
-
-
-
 }

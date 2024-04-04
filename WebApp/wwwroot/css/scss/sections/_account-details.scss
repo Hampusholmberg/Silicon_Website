@@ -1,6 +1,4 @@
-﻿
-
-.account-details {
+﻿.account-details {
 
     .container {
         display: flex;
@@ -67,7 +65,6 @@
     }
 }
 
-
 #account-details-basic-info-form {
     border-bottom: 1px solid $gray-300;
     padding-bottom: 3rem;
@@ -78,7 +75,6 @@
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
             "firstname lastname" "email phone" "bio bio" "buttons e";
-
 
         .bio-textarea {
             grid-area: bio;

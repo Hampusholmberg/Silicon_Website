@@ -1,8 +1,4 @@
-﻿
-using Infrastructure.Entities;
-using Infrastructure.Models;
-
-namespace WebApp.Models.Components;
+﻿namespace WebApp.Models.Components;
 
 public class CourseResult
 {

@@ -294,10 +294,6 @@ a:hover {
 .account-nav-link:hover span {
   text-decoration: underline;
 }
-.account-nav-link:hover i {
-  /*background: $gray-800;*/
-  /*color: $white;*/
-}
 
 .btn-theme {
   border-radius: 6px;
