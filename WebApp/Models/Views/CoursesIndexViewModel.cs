@@ -10,9 +10,10 @@ public class CoursesIndexViewModel
     public IEnumerable<CourseViewModel> Courses { get; set; } = null!;
     public IEnumerable<CategoryViewModel> Categories { get; set; } = null!;
     public AccountViewModel Account { get; set; } = null!;
-    public Pagination Pagination { get; set; } = new Pagination();
-    public int TotalItems { get; set; }
-    public int TotalPages { get; set; }
+    public Pagination? Pagination { get; set; }
+
+    //public int TotalItems { get; set; }
+    //public int TotalPages { get; set; }
 
     public string? CourseCategory { get; set; }
     public string? SearchQuery { get; set; }

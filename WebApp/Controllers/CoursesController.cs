@@ -3,7 +3,6 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using WebApp.Models.Components;
 using WebApp.Models.Views;
 using WebApp.Services;
@@ -26,23 +25,25 @@ namespace WebApp.Controllers
             _webAppCourseService = webAppCourseService;
         }
 
+        
+        [HttpPost]
         [HttpGet]
-        public async Task<IActionResult> Index(int CurrentPage = 1, int pageSize = 9)
+        public async Task<IActionResult> Index(string courseCategory = "", string searchQuery = "", int pageNumber = 1, int pageSize = 9)
         {
             await _courseService.RunAsync();
 
             using var http = new HttpClient();
 
-            var courses = await _webAppCourseService.GetCoursesAsync("", "");
+            var courseResult = await _webAppCourseService.GetCoursesAsync(courseCategory, searchQuery, pageNumber, pageSize);
             var categories = await _webAppCourseService.GetCourseCategoriesAsync();
 
 
             var userCourses = await _courseService.GetSavedCoursesAsync(User);
             var user = await _userProfileService.GetLoggedInUserAsync(User);
 
-            if (courses != null)
+            if (courseResult != null)
             {
-                foreach (var course in courses.Courses)
+                foreach (var course in courseResult.Courses)
                 {
                     var result = user.UserProfile.SavedItems?.Any(x => x.CourseId == course.Id);
                     if (result == true)
@@ -54,49 +55,19 @@ namespace WebApp.Controllers
 
             var viewModel = new CoursesIndexViewModel
             {
-                Courses = courses!.Courses,
+                Courses = courseResult!.Courses,
                 Categories = categories!,
                 Title = "Courses",
-            };
-            viewModel.Pagination = new Pagination
-            {
-                CurrentPage = CurrentPage,
-                PageSize = pageSize,
-                TotalItems = courses.TotalItems,
-                TotalPages = courses.TotalPages
+                Pagination = new Pagination
+                {
+                    PageSize = pageSize,
+                    CurrentPage = pageNumber,
+                    TotalPages = courseResult.TotalPages,
+                    TotalItems = courseResult.TotalItems,
+                }
             };
 
             ViewData["Title"] = viewModel.Title;
-            return View(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Index(CoursesIndexViewModel viewModel)
-        {
-            using var http = new HttpClient();
-
-            var courses = await _webAppCourseService.GetCoursesAsync(viewModel.CourseCategory!, viewModel.SearchQuery!);
-            var categories = await _webAppCourseService.GetCourseCategoriesAsync();
-
-            var userCourses = await _courseService.GetSavedCoursesAsync(User);
-            var user = await _userProfileService.GetLoggedInUserAsync(User);
-
-            if (courses != null)
-            {
-                foreach (var course in courses.Courses)
-                {
-                    var result = user.UserProfile.SavedItems?.Any(x => x.CourseId == course.Id);
-                    if (result == true)
-                    {
-                        course.IsSaved = true;
-                    }
-                }
-            }
-
-            viewModel.Courses = courses!.Courses;
-            viewModel.Categories = categories;
-
-            ViewData["Title"] = "Courses";
             return View(viewModel);
         }
 

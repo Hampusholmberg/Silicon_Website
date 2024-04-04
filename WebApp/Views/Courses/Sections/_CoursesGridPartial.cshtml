@@ -1,7 +1,5 @@
 ﻿@model CoursesIndexViewModel
 
-
-
 <section class="courses-grid">
 
     <div class="container">
@@ -14,7 +12,7 @@
                 @{
                     foreach (var category in Model.Categories)
                     {
-                        <option value="@category.Name">@category.Name</option>
+                        <option value="@category.Name" href="@Url.Action("index", new { courseCategory = category.Name } )">@category.Name</option>
                     }
                 }
             </select>
@@ -34,28 +32,24 @@
             }
         </div>
 
-        <form method="post" asp-action="Index" asp-controller="Courses">
-            <select asp-for="@Model.Pagination.CurrentPage" onchange="this.form.submit()">
-                @{
-                    for (int i = 1; i < Model.Pagination!.TotalPages + 1; i++)
+        @{
+            if (Model.Pagination != null && Model.Pagination.TotalPages > 1)
+            {
+                <div class="pagination">
+                    @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
                     {
-                        <option value="@i">@i</option>
+                        if (i == Model.Pagination.CurrentPage)
+                        {
+                            <span class="number active">@i</span>
+                        }
+                        else
+                        {
+                            <a class="number" href="@Url.Action("index", new { pageNumber = i, pageSize = Model.Pagination.PageSize })">@i</a>
+                        }
                     }
-                }
-            </select>
-        </form>
-
-
+                </div>
+            }
+        }
 
     </div>
-
-@*     <script>
-        const select = document.getElementById('courseCategorySelect');
-        const hiddenInput = document.getElementById('courseCategoryHidden');
-
-        select.addEventListener('change', () => {
-            hiddenInput.value = select.value;
-        });
-    </script> *@
-
 </section>

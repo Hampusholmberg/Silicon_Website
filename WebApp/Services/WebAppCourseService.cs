@@ -1,4 +1,5 @@
-﻿using Infrastructure.Services;
+﻿using Infrastructure.Models;
+using Infrastructure.Services;
 using Newtonsoft.Json;
 using WebApp.Models.Components;
 using WebApp.Models.Views;
@@ -15,15 +16,15 @@ public class WebAppCourseService
         _configuration = configuration;
     }
 
-    public async Task<CoursesIndexViewModel> GetCoursesAsync(string courseCategory, string searchQuery)
+    public async Task<CourseResult> GetCoursesAsync(string courseCategory, string searchQuery, int pageNumber = 1, int pageSize = 9)
     {
         using var http = new HttpClient();
 
         var apiUrl = $"https://localhost:7153/api/courses?" +
             $"courseCategory={courseCategory}&" +
             $"searchQuery={searchQuery}&" +
-            //$"currentPage={currentPage}&" +
-            //$"pageSize={pageSize}&" +
+            $"pageNumber={pageNumber}&" +
+            $"pageSize={pageSize}&" +
             $"key={_configuration["ApiKey:Secret"]}";
 
         var response = await http.GetAsync(apiUrl);
@@ -31,9 +32,9 @@ public class WebAppCourseService
         if (response.IsSuccessStatusCode)
         {
             string jsonContentCourses = await response.Content.ReadAsStringAsync();
-            var courses = JsonConvert.DeserializeObject<CoursesIndexViewModel>(jsonContentCourses);
-
-            return courses!;
+            var result = JsonConvert.DeserializeObject<CourseResult>(jsonContentCourses);
+            if (result != null)
+                return result!;
         }
         return null!;
     }

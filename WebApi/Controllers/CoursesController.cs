@@ -65,7 +65,7 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(string courseCategory = "", string searchQuery = "", int currentPage = 1, int pageSize = 10)
+    public async Task<IActionResult> GetAll(string courseCategory = "", string searchQuery = "", int pageNumber = 1, int pageSize = 10)
     {
         try
         {
@@ -88,7 +88,7 @@ public class CoursesController : ControllerBase
             };
 
             response.TotalPages = (int)Math.Ceiling(response.TotalItems / (double)pageSize);
-            response.Courses = await query.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
+            response.Courses = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
 
             return Ok(response);
         }
