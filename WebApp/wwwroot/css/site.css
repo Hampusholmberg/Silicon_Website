@@ -700,8 +700,8 @@ header .container .account-buttons .profile-thumb-a {
   }
 }
 header .container .account-buttons .profile-thumb-a .profile-thumb {
-  max-width: auto;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .mobile-toggled {
@@ -1693,6 +1693,7 @@ footer .container .social-media {
   }
 }
 .account-menu .account-details {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1709,8 +1710,24 @@ footer .container .social-media {
   margin-bottom: 1rem;
 }
 .account-menu .account-details .img-div img {
-  width: auto;
-  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+.account-menu .account-details .img-div label {
+  border-radius: 999px;
+  position: absolute;
+  right: 105px;
+  top: 95px;
+  border: 1px solid #EFF2FC;
+  background-color: #FFFFFF;
+}
+.account-menu .account-details .img-div label i {
+  width: 1.6rem;
+  height: 1rem;
+  color: #000000;
+}
+.account-menu .account-details .img-div label:hover {
+  cursor: pointer;
 }
 .account-security .btn-theme {
   min-width: 175px;

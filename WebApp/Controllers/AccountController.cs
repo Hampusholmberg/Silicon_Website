@@ -21,8 +21,9 @@ namespace WebApp.Controllers
         private readonly CourseRepository _courseRepository;
         private readonly SavedCoursesRepository _savedCoursesRepository;
         private readonly CourseService _courseService;
+        private readonly IConfiguration _configuration;
 
-        public AccountController(AddressService addressService, UserProfileService userProfileService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, CourseRepository courseRepository, SavedCoursesRepository savedCoursesRepository, CourseService courseService)
+        public AccountController(AddressService addressService, UserProfileService userProfileService, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, CourseRepository courseRepository, SavedCoursesRepository savedCoursesRepository, CourseService courseService, IConfiguration configuration)
         {
             _addressService = addressService;
             _userProfileService = userProfileService;
@@ -31,6 +32,7 @@ namespace WebApp.Controllers
             _courseRepository = courseRepository;
             _savedCoursesRepository = savedCoursesRepository;
             _courseService = courseService;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -72,20 +74,23 @@ namespace WebApp.Controllers
         }
 
         // NO ERROR MESSAGES IMPLEMENTED!!
-        public async Task<IActionResult> UpdateAddress(AccountViewModel viewModel)
+        public async Task<IActionResult> UpdateAddress(AddressViewModel viewModel)
         {
-            var user = await _userProfileService.GetLoggedInUserAsync(User);
-
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                user.UserProfile.Address = new AddressEntity
+                var user = await _userProfileService.GetLoggedInUserAsync(User);
+
+                if (user != null)
                 {
-                    AddressLine1 = viewModel.Address.AddressLine1,
-                    AddressLine2 = viewModel.Address.AddressLine2,
-                    PostalCode = viewModel.Address.PostalCode,
-                    City = viewModel.Address.City
-                };
-                await _addressService.CreateAddressAsync(user);
+                    user.UserProfile.Address = new AddressEntity
+                    {
+                        AddressLine1 = viewModel.AddressLine1,
+                        AddressLine2 = viewModel.AddressLine2,
+                        PostalCode = viewModel.PostalCode,
+                        City = viewModel.City
+                    };
+                    await _addressService.CreateAddressAsync(user);
+                }
             }
             return RedirectToAction("AccountDetails", "Account");
         }
@@ -185,5 +190,58 @@ namespace WebApp.Controllers
             }
             return RedirectToAction("AccountSecurity", "Account", new { deleteAccountMessage = "You must confirm that you want to delete your account." });
         }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeProfilePicture(AccountViewModel viewModel, IFormFile file)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userProfileService.GetLoggedInUserAsync(User);
+
+                var fileName = $"{user.Id}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["UploadPath"]!, fileName);
+
+                using var fs = new FileStream(filePath, FileMode.Create);
+                await file.CopyToAsync(fs);
+
+                user.UserProfile.ProfilePicture = new ProfilePictureEntity
+                {
+                    ImageUrl = fileName
+                };
+
+                await _userManager.UpdateAsync(user);
+
+            }
+            return RedirectToAction("AccountDetails", "Account");
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> ChangeProfilePicture(AccountViewModel viewModel, IFormFile file)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = await _userProfileService.GetLoggedInUserAsync(User);
+
+        //        if (user != null)
+        //        {
+        //            var fileName = $"{user.Id}_{Guid.NewGuid()}";
+        //            var filePath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["UploadPath"]!, fileName);
+
+        //            user.UserProfile.ProfilePicture = new ProfilePictureEntity
+        //            {
+        //                ImageUrl = $"{_configuration["UploadPath"]}{fileName}"
+        //            };
+
+        //            using (FileStream stream = new FileStream(filePath, FileMode.Create))
+        //            {
+        //                await file.CopyToAsync(stream);
+        //            }
+
+
+        //                await _userManager.UpdateAsync(user);
+        //        }
+        //    }
+        //    return RedirectToAction("AccountDetails", "Account");
+        //}
     }
 }

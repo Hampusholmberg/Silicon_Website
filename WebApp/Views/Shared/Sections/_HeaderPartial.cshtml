@@ -43,7 +43,7 @@
                     if (user.UserProfile.ProfilePicture != null)
                     {
                         <a asp-controller="Account" asp-action="AccountDetails" class="profile-thumb-a" id="profile-thumb-a">
-                            <img src="@user.UserProfile.ProfilePicture!.ImageUrl" alt="" class="profile-thumb" />
+                            <img src="~/uploads/@user.UserProfile.ProfilePicture.ImageUrl" alt="" class="profile-thumb" />
                         </a>
                     }
                     else

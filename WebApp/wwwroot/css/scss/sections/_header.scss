@@ -67,8 +67,8 @@ header {
                 }
 
                 .profile-thumb {
-                    max-width: auto;
-                    height: 100%;
+                    min-width: 100%;
+                    min-height: 100%;
                 }
             }
         }
