@@ -117,33 +117,33 @@ public class CourseService
         },
 
             new CourseEntity
-        {
-            Name = "The Complete Front-End Web Development Course",
-            Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-            Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-            Price = 9.99m,
-            HoursToComplete = 100,
-            LikesPercentage = 98,
-            LikesAmount = 2700,
-
-            Image = new CourseImageEntity
             {
-                ImageUrl = "/images/courses/course-3.png"
-            },
+                Name = "The Complete Front-End Web Development Course",
+                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
+                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
+                Price = 9.99m,
+                HoursToComplete = 100,
+                LikesPercentage = 98,
+                LikesAmount = 2700,
 
-            CourseAuthor = new CourseAuthorEntity
-            {
-                Name = "Albert Flores",
-                Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
-                YoutubeFollowersQty = 240,
-                FacebookFollowersQty = 180,
-
-                Image = new CourseAuthorImageEntity
+                Image = new CourseImageEntity
                 {
-                    ImageUrl = "/images/people/albert-flores.png"
-                }
-            },
-            CourseCategoryId = 2
+                    ImageUrl = "/images/courses/course-3.png"
+                },
+
+                CourseAuthor = new CourseAuthorEntity
+                {
+                    Name = "Albert Flores",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                },
+                CourseCategoryId = 2
         },
 
             new CourseEntity
@@ -211,36 +211,6 @@ public class CourseService
                 Name = "AI Development"
             }
         },
-
-            new CourseEntity
-            {
-                Name = "Creative CSS Drawing Course: Make Art With CSS",
-                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-                Price = 10.50m,
-                HoursToComplete = 220,
-                LikesPercentage = 94,
-                LikesAmount = 4200,
-
-                Image = new CourseImageEntity
-                {
-                    ImageUrl = "/images/courses/course-6.png"
-                },
-
-                CourseAuthor = new CourseAuthorEntity
-                {
-                    Name = "Robert Fox",
-                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
-                    YoutubeFollowersQty = 240,
-                    FacebookFollowersQty = 180,
-
-                    Image = new CourseAuthorImageEntity
-                    {
-                        ImageUrl = "/images/people/albert-flores.png"
-                    }
-                },
-                CourseCategoryId = 2
-            },
 
             new CourseEntity
             {
@@ -367,18 +337,18 @@ public class CourseService
 
             new CourseEntity
             {
-                Name = "Learn JMETER from Scratch on Live Apps-Performance Testing",
-                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-                Price = 14.50m,
-                HoursToComplete = 160,
-                LikesPercentage = 92,
-                LikesAmount = 3100,
-
+                Name = "UI/UX Design for Beginners: Master the Art of User Interfaces",
+                Description = "In this course, you will learn the core principles of UI/UX design, including user research, information architecture, interaction design, and visual design. You will also gain hands-on experience by creating your own user interfaces using popular design tools like Figma or Adobe XD.",
+                Ingress = "Want to create user interfaces that are both beautiful and functional? This course will teach you the fundamentals of UI/UX design.",
+                Price = 19.99m,
+                HoursToComplete = 120,
+                LikesPercentage = 90,
+                LikesAmount = 1500,
                 Image = new CourseImageEntity
                 {
-                    ImageUrl = "/images/courses/course-9.png"
+                    ImageUrl = "/images/courses/course-10.png"
                 },
+                CourseCategoryId = 2,
 
                 CourseAuthor = new CourseAuthorEntity
                 {
@@ -392,53 +362,22 @@ public class CourseService
                         ImageUrl = "/images/people/albert-flores.png"
                     }
                 },
-                CourseCategoryId = 3
             },
 
             new CourseEntity
             {
-                Name = "The Complete Front-End Web Development Course",
-                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-                Price = 9.99m,
-                HoursToComplete = 100,
-                LikesPercentage = 98,
-                LikesAmount = 2700,
-
+                Name = "Build APIs with Python and Flask: The Complete Guide",
+                Description = "APIs (Application Programming Interfaces) are the building blocks of modern web applications. In this course, you will learn everything you need to know to build your own APIs using Python and the Flask microframework. You will cover topics such as routing, request handling, data validation, and authentication. By the end of this course, you will be able to build and deploy your own APIs that can be used by other applications.",
+                Ingress = "Learn how to build powerful and scalable APIs using Python and the Flask microframework.",
+                Price = 24.50m,
+                HoursToComplete = 180,
+                LikesPercentage = 95,
+                LikesAmount = 2100,
                 Image = new CourseImageEntity
                 {
-                    ImageUrl = "/images/courses/course-3.png"
+                    ImageUrl = "/images/courses/course-11.png"
                 },
-
-                CourseAuthor = new CourseAuthorEntity
-                {
-                    Name = "Albert Flores",
-                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
-                    YoutubeFollowersQty = 240,
-                    FacebookFollowersQty = 180,
-
-                    Image = new CourseAuthorImageEntity
-                    {
-                        ImageUrl = "/images/people/albert-flores.png"
-                    }
-                },
-                CourseCategoryId = 2
-            },
-
-                        new CourseEntity
-            {
-                Name = "Learn JMETER from Scratch on Live Apps-Performance Testing",
-                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-                Price = 14.50m,
-                HoursToComplete = 160,
-                LikesPercentage = 92,
-                LikesAmount = 3100,
-
-                Image = new CourseImageEntity
-                {
-                    ImageUrl = "/images/courses/course-9.png"
-                },
+                CourseCategoryId = 4,
 
                 CourseAuthor = new CourseAuthorEntity
                 {
@@ -452,27 +391,25 @@ public class CourseService
                         ImageUrl = "/images/people/albert-flores.png"
                     }
                 },
-                CourseCategoryId = 3
             },
 
             new CourseEntity
             {
-                Name = "The Complete Front-End Web Development Course",
-                Description = "Suspendisse natoque sagittis, consequat turpis. Sed tristique tellus morbi magna. At vel senectus accumsan, arcu mattis id tempor. Tellus sagittis, euismod porttitor sed tortor est id. Feugiat velit velit, tortor ut. Ut libero cursus nibh lorem urna amet tristique leo. Viverra lorem arcu nam nunc at ipsum quam. A proin id sagittis dignissim mauris condimentum ornare. Tempus mauris sed dictum ultrices.",
-                Ingress = "Egestas feugiat lorem eu neque suspendisse ullamcorper scelerisque aliquam mauris.",
-                Price = 9.99m,
-                HoursToComplete = 100,
+                Name = "The MERN Stack Developer Course: Master MongoDB, Express, React, and Node.js",
+                Description = "The MERN stack (MongoDB, Express, React, and Node.js) is one of the most popular tech stacks for building web applications. In this course, you will learn each layer of the MERN stack and how they work together to create a full-fledged web application. You will build a real-world application throughout the course, giving you the opportunity to apply your newfound skills to a practical project.",
+                Ingress = "Become a full-stack developer with the in-demand skills to build modern web applications.",
+                Price = 29.99m,
+                HoursToComplete = 220,
                 LikesPercentage = 98,
-                LikesAmount = 2700,
-
+                LikesAmount = 3800,
                 Image = new CourseImageEntity
                 {
-                    ImageUrl = "/images/courses/course-3.png"
+                    ImageUrl = "/images/courses/course-12.png"
                 },
-
+                CourseCategoryId = 1,
                 CourseAuthor = new CourseAuthorEntity
                 {
-                    Name = "Albert Flores",
+                    Name = "Jenny Wilson",
                     Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
                     YoutubeFollowersQty = 240,
                     FacebookFollowersQty = 180,
@@ -482,7 +419,34 @@ public class CourseService
                         ImageUrl = "/images/people/albert-flores.png"
                     }
                 },
-                CourseCategoryId = 2
+            },
+
+            new CourseEntity
+            {
+                Name = "Natural Language Processing with Python: From Text to Meaning",
+                Description = "Natural language processing (NLP) is a branch of artificial intelligence that deals with the interaction between computers and human language. In this course, you will learn the fundamentals of NLP and how to use Python libraries like NLTK and spaCy to perform tasks such as text cleaning, tokenization, stemming, lemmatization, sentiment analysis, and named entity recognition.",
+                Ingress = "Unlock the power of natural language processing (NLP) and use Python to extract meaning from text data.",
+                Price = 16.99m,
+                HoursToComplete = 140,
+                LikesPercentage = 93,
+                LikesAmount = 2500,
+                Image = new CourseImageEntity
+                {
+                    ImageUrl = "/images/courses/course-13.png"
+                },
+                CourseCategoryId = 4,
+                CourseAuthor = new CourseAuthorEntity
+                {
+                    Name = "Jenny Wilson",
+                    Description = "Dolor ipsum amet cursus quisque porta adipiscing. Lorem convallis malesuada sed maecenas. Ac dui at vitae mauris cursus in nullam porta sem. Quis pellentesque elementum ac bibendum. Nunc aliquam in tortor facilisis. Vulputate eget risus, metus phasellus. Pellentesque faucibus amet, eleifend diam quam condimentum convallis ultricies placerat. Duis habitasse placerat amet, odio pellentesque rhoncus, feugiat at. Eget pellentesque tristique felis magna fringilla.",
+                    YoutubeFollowersQty = 240,
+                    FacebookFollowersQty = 180,
+
+                    Image = new CourseAuthorImageEntity
+                    {
+                        ImageUrl = "/images/people/albert-flores.png"
+                    }
+                },
             },
         };
 

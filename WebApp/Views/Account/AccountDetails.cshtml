@@ -54,6 +54,11 @@
             <p class="h4">Address</p>
 
             <form id="account-details-address-form">
+
+                <input value=@Model.FirstName asp-for=@Model.FirstName hidden />
+                <input value=@Model.LastName asp-for=@Model.LastName hidden />
+                <input value=@Model.Email asp-for=@Model.Email hidden />
+
                 <div class="input-div">
                     <label asp-for="@Model.Address.AddressLine1"></label>
                     <input asp-for="@Model.Address.AddressLine1" />

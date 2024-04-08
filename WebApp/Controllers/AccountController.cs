@@ -74,7 +74,7 @@ namespace WebApp.Controllers
         }
 
         // NO ERROR MESSAGES IMPLEMENTED!!
-        public async Task<IActionResult> UpdateAddress(AddressViewModel viewModel)
+        public async Task<IActionResult> UpdateAddress(AccountViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -84,10 +84,10 @@ namespace WebApp.Controllers
                 {
                     user.UserProfile.Address = new AddressEntity
                     {
-                        AddressLine1 = viewModel.AddressLine1,
-                        AddressLine2 = viewModel.AddressLine2,
-                        PostalCode = viewModel.PostalCode,
-                        City = viewModel.City
+                        AddressLine1 = viewModel.Address!.AddressLine1,
+                        AddressLine2 = viewModel.Address.AddressLine2,
+                        PostalCode = viewModel.Address.PostalCode,
+                        City = viewModel.Address.City
                     };
                     await _addressService.CreateAddressAsync(user);
                 }
@@ -173,75 +173,28 @@ namespace WebApp.Controllers
             return RedirectToAction("AccountSecurity", "Account", new { changePasswordErrorMessage = "Invalid inputs, please try again" });
         }
 
-        public async Task<IActionResult> DeleteAccount(AccountSecurityViewModel viewModel)
+        public async Task<IActionResult> DeleteAccount()
         {
-            if (ModelState.IsValid)
+            var user = await _userProfileService.GetLoggedInUserAsync(User);
+
+            if (user != null!)
             {
-                var user = await _userProfileService.GetLoggedInUserAsync(User);
+                await _signInManager.SignOutAsync();
+                var result = await _userManager.DeleteAsync(user);
+                Console.WriteLine(result);
 
-                if (user != null!)
-                {
-                    await _signInManager.SignOutAsync();
-                    var result = await _userManager.DeleteAsync(user);
-                    Console.WriteLine(result);
-
-                    return RedirectToAction("Index", "Home");
-                }
+                return RedirectToAction("Index", "Home");
             }
+            
             return RedirectToAction("AccountSecurity", "Account", new { deleteAccountMessage = "You must confirm that you want to delete your account." });
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeProfilePicture(AccountViewModel viewModel, IFormFile file)
+        public async Task<IActionResult> ChangeProfilePicture(IFormFile file)
         {
-            if (ModelState.IsValid)
-            {
-                var user = await _userProfileService.GetLoggedInUserAsync(User);
+            await _userProfileService.ChangeProfilePicture(await _userProfileService.GetLoggedInUserAsync(User), file, _configuration["UploadPath"]!);
 
-                var fileName = $"{user.Id}_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["UploadPath"]!, fileName);
-
-                using var fs = new FileStream(filePath, FileMode.Create);
-                await file.CopyToAsync(fs);
-
-                user.UserProfile.ProfilePicture = new ProfilePictureEntity
-                {
-                    ImageUrl = fileName
-                };
-
-                await _userManager.UpdateAsync(user);
-
-            }
             return RedirectToAction("AccountDetails", "Account");
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> ChangeProfilePicture(AccountViewModel viewModel, IFormFile file)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = await _userProfileService.GetLoggedInUserAsync(User);
-
-        //        if (user != null)
-        //        {
-        //            var fileName = $"{user.Id}_{Guid.NewGuid()}";
-        //            var filePath = Path.Combine(Directory.GetCurrentDirectory(), _configuration["UploadPath"]!, fileName);
-
-        //            user.UserProfile.ProfilePicture = new ProfilePictureEntity
-        //            {
-        //                ImageUrl = $"{_configuration["UploadPath"]}{fileName}"
-        //            };
-
-        //            using (FileStream stream = new FileStream(filePath, FileMode.Create))
-        //            {
-        //                await file.CopyToAsync(stream);
-        //            }
-
-
-        //                await _userManager.UpdateAsync(user);
-        //        }
-        //    }
-        //    return RedirectToAction("AccountDetails", "Account");
-        //}
     }
 }

@@ -701,7 +701,6 @@ header .container .account-buttons .profile-thumb-a {
 }
 header .container .account-buttons .profile-thumb-a .profile-thumb {
   min-width: 100%;
-  min-height: 100%;
 }
 
 .mobile-toggled {
@@ -1711,7 +1710,6 @@ footer .container .social-media {
 }
 .account-menu .account-details .img-div img {
   min-width: 100%;
-  min-height: 100%;
 }
 .account-menu .account-details .img-div label {
   border-radius: 999px;
