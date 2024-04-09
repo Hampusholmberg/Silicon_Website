@@ -140,7 +140,7 @@ namespace WebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Route("/account-security")]
+        [Route("/account-security")]    
         public async Task<IActionResult> AccountSecurity(string deleteAccountMessage = "", string changePasswordSuccessMessage = "", string changePasswordErrorMessage = "" )
         {
             if (_signInManager.IsSignedIn(User))
@@ -173,19 +173,20 @@ namespace WebApp.Controllers
             return RedirectToAction("AccountSecurity", "Account", new { changePasswordErrorMessage = "Invalid inputs, please try again" });
         }
 
-        public async Task<IActionResult> DeleteAccount()
+        public async Task<IActionResult> DeleteAccount(AccountSecurityViewModel viewModel)
         {
-            var user = await _userProfileService.GetLoggedInUserAsync(User);
-
-            if (user != null!)
+            if (ModelState.IsValid) 
             {
-                await _signInManager.SignOutAsync();
-                var result = await _userManager.DeleteAsync(user);
-                Console.WriteLine(result);
+                var user = await _userProfileService.GetLoggedInUserAsync(User);
 
-                return RedirectToAction("Index", "Home");
+                if (user != null!)
+                {
+                    await _signInManager.SignOutAsync();
+                    var result = await _userManager.DeleteAsync(user);
+
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            
             return RedirectToAction("AccountSecurity", "Account", new { deleteAccountMessage = "You must confirm that you want to delete your account." });
         }
 

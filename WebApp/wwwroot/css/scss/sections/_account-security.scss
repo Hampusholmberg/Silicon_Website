@@ -70,19 +70,16 @@
                         grid-area: span;
                     }
 
-                    .input-div {
+                    .cp {
+                        grid-area: cp;
+                    }
 
-                        &:nth-child(1) {
-                            grid-area: cp;
-                        }
+                    .np {
+                        grid-area: np;
+                    }
 
-                        &:nth-child(2) {
-                            grid-area: np;
-                        }
-
-                        &:nth-child(3) {
-                            grid-area: cnp;
-                        }
+                    .cnp {
+                        grid-area: cnp;
                     }
 
                     .buttons {
@@ -91,7 +88,6 @@
                 }
 
                 .buttons {
-                    grid-area: btn;
                     display: flex;
                     gap: 1rem;
                 }
