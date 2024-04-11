@@ -57,7 +57,6 @@ const passwordValidator = (value) => {
     return false;    
 }
 
-
 const textValidation = (e) => {
     formErrorHandler(e, lengthValidatorName(e.target.value))
 }
@@ -72,14 +71,17 @@ const passwordValidation = (e) => {
 }
 const textAreaValidation = (e) => {
     formErrorHandler(e, lengthValidatorName(e.target.value))
-    console.log("hejhej")
 }
 
 let forms = document.querySelectorAll('form')
 let inputs = forms[0].querySelectorAll('input, textarea')
 
 inputs.forEach(input => {
+
     if (input.dataset.val === 'true') {
+
+        console.log('point 1')
+
 
         input.addEventListener('blur', e => {
 
@@ -91,7 +93,7 @@ inputs.forEach(input => {
                 case 'email':
                     emailValidation(e)
                     break;
-                case 'phonenumber':
+                case 'tel':
                     phoneValidation(e)
                     break;
                 case 'password':
@@ -104,3 +106,79 @@ inputs.forEach(input => {
         })
     }
 })
+
+
+
+
+// ACCOUNT DETAILS VALIDATION
+const accountDetailsForms = document.querySelectorAll('form[id*="account-details"]');
+
+accountDetailsForms.forEach(form => {
+
+    const inputs = form.querySelectorAll('input, textarea');
+
+    inputs.forEach(input => {
+
+        if (input.dataset.val === 'true') {
+
+            input.addEventListener('blur', (e) => {
+
+                switch (e.target.type) {
+                    case 'text':
+                        textValidation(e);
+                        break;
+                    case 'email':
+                        emailValidation(e);
+                        break;
+                    case 'phonenumber':
+                        phoneValidation(e);
+                        break;
+                    case 'password':
+                        passwordValidation(e);
+                        break;
+                    case 'textarea':
+                        textAreaValidation(e);
+                        break;
+                }
+            });
+        }
+    });
+});
+
+
+
+
+// ACCOUNT SECURITY VALIDATION
+const accountSecurityForms = document.querySelectorAll('form[id*="account-security"]');
+
+accountSecurityForms.forEach(form => {
+
+    const inputs = form.querySelectorAll('input, textarea');
+
+    inputs.forEach(input => {
+
+        if (input.dataset.val === 'true') {
+
+            input.addEventListener('blur', (e) => {
+
+                switch (e.target.type) {
+                    case 'text':
+                        textValidation(e);
+                        break;
+                    case 'email':
+                        emailValidation(e);
+                        break;
+                    case 'phonenumber':
+                        phoneValidation(e);
+                        break;
+                    case 'password':
+                        passwordValidation(e);
+                        break;
+                    case 'textarea':
+                        textAreaValidation(e);
+                        break;
+                }
+            });
+        }
+    });
+});

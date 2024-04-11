@@ -47,6 +47,9 @@ public class AdminController : Controller
             var course = viewModel.Form;
             using var http = new HttpClient();
 
+            var token = HttpContext.Request.Cookies["AccessToken"];
+            http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
             var courseAsJson = new StringContent(JsonConvert.SerializeObject(course), Encoding.UTF8, "application/json");
 
             var jsonContent = await courseAsJson.ReadAsStringAsync();

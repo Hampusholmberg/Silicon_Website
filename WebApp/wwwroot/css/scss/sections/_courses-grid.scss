@@ -30,9 +30,11 @@
         .view-filter {
             grid-area: dropdown;
             margin-right: 0.5rem;
+            width: 100%;
 
             @include md {
                 grid-area: dropdown;
+                width: 340px;
             }
 
             @include lg {
@@ -46,6 +48,11 @@
             grid-area: searchbox;
             padding: 0 0;
             margin: 0 0;
+            width: 100%;
+
+            @include md {
+                width: 340px;
+            }
 
             input {
                 width: 98%;

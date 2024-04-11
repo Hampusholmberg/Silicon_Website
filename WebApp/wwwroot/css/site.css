@@ -224,6 +224,9 @@ h6, .h6 {
 .dark .courses-grid .content-box, .dark .account-saved-items .content-box {
   background-color: #151822;
 }
+.dark .courses-grid .inactive, .dark .account-saved-items .inactive {
+  color: #FFFFFF !important;
+}
 .dark .work-for-us .container {
   background-color: #151822;
 }
@@ -665,6 +668,8 @@ header .container {
   }
 }
 header .container .btn-mobile {
+  justify-self: end;
+  margin-right: 1rem;
   border: none;
   background-color: transparent;
 }
@@ -1160,10 +1165,12 @@ footer .container .social-media {
 .courses-grid .container .view-filter {
   grid-area: dropdown;
   margin-right: 0.5rem;
+  width: 100%;
 }
 @media (min-width: 768px) {
   .courses-grid .container .view-filter {
     grid-area: dropdown;
+    width: 340px;
   }
 }
 @media (min-width: 992px) {
@@ -1177,6 +1184,12 @@ footer .container .social-media {
   grid-area: searchbox;
   padding: 0 0;
   margin: 0 0;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .courses-grid .container .search-box {
+    width: 340px;
+  }
 }
 .courses-grid .container .search-box input {
   width: 98%;
@@ -1543,28 +1556,29 @@ footer .container .social-media {
   }
 }
 
-.course-author {
-  color: white;
-}
-.course-author .container {
-  display: flex;
-  flex-direction: column;
-}
 @media (min-width: 992px) {
   .course-author .container {
-    flex-direction: row;
+    display: flex;
+    height: 568px;
   }
 }
 .course-author .container .img-div {
   width: 100%;
+  overflow: hidden;
+}
+@media (min-width: 992px) {
+  .course-author .container .img-div {
+    height: 100%;
+  }
 }
 .course-author .container .img-div img {
-  width: 100%;
+  max-width: 100%;
 }
 @media (min-width: 992px) {
   .course-author .container .img-div img {
-    height: 568px;
-    width: 526px;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
   }
 }
 .course-author .container .content-box {
@@ -1579,10 +1593,14 @@ footer .container .social-media {
 @media (min-width: 992px) {
   .course-author .container .content-box {
     height: 568px;
+    width: 135%;
   }
 }
 .course-author .container .content-box h3 {
-  color: white;
+  color: #FFFFFF;
+}
+.course-author .container .content-box p {
+  color: #9397AD;
 }
 .course-author .container .content-box .buttons {
   display: flex;
@@ -1655,13 +1673,16 @@ footer .container .social-media {
   padding-bottom: 3rem;
   margin-bottom: 2rem;
 }
+#account-details-basic-info-form textarea {
+  height: 104px;
+}
 @media (min-width: 992px) {
   #account-details-basic-info-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "firstname lastname" "email phone" "bio bio" "buttons e";
   }
-  #account-details-basic-info-form .bio-textarea {
+  #account-details-basic-info-form .input-div:nth-child(5) {
     grid-area: bio;
   }
   #account-details-basic-info-form .buttons {
@@ -1756,14 +1777,17 @@ footer .container .social-media {
   display: grid;
   grid-template-columns: auto auto;
   grid-template-areas: "label label" "input input" "span span";
+  padding: auto auto;
 }
 .account-security .container .account-details-forms .input-div span {
   grid-area: span;
   text-align: start;
+  min-height: 26px;
 }
 .account-security .container .account-details-forms .input-div input, .account-security .container .account-details-forms .input-div textarea {
-  width: 80vw;
+  width: 90vw;
   grid-area: input;
+  justify-self: center;
 }
 @media (min-width: 992px) {
   .account-security .container .account-details-forms .input-div input, .account-security .container .account-details-forms .input-div textarea {
@@ -1914,4 +1938,28 @@ footer .container .social-media {
 }
 .admin-index .container a {
   font-size: 26px;
+}
+
+.create-new-course .container .input-div {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-areas: "label " "input " "span ";
+  max-width: 300px;
+}
+@media (min-width: 768px) {
+  .create-new-course .container .input-div {
+    height: 85px;
+  }
+}
+.create-new-course .container .input-div span {
+  grid-area: span;
+  text-align: end;
+  height: 26px;
+}
+.create-new-course .container .input-div input {
+  width: 100%;
+  grid-area: input;
+}
+.create-new-course .container .input-div label {
+  grid-area: label;
 }

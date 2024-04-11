@@ -34,7 +34,7 @@
 
                 <div class="input-div">
                     <label asp-for="@Model.PhoneNumber"></label>
-                    <input asp-for="@Model.PhoneNumber" />
+                    <input type="tel" asp-for="@Model.PhoneNumber" />
                     <span asp-validation-for="@Model.PhoneNumber"></span>
                 </div>
 
@@ -95,5 +95,3 @@
     </div>
 
 </sections>
-
-@await Html.PartialAsync("~/Views/Shared/Scripts/_ValidationScriptPartial.cshtml")

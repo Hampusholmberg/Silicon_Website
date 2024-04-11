@@ -28,15 +28,14 @@ public class CoursesController : ControllerBase
 
     [HttpPost]
     [Authorize(AuthenticationSchemes = "Bearer")]
+    // To get the token you must login as an "AspNetUser.IsAdmin = true" account. When signing in a cookie containing the token will be stored in the browser.
     public async Task <IActionResult> Create(CourseEntity course)
     {
         if (ModelState.IsValid)
         {
             try
             {
-                //var result = await _courseRepository.CreateAsync(course);
-
-                var result = await _courseService.CreateCourse(course);
+                var result = await _courseService.CreateCourseAsync(course);
                 if (result != null)
                     return Ok();
             }
@@ -116,6 +115,7 @@ public class CoursesController : ControllerBase
 
     [HttpPut]
     [Authorize(AuthenticationSchemes = "Bearer")]
+    // To get the token you must login as an "AspNetUser.IsAdmin = true" account. When signing in a cookie containing the token will be stored in the browser.
     public async Task<IActionResult> Update(CourseEntity course)
     {
         if (ModelState.IsValid)
@@ -138,6 +138,7 @@ public class CoursesController : ControllerBase
 
     [HttpDelete]
     [Authorize(AuthenticationSchemes = "Bearer")]
+    // To get the token you must login as an "AspNetUser.IsAdmin = true" account. When signing in a cookie containing the token will be stored in the browser.
     public async Task<IActionResult> Delete(CourseEntity course)
     {
         if (ModelState.IsValid)
@@ -147,7 +148,7 @@ public class CoursesController : ControllerBase
                 var exists = await _courseRepository.ExistsAsync(x => x.Id == course.Id);
                 if (exists)
                 {
-                    var result = _courseRepository.DeleteAsync(x => x.Id == course.Id);
+                    var result = await _courseRepository.DeleteAsync(x => x.Id == course.Id);
                     return Ok();
                 }
                 return NotFound();

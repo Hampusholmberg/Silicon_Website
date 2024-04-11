@@ -23,6 +23,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        // To get the token you must login as an "AspNetUser.IsAdmin = true" account. When signing in a cookie containing the token will be stored in the browser.
         public async Task <IActionResult> GetToken(ApplicationUserDto user)
         {
             if (ModelState.IsValid)
@@ -51,7 +52,6 @@ namespace WebApi.Controllers
                     return Ok(tokenString);
                 }
             }
-
             return Unauthorized();
         }
     }

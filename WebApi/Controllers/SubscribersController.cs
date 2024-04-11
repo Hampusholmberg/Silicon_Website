@@ -62,9 +62,13 @@ public class SubscribersController : ControllerBase
                 if (exists)
                 {
                     var result = _subscriberRepository.DeleteAsync(x => x.Email == subscriber.Email);
-                    return Ok();
+                    if (result.Result != null)
+                    {
+                        return Ok();
+                    }
+                    else 
+                        return BadRequest();
                 }
-
                 return NotFound();
             }
             catch (Exception ex) { return Problem(); }

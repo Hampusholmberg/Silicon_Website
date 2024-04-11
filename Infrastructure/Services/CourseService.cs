@@ -514,7 +514,7 @@ public class CourseService
         }
     }    
 
-    public async Task<CourseEntity> CreateCourse(CourseEntity course)
+    public async Task<CourseEntity> CreateCourseAsync(CourseEntity course)
     {
         var courseAuthor = course.CourseAuthor;
         var courseCategory = course.CourseCategory;

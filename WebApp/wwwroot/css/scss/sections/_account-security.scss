@@ -31,15 +31,18 @@
                 display: grid;
                 grid-template-columns: auto auto;
                 grid-template-areas: "label label" "input input" "span span";
+                padding: auto auto;
 
                 span {
                     grid-area: span;
                     text-align: start;
+                    min-height: 26px;
                 }
 
                 input, textarea {
-                    width: 80vw;
+                    width: 90vw;
                     grid-area: input;
+                    justify-self: center;
 
                     @include lg {
                         width: 100%;

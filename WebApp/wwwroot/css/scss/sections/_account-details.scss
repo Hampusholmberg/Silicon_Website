@@ -54,8 +54,6 @@
                 flex-direction: column;
                 column-gap: 1rem;
 
-
-
                 .buttons {
                     display: flex;
                     gap: 1rem;
@@ -70,14 +68,20 @@
     padding-bottom: 3rem;
     margin-bottom: 2rem;
 
+    textarea {
+        height: 104px;
+    }
+
     @include lg {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "firstname lastname" "email phone" "bio bio" "buttons e";
+        grid-template-areas: "firstname lastname" "email phone" "bio bio" "buttons e";
 
-        .bio-textarea {
-            grid-area: bio;
+        .input-div {
+
+            &:nth-child(5) {
+                grid-area: bio;
+            }
         }
 
         .buttons {
